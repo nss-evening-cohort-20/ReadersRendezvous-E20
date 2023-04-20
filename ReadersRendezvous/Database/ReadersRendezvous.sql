@@ -62,7 +62,7 @@ GO
 
 CREATE TABLE [Book] (
   [Id] int PRIMARY KEY not null,
-  [ImageUrl] varchar not null,--
+  [ImageUrl] varchar(2048) not null,--
   [AgeRangeId] int not null,--
   [GenreId] int not null,
   [Title] varchar(255) not null,
@@ -71,7 +71,7 @@ CREATE TABLE [Book] (
   [Author] varchar(200) not null,
   [Publisher] varchar(500) not null,
   [Language] varchar(500) not null,
-  [Description] varchar(500) not null,
+  [Description] varchar(2048) not null,
   [ISBN13] varchar(50) not null,
 )
 GO
