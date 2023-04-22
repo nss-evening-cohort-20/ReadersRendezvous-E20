@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using ReadersRendezvous.Repositories;
 
 namespace ReadersRendezvous
 {
@@ -9,6 +10,8 @@ namespace ReadersRendezvous
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddTransient<IBooksRepository, BooksRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
