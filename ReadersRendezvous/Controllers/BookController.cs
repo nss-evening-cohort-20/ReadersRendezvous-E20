@@ -107,8 +107,41 @@ namespace ReadersRendezvous.Controllers
 
         }
 
+
+        [HttpGet("GetByAgeRange/{range}")]
+        public IActionResult GetByAgeRange(string range)
+        {
+            if (range == null)
+            {
+                return BadRequest();
+            }
+            var book = _bookRepository.SearchByAgeRange(range);
+            if (book == null)
+            {
+                return NotFound($"{range} Not Found!");
+            }
+            return Ok(book);
+
+        }
+
+        [HttpGet("GetByGenre/{bookGenre}")]
+        public IActionResult GetByGenre(string bookGenre)
+        {
+            if (bookGenre == null)
+            {
+                return BadRequest();
+            }
+            var book = _bookRepository.SearchByGenre(bookGenre);
+            if (book == null)
+            {
+                return NotFound($"{bookGenre} Not Found!");
+            }
+            return Ok(book);
+
+        }
+
         // POST api/<BookController>
-        [HttpPost]
+        [HttpPost("/AddBook")]
         public IActionResult Post(AddBook book)
         {
             _bookRepository.AddBook(book);
@@ -116,15 +149,20 @@ namespace ReadersRendezvous.Controllers
         }
 
         // PUT api/<BookController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("UpdateBook/{ISBN13}")]
+        public IActionResult Put(string ISBN13, AddBook book)
         {
+            _bookRepository.EditBook(ISBN13,book);
+            //return NoContent();
+            return Ok(book);
         }
 
         // DELETE api/<BookController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("DeleteByISBN13/{iSBN}")]
+        public IActionResult Delete(string iSBN)
         {
+            _bookRepository.DeleteBook(iSBN);
+            return NoContent();
         }
     }
 }
