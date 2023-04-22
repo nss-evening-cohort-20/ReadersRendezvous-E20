@@ -1,9 +1,13 @@
-﻿using System;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 
-namespace ReadersRendezvous.Utils
+namespace ReadersRendezvous.Utilities
 {
+    public static class DbUtils
     {
+        /// <summary>
+        ///  A set of useful function for interacting with ADO.NET
+        /// </summary>
+
         /// <summary>
         ///  Get a string from a data reader object and gracefully handle NULL values
         /// </summary>
@@ -33,27 +37,6 @@ namespace ReadersRendezvous.Utils
             return reader.GetInt32(reader.GetOrdinal(column));
         }
 
-        public static double GetDouble(SqlDataReader reader, string column)
-        {
-            return reader.GetDouble(reader.GetOrdinal(column));
-        }
-
-        public static bool GetBoolean(SqlDataReader reader, string column)
-        {
-            return reader.GetBoolean(reader.GetOrdinal(column));
-        }
-
-        public static bool? GetNullableBoolean(SqlDataReader reader, string column)
-        {
-            var ordinal = reader.GetOrdinal(column);
-            if (reader.IsDBNull(ordinal))
-            {
-                return null;
-            }
-
-            return reader.GetBoolean(reader.GetOrdinal(column));
-        }
-
         /// <summary>
         ///  Get a DateTime from a data reader object.
         ///  This method assumes the value is not NULL.
@@ -81,8 +64,6 @@ namespace ReadersRendezvous.Utils
             }
 
             return reader.GetInt32(ordinal);
-            //return reader.GetInt32(ordinal);
-            //return reader.GetInt32(reader.GetOrdinal(column));
         }
 
         /// <summary>
@@ -142,9 +123,5 @@ namespace ReadersRendezvous.Utils
             }
         }
 
-        //public static void AddParameterList(SqlCommand cmd, string name, List<int> ints)
-        //{
-        //    cmd.Parameters.Add(new SqlParameter(name, ints));
-        //}
     }
 }

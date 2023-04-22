@@ -17,7 +17,7 @@ GO
 --DROP TABLE IF EXISTS [UserRequestType];
 
 CREATE TABLE [Login] (
-  [Id] int PRIMARY KEY,
+  [Id] int PRIMARY KEY IDENTITY,
   [PasswordHash] varchar(50) not null,
   [AdminId] int not null,
   [UserId] int not null
@@ -25,7 +25,7 @@ CREATE TABLE [Login] (
 GO
 
 CREATE TABLE [User] (
-  [Id] int PRIMARY KEY not null,
+  [Id] int PRIMARY KEY IDENTITY not null,
   [FirstName] varchar(50) not null,
   [LastName] varchar(50) not null,
   [Email] varchar(255) not null,
@@ -49,19 +49,19 @@ CREATE TABLE [Admin] (
 GO
 
 CREATE TABLE [Genre] (
-  [Id] int PRIMARY KEY not null,
+  [Id] int PRIMARY KEY IDENTITY not null,
   [Description] varchar(500) not null
 )
 GO
 
 CREATE TABLE [CoverType] (
-  [Id] int PRIMARY KEY not null,
+  [Id] int PRIMARY KEY IDENTITY not null,
   [Description] varchar(500) not null
 )
 GO
 
 CREATE TABLE [Book] (
-  [Id] int PRIMARY KEY not null,
+  [Id] int PRIMARY KEY IDENTITY not null,
   [ImageUrl] varchar(2048) not null,--
   [AgeRangeId] int not null,--
   [GenreId] int not null,
@@ -77,7 +77,7 @@ CREATE TABLE [Book] (
 GO
 
 CREATE TABLE [UserBook] (
-  [Id] int PRIMARY KEY not null,
+  [Id] int PRIMARY KEY IDENTITY not null,
   [UserId] int not null,
   [BookId] int not null,
   [RentalStartDate] DateTime not null,
@@ -88,7 +88,7 @@ CREATE TABLE [UserBook] (
 GO
 
 CREATE TABLE [UserRequest] (
-  [Id] int PRIMARY KEY not null,
+  [Id] int PRIMARY KEY IDENTITY not null,
   [UserId] int not null,
   [BookId] int not null,
   [RequestTS] DateTime not null,
@@ -97,14 +97,14 @@ CREATE TABLE [UserRequest] (
 GO
 
 CREATE TABLE [UserRequestType] (
-  [Id] int PRIMARY KEY not null,
+  [Id] int PRIMARY KEY IDENTITY not null,
   [Description] varchar(500) not null
 )
 GO
 
 
 CREATE TABLE [AgeRange] (
-  [Id] int PRIMARY KEY not null,
+  [Id] int PRIMARY KEY IDENTITY not null,
   [Range] varchar(500) not null
 )
 GO
@@ -144,47 +144,47 @@ GO
 -- starter Data for AgeRange table
 
 INSERT INTO [dbo].[AgeRange]
-           ([Id]
-           ,[Range])
+           (
+           [Range])
      VALUES
-           (1,'Children'),
-           (2,'Teens'),
-           (3,'Adults')
+           ('Children'),
+           ('Teens'),
+           ('Adults')
 GO
 
 -- starter Data for Genre table
 
 INSERT INTO [dbo].[Genre]
-           ([Id]
-           ,[Description])
+           (
+           [Description])
      VALUES
-           (1,'Fiction'),
-           (2,'Non-Fiction'),
-           (3,'Poetry'),
-           (4,'Drama'),
-           (5,'Comedy'),
-           (6,'Romance'),
-           (7,'Mystery'),
-           (8,'Science fiction'),
-           (9,'Fantasy'),
-           (10,'Horror')
+           ('Fiction'),
+           ('Non-Fiction'),
+           ('Poetry'),
+           ('Drama'),
+           ('Comedy'),
+           ('Romance'),
+           ('Mystery'),
+           ('Science fiction'),
+           ('Fantasy'),
+           ('Horror')
 GO
 
 -- starter Data for CoverType table
 
 INSERT INTO [dbo].[CoverType]
-           ([Id]
-           ,[Description])
+           (
+           [Description])
      VALUES
-           (1,'Hardcover'),
-           (2,'Paperback')
+           ('Hardcover'),
+           ('Paperback')
 GO
 
 -- starter Data for Book table
 
 INSERT INTO [dbo].[Book]
-           ([Id]
-           ,[ImageUrl]
+           (
+           [ImageUrl]
            ,[AgeRangeId]
            ,[GenreId]
            ,[Title]
@@ -196,8 +196,8 @@ INSERT INTO [dbo].[Book]
            ,[Description]
            ,[ISBN13])
      VALUES
-           (1
-           ,'https://catalog.library.nashville.org/bookcover.php?size=medium&id=a57c2f8e-1974-e7ca-e0ca-c9c00c2ba5ea-eng'
+           (
+           'https://catalog.library.nashville.org/bookcover.php?size=medium&id=a57c2f8e-1974-e7ca-e0ca-c9c00c2ba5ea-eng'
            ,1
            ,2
            ,'Just a Girl'
@@ -214,8 +214,8 @@ INSERT INTO [dbo].[Book]
            for young readers, with beautiful black-and-white
            illustrations, a family photo album.'
            ,9780063065086),
-           (2
-           ,'https://catalog.library.nashville.org/bookcover.php?id=67e57785-d088-efcb-ac56-46511ed300d5-eng&size=medium&type=grouped_work&category=Books'
+           (
+           'https://catalog.library.nashville.org/bookcover.php?id=67e57785-d088-efcb-ac56-46511ed300d5-eng&size=medium&type=grouped_work&category=Books'
            ,1
            ,2
            ,'Animal feeding time'
@@ -235,8 +235,8 @@ INSERT INTO [dbo].[Book]
            all about the stunning animals found in the wild
            in Africa and what they eat.' 
            ,9780744066944),
-           (3
-           ,'https://catalog.library.nashville.org/bookcover.php?id=67e57785-d088-efcb-ac56-46511ed300d5-eng&size=medium&type=grouped_work&category=Books'
+           (
+           'https://catalog.library.nashville.org/bookcover.php?id=67e57785-d088-efcb-ac56-46511ed300d5-eng&size=medium&type=grouped_work&category=Books'
            ,1
            ,3
            ,'Shout: a poetry memoir'

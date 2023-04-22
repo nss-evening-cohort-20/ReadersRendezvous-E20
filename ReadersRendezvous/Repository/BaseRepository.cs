@@ -1,12 +1,9 @@
 ﻿
 
 using Microsoft.Data.SqlClient;
-
-public abstract class BaseRepository
-{
-    public BaseRepository(IConfiguration config)
+    public abstract class BaseRepository
     {
-        _connectionString = config.GetConnectionString("DefaultConnection");
+        {
     }
     private string _connectionString;
     protected SqlConnection Connection => new SqlConnection(_connectionString);
