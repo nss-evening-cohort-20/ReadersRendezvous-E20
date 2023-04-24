@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ReadersRendezvous.Model;
+using ReadersRendezvous.Models;
 using ReadersRendezvous.Repository;
-using ReadersRendezvous.Utils;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,7 +19,7 @@ namespace ReadersRendezvous.Controllers
             _userRepository = userRepository;
         }
         // GET: api/<userController>
-        [HttpGet]
+        [HttpGet("GetAllUsers")]
         public IActionResult GetAllUsers()   
         {
             return Ok(_userRepository.GetAllUsers());
@@ -28,24 +28,31 @@ namespace ReadersRendezvous.Controllers
         //=============================================================
 
         [HttpPost]
-        public IActionResult AddSkill(User user)
+        public IActionResult AddUser(User user)
         {
             _userRepository.Insert(user);
-            return Created("/api/skills/" + user.Id, user);
+            return Created("/api/user/" + user.Id, user);
         }
 
 
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, User user)
+        [HttpGet("GetById/{id}")]
+        public IActionResult GetById(int id)
         {
-            if (id != user.Id)
+            if (id == null)
             {
                 return BadRequest();
             }
-            _userRepository.Update(user);
-            return NoContent();
+            User user = _userRepository.GetById(id);
+            if (user == null)
+            {
+                return NotFound($"{id} Not Found!");
+            }
+            return Ok(user);
+
         }
+
+    
+
 
 
         [HttpDelete("{id}")]
@@ -59,5 +66,9 @@ namespace ReadersRendezvous.Controllers
             _userRepository.Delete(user.Id);
             return NoContent();
         }
+
+
+
+
     }
 }

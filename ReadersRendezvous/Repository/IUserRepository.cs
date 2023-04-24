@@ -1,13 +1,13 @@
-﻿using ReadersRendezvous.Model;
+﻿using ReadersRendezvous.Models;
 
 namespace ReadersRendezvous.Repository
 {
     public interface IUserRepository
     {
-        void Delete(object id);
+        void Delete(int id);
         List<User> GetAllUsers();
-        object GetById(int id);
-        void Insert(User user);
-        void Update(User user);
+        User GetById(int id);
+        //void Insert(User user);
+        //void Update(User user);
     }
 }

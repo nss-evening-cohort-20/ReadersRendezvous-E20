@@ -1,15 +1,16 @@
-﻿using ReadersRendezvous.Model;
+﻿using ReadersRendezvous.Models;
 
-namespace ReadersRendezvous.Model
+namespace ReadersRendezvous.Models
 {
     public class User
     {
-        internal object userId;
+    
 
+        public int Id { get;  set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Email { get; set; }
-        public string? LibraryCardNumber { get; set; }
+        public int? LibraryCardNumber { get; set; }
         public bool IsActive { get; set; }
         public string? PhoneNumber { get; set; }
         public string? AddressLineOne { get; set; }
@@ -17,9 +18,14 @@ namespace ReadersRendezvous.Model
         public string? City { get; set; }
         public string? State { get; set; }
         public int Zip { get; set; }
-        public int Id { get; internal set; }
     }
+
+
+  
 }
+
+
+
 
 
 //SELECT TOP(1000) [Id]
