@@ -4,7 +4,7 @@ namespace ReadersRendezvous.Repositories
 {
     public abstract class BaseRepository
     {
-        public readonly string _connectionString;
+        private readonly string _connectionString;
 
         public BaseRepository(IConfiguration configuration)
         {
