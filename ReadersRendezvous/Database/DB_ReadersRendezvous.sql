@@ -174,10 +174,10 @@ GO
 
 INSERT INTO [dbo].[CoverType]
            (
-           [Description])
+            [Id],[Description])
      VALUES
-           ('Hardcover'),
-           ('Paperback')
+           (1,'Hardcover'),
+           (2,'Paperback')
 GO
 
 -- starter Data for Book table
@@ -252,3 +252,6 @@ INSERT INTO [dbo].[Book]
            ,9780670012107)
 
 GO
+
+--ALTER TABLE [User]
+--ALTER COLUMN PhoneNumber VARCHAR(150);
