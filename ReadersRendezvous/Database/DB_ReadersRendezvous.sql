@@ -174,10 +174,10 @@ GO
 
 INSERT INTO [dbo].[CoverType]
            (
-            [Id],[Description])
+           [Description])
      VALUES
-           (1,'Hardcover'),
-           (2,'Paperback')
+           ('Hardcover'),
+           ('Paperback')
 GO
 
 -- starter Data for Book table
@@ -253,5 +253,47 @@ INSERT INTO [dbo].[Book]
 
 GO
 
---ALTER TABLE [User]
---ALTER COLUMN PhoneNumber VARCHAR(150);
+-- starter Data for User table
+
+USE [ReadersRendezvous]
+GO
+
+INSERT INTO [dbo].[User]
+           ([Id]
+           ,[FirstName]
+           ,[LastName]
+           ,[Email]
+           ,[LibraryCardNumber]
+           ,[IsActive]
+           ,[PhoneNumber]
+           ,[AddressLineOne]
+           ,[AddressLineTwo]
+           ,[City]
+           ,[State]
+           ,[Zip])
+     VALUES
+           (2
+           ,'Jennifer'
+           ,'Behman'
+           ,'jennifer@gmail.com'
+           ,'67789998'
+           ,''
+           ,'61593335654'
+           ,'568 knol way'
+           ,''
+           ,'Orang county'
+           ,'Calefornia'
+           ,'87145'),
+		   (3
+           ,'Daniel'
+           ,'Behman'
+           ,'Daniel@gmail.com'
+           ,'67758998'
+           ,''
+           ,'61478935654'
+           ,'568 knol way'
+           ,''
+           ,'Orang county'
+           ,'Calefornia'
+           ,'87145')
+GO
