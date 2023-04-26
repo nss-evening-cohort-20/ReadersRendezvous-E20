@@ -129,82 +129,82 @@ public class UserRepository : BaseRepository, IUserRepository
     }
     //=====================================================================
 
-    //public void Insert(User user)
-    //{
-    //    using (SqlConnection conn = Connection)
-    //    {
-    //        conn.Open();
-    //        using (SqlCommand cmd = conn.CreateCommand())
-    //        {
-    //            cmd.CommandText = @"INSERT INTO User 
-    //                                                (Id
-    //                                                ,firstName
-    //                                                ,lastName
-    //                                                ,email
-    //                                                ,libraryCardNumber
-    //                                                ,PhoneNumber
-    //                                                ,addresslineOne
-    //                                                ,addressLineTwo
-    //                                                ,city
-    //                                                ,state
-    //                                                ,zip) 
+    public void Insert(User user)
+    {
+        using (SqlConnection conn = Connection)
+        {
+            conn.Open();
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"INSERT INTO User 
+                                                    (Id
+                                                    ,firstName
+                                                    ,lastName
+                                                    ,email
+                                                    ,libraryCardNumber
+                                                    ,PhoneNumber
+                                                    ,addresslineOne
+                                                    ,addressLineTwo
+                                                    ,city
+                                                    ,state
+                                                    ,zip) 
 
-    //                                                OUTPUT INSERTED.Id 
+                                                    OUTPUT INSERTED.Id 
 
-    //                                                VALUES (@Id
-    //                                                , @firstName
-    //                                                , @lastName
-    //                                                , @email
-    //                                                ,@libraryCardNumber
-    //                                                ,@IsActive 
-    //                                                ,@PhoneNumber
-    //                                                ,@addresslineOne
-    //                                                ,@ AddressLineTwo
-    //                                                , @city
-    //                                                ,@state
-    //                                                ,@zip)";
-    //            DbUtils.AddParameter(cmd, "@Id", user.Id);
-    //            DbUtils.AddParameter(cmd, "@firstName", user.FirstName);
-    //            DbUtils.AddParameter(cmd, "@lastName", user.LastName);
-    //            DbUtils.AddParameter(cmd, "@email", user.Email);
-    //            DbUtils.AddParameter(cmd, "@libraryCardNumbe", user.LibraryCardNumber);
-    //            DbUtils.AddParameter(cmd, "@IsActive", user.IsActive);
-    //            DbUtils.AddParameter(cmd, "@PhoneNumber", user.PhoneNumber);
-    //            DbUtils.AddParameter(cmd, "@addresslineOne", user.AddressLineOne);
-    //            DbUtils.AddParameter(cmd, "@addressLineTwo", user.AddressLineTwo);
-    //            DbUtils.AddParameter(cmd, "@city", user.City);
-    //            DbUtils.AddParameter(cmd, "@zip", user.Zip);
+                                                    VALUES (@Id
+                                                    , @firstName
+                                                    , @lastName
+                                                    , @email
+                                                    ,@libraryCardNumber
+                                                    ,@IsActive 
+                                                    ,@PhoneNumber
+                                                    ,@addresslineOne
+                                                    ,@ AddressLineTwo
+                                                    , @city
+                                                    ,@state
+                                                    ,@zip)";
+                DbUtils.AddParameter(cmd, "@Id", user.Id);
+                DbUtils.AddParameter(cmd, "@firstName", user.FirstName);
+                DbUtils.AddParameter(cmd, "@lastName", user.LastName);
+                DbUtils.AddParameter(cmd, "@email", user.Email);
+                DbUtils.AddParameter(cmd, "@libraryCardNumbe", user.LibraryCardNumber);
+                DbUtils.AddParameter(cmd, "@IsActive", user.IsActive);
+                DbUtils.AddParameter(cmd, "@PhoneNumber", user.PhoneNumber);
+                DbUtils.AddParameter(cmd, "@addresslineOne", user.AddressLineOne);
+                DbUtils.AddParameter(cmd, "@addressLineTwo", user.AddressLineTwo);
+                DbUtils.AddParameter(cmd, "@city", user.City);
+                DbUtils.AddParameter(cmd, "@zip", user.Zip);
 
 
-    //            int id = (int)cmd.ExecuteScalar();
+                int id = (int)cmd.ExecuteScalar();
 
-    //            id = user.Id;
-    //        }
-    //    }
-    //}
+                id = user.Id;
+            }
+        }
+    }
 
 
     //=================================================
 
 
-    //public void Update(User user)
-    //{
-    //    using (SqlConnection conn = Connection)
-    //    {
-    //        conn.Open();
-    //        using (SqlCommand cmd = conn.CreateCommand())
-    //        {
-    //            cmd.CommandText = @"UPDATE User SET 
-    //                                Id = @Id
-    //                            WHERE Id = @id";
-    //            cmd.Parameters.AddWithValue("@Id", user.Id);
-    //            ;
-    //            cmd.Parameters.AddWithValue("@id", user.Id);
-    //            cmd.ExecuteNonQuery();
-    //        }
-    //        conn.Close();
-    //    }
-    //}
+    public void Update(User user)
+    {
+        using (SqlConnection conn = Connection)
+        {
+            conn.Open();
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"UPDATE User SET 
+                                    Id = @Id
+                                WHERE Id = @id";
+                cmd.Parameters.AddWithValue("@Id", user.Id);
+                ;
+                cmd.Parameters.AddWithValue("@id", user.Id);
+                cmd.ExecuteNonQuery();
+            }
+            conn.Close();
+        }
+    }
 
     //=====================================================
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ReadersRendezvous.Models;
 using ReadersRendezvous.Repository;
+using System;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -50,8 +51,21 @@ namespace ReadersRendezvous.Controllers
             return Ok(user);
 
         }
+        //======================================
 
-    
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(int id, User user)
+        {
+            if (id !=   user.Id)
+            {
+                return BadRequest();
+            }
+            _userRepository.Update(user);
+            return NoContent();
+        }
+
+
+
 
 
 
