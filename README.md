@@ -6,6 +6,14 @@
 
 This is a full-stack web application built using ASP.NET Core API and React. The application allows users to view all the available books in the library and create their own list of favorite books after signing in as a user. Librarians can log in to edit, delete or add new books to the library, as well as add, edit or delete users.
 
+## Firebase Integration
+
+Firebase is used in this project for user authentication and real-time database functionality.
+
+- Authentication: Firebase Authentication is used to allow users to sign up and sign in to the application.
+
+-Real-time Database: Firebase Realtime Database is used to store user's favorite books list and other data.
+
 ## Figma Design
 
 Here is the link to the Figma design for this project: https://www.figma.com/community/file/1233192187177809697
@@ -65,7 +73,7 @@ npm start
 
 ## Features
 
-- User Authentication: Users can sign up or sign in to the application. Once authenticated, they can create a list of favorite books.
+- User Authentication: Users can sign up or sign in to the application using Firebase Authentication. Once authenticated, they can create a list of favorite books.
 
 - Book Management: Librarians can log in to the application and add, edit or delete books from the library.
 
@@ -82,6 +90,7 @@ npm start
 - Axios
 - ERD
 - Figma
+- Firebase
 
 ## License
 
