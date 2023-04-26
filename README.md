@@ -12,7 +12,7 @@ Firebase is used in this project for user authentication and real-time database 
 
 - Authentication: Firebase Authentication is used to allow users to sign up and sign in to the application.
 
--Real-time Database: Firebase Realtime Database is used to store user's favorite books list and other data.
+- Real-time Database: Firebase Realtime Database is used to store user's favorite books list and other data.
 
 ## Figma Design
 
