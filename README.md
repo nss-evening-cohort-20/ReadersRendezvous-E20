@@ -4,9 +4,6 @@
 
 # ( ReadersRendezvous ) Library Management System
 
-
-# Library Management System
-
 This is a full-stack web application built using ASP.NET Core API and React. The application allows users to view all the available books in the library and create their own list of favorite books after signing in as a user. Librarians can log in to edit, delete or add new books to the library, as well as add, edit or delete users.
 
 ## Figma Design
