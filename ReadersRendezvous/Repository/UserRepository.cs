@@ -136,12 +136,13 @@ public class UserRepository : BaseRepository, IUserRepository
             conn.Open();
             using (SqlCommand cmd = conn.CreateCommand())
             {
-                cmd.CommandText = @"INSERT INTO User 
+                cmd.CommandText = @"INSERT INTO [User] 
                                                     (Id
                                                     ,firstName
                                                     ,lastName
                                                     ,email
                                                     ,libraryCardNumber
+                                                    ,isActive 
                                                     ,PhoneNumber
                                                     ,addresslineOne
                                                     ,addressLineTwo
@@ -152,27 +153,28 @@ public class UserRepository : BaseRepository, IUserRepository
                                                     OUTPUT INSERTED.Id 
 
                                                     VALUES (@Id
-                                                    , @firstName
-                                                    , @lastName
-                                                    , @email
+                                                    ,@firstName
+                                                    ,@lastName
+                                                    ,@email
                                                     ,@libraryCardNumber
                                                     ,@IsActive 
                                                     ,@PhoneNumber
                                                     ,@addresslineOne
-                                                    ,@ AddressLineTwo
-                                                    , @city
+                                                    ,@addressLineTwo
+                                                    ,@city
                                                     ,@state
                                                     ,@zip)";
                 DbUtils.AddParameter(cmd, "@Id", user.Id);
                 DbUtils.AddParameter(cmd, "@firstName", user.FirstName);
                 DbUtils.AddParameter(cmd, "@lastName", user.LastName);
                 DbUtils.AddParameter(cmd, "@email", user.Email);
-                DbUtils.AddParameter(cmd, "@libraryCardNumbe", user.LibraryCardNumber);
+                DbUtils.AddParameter(cmd, "@libraryCardNumber", user.LibraryCardNumber);
                 DbUtils.AddParameter(cmd, "@IsActive", user.IsActive);
                 DbUtils.AddParameter(cmd, "@PhoneNumber", user.PhoneNumber);
                 DbUtils.AddParameter(cmd, "@addresslineOne", user.AddressLineOne);
                 DbUtils.AddParameter(cmd, "@addressLineTwo", user.AddressLineTwo);
                 DbUtils.AddParameter(cmd, "@city", user.City);
+                DbUtils.AddParameter(cmd, "@state", user.State);
                 DbUtils.AddParameter(cmd, "@zip", user.Zip);
 
 
@@ -187,20 +189,42 @@ public class UserRepository : BaseRepository, IUserRepository
     //=================================================
 
 
-    public void Update(User user)
+    public void Update(int id, User user)
     {
         using (SqlConnection conn = Connection)
         {
             conn.Open();
             using (SqlCommand cmd = conn.CreateCommand())
             {
-                cmd.CommandText = @"UPDATE User SET 
-                                    Id = @Id
+                cmd.CommandText = @"UPDATE [dbo].[User]
+                                   SET [Id] = @id
+                                      ,[FirstName] = @firstName
+                                      ,[LastName] = @lastName
+                                      ,[Email] = @email
+                                      ,[LibraryCardNumber] = @libraryCardNumber
+                                      ,[IsActive] = @isActive
+                                      ,[PhoneNumber] = @phoneNumber
+                                      ,[AddressLineOne] = @addressLineOne
+                                      ,[AddressLineTwo] = @addressLineTwo
+                                      ,[City] = @city
+                                      ,[State] = @state
+                                      ,[Zip] = @zip
+
                                 WHERE Id = @id";
-                cmd.Parameters.AddWithValue("@Id", user.Id);
-                ;
-                cmd.Parameters.AddWithValue("@id", user.Id);
+                DbUtils.AddParameter(cmd, "@id", user.Id);
+                DbUtils.AddParameter(cmd, "@firstName", user.FirstName);
+                DbUtils.AddParameter(cmd, "@lastName", user.LastName);
+                DbUtils.AddParameter(cmd, "@email", user.Email);
+                DbUtils.AddParameter(cmd, "@libraryCardNumber", user.LibraryCardNumber);
+                DbUtils.AddParameter(cmd, "@IsActive", user.IsActive);
+                DbUtils.AddParameter(cmd, "@PhoneNumber", user.PhoneNumber);
+                DbUtils.AddParameter(cmd, "@addresslineOne", user.AddressLineOne);
+                DbUtils.AddParameter(cmd, "@addressLineTwo", user.AddressLineTwo);
+                DbUtils.AddParameter(cmd, "@city", user.City);
+                DbUtils.AddParameter(cmd, "@state", user.State);
+                DbUtils.AddParameter(cmd, "@zip", user.Zip);
                 cmd.ExecuteNonQuery();
+
             }
             conn.Close();
         }
