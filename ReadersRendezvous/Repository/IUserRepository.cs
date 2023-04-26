@@ -8,7 +8,6 @@ namespace ReadersRendezvous.Repository
         List<User> GetAllUsers();
         User GetById(int id);
         void Insert(User user);
-        //void Insert(User user);
-        // void Update(User user);
+        void Update(User user);
     }
 }
