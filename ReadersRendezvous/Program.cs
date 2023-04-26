@@ -17,7 +17,11 @@ namespace ReadersRendezvous
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddTransient<IBookRepository, BookRepository>();
+
+            builder.Services.AddTransient<IAdminRepository, AdminRepository>();
+
             builder.Services.AddTransient<IUserRepository, UserRepository>();
+
 
             builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
                 .AddNegotiate();
