@@ -228,6 +228,11 @@ public class UserRepository : BaseRepository, IUserRepository
         }
     }
 
+    public void Insert(User user)
+    {
+        throw new NotImplementedException();
+    }
+
     //List<User> IUserRepository.GetAllUsers()
     //{
     //    throw new NotImplementedException();
