@@ -1,14 +1,4 @@
-﻿
-
-//using Microsoft.Data.SqlClient;
-//    public abstract class BaseRepository
-//    {
-
-//    }
-//    private string _connectionString;
-//    protected SqlConnection Connection => new SqlConnection(_connectionString);
-
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 namespace ReadersRendezvous.Repositories
 {
