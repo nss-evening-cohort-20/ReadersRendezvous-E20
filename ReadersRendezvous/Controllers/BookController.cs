@@ -74,7 +74,6 @@ namespace ReadersRendezvous.Controllers
 
         }
 
-
         [HttpGet("GetByAuthor/{author}")]
         public IActionResult GetByAuthor(string author)
         {
@@ -106,7 +105,6 @@ namespace ReadersRendezvous.Controllers
             return Ok(book);
 
         }
-
 
         [HttpGet("GetByAgeRange/{range}")]
         public IActionResult GetByAgeRange(string range)

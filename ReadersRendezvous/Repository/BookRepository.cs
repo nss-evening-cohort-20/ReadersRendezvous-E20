@@ -10,7 +10,6 @@ namespace ReadersRendezvous.Repository
 {
     public class BookRepository : BaseRepository, IBookRepository
     {
-        //private Book book;
         public BookRepository(IConfiguration configuration) : base(configuration) { }
 
         /*------------------AddBook()----------------------*/
@@ -119,7 +118,6 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
-        //
 
         /*------------------SearchBooksById()----------------------*/
         public BookInfo SearchBooksByID(int bookId)
@@ -176,15 +174,16 @@ namespace ReadersRendezvous.Repository
                                     Description = DbUtils.GetString(reader, "BookGenre")
                                 }
                             };
+                        }
                     }
-                }
                     reader.Close();
                     return book;
 
                 }
             }
         }
-                /*------------------SearchBooksByTitle()----------------------*/
+
+        /*------------------SearchBooksByTitle()----------------------*/
         public Book SearchBooksByTitle(string title) //Just a Girl
         {
             using (var conn = Connection)
@@ -248,7 +247,6 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
-
 
         /*------------------SearchBooksByISBN()----------------------*/
         public BookInfo SearchBooksByISBN(string iSBN) //9780744066944
@@ -339,40 +337,40 @@ namespace ReadersRendezvous.Repository
                                           INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
                                           INNER JOIN Genre ON Book.GenreId = Genre.Id 
                                           WHERE [Book].[Author] LIKE @Author";
-                                          //WHERE [Book].[Author] = @Author";
+                    //WHERE [Book].[Author] = @Author";
 
                     DbUtils.AddParameter(cmd, "@Author", $"%{author.ToLower()}%");//error when space
                     //DbUtils.AddParameter(cmd, "@Title", $"%{title.ToLower()}%");
                     //DbUtils.AddParameter(cmd, "@Author", author);
                     var reader = cmd.ExecuteReader();
-                    
+
                     var books = new List<BookInfo>();
                     while (reader.Read())
                     {
                         //if (books == null)
                         //{
-                            var book = new BookInfo()
+                        var book = new BookInfo()
+                        {
+                            Id = DbUtils.GetInt(reader, "BookId"),
+                            ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Quantity = DbUtils.GetInt(reader, "Quantity"),
+                            Author = DbUtils.GetString(reader, "Author"),
+                            Publisher = DbUtils.GetString(reader, "Publisher"),
+                            Language = DbUtils.GetString(reader, "Language"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                            ISBN13 = DbUtils.GetString(reader, "ISBN13"),
+                            AgeRange = new AgeRange()
                             {
-                                Id = DbUtils.GetInt(reader, "BookId"),
-                                ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
-                                Title = DbUtils.GetString(reader, "Title"),
-                                Quantity = DbUtils.GetInt(reader, "Quantity"),
-                                Author = DbUtils.GetString(reader, "Author"),
-                                Publisher = DbUtils.GetString(reader, "Publisher"),
-                                Language = DbUtils.GetString(reader, "Language"),
-                                Description = DbUtils.GetString(reader, "Description"),
-                                ISBN13 = DbUtils.GetString(reader, "ISBN13"),
-                                AgeRange = new AgeRange()
-                                {
-                                    Id = DbUtils.GetInt(reader, "AgeRangeId"),
-                                    Range = DbUtils.GetString(reader, "AgeRange")
-                                },
-                                Genre = new Genre()
-                                {
-                                    Id = DbUtils.GetInt(reader, "GenreId"),
-                                    Description = DbUtils.GetString(reader, "BookGenre")
-                                }
-                            };
+                                Id = DbUtils.GetInt(reader, "AgeRangeId"),
+                                Range = DbUtils.GetString(reader, "AgeRange")
+                            },
+                            Genre = new Genre()
+                            {
+                                Id = DbUtils.GetInt(reader, "GenreId"),
+                                Description = DbUtils.GetString(reader, "BookGenre")
+                            }
+                        };
                         var test = book;
                         books.Add(book);
                         //}
@@ -450,6 +448,7 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
+
         /*------------------SearchByAgeRange()----------------------*/
         public List<BookInfo> SearchByAgeRange(string range) //Davis, Lee
         {
@@ -613,6 +612,7 @@ namespace ReadersRendezvous.Repository
                     DbUtils.AddParameter(cmd, "@Description", book.Description);
                     DbUtils.AddParameter(cmd, "@ISBN13", ISBN13);
                     //book.Id = (int)cmd.ExecuteScalar();//needs output inserted.id
+
                     cmd.ExecuteNonQuery();
 
                 }
@@ -634,7 +634,18 @@ namespace ReadersRendezvous.Repository
             }
         }
 
-
+        //---------------------------------------------------
+     //   cmd.CommandText = @"
+					//					select Id, ImageUrl, AgeRangeId, GenreId, Title, 
+					//							CoverTypeId, Quantity, Author, Publisher, Language,
+					//							Description, ISBN13
+					//					from book 
+					//					where title like @Title
+					//					";
+ 
+					//var searchTerm = $"%{title.Trim()}%";
+     //   DbUtils.AddParameter(cmd, "@Title", searchTerm);
+        /*------------------GetAllBooksbyUser()-----------------*/
 
 
 
@@ -649,7 +660,7 @@ namespace ReadersRendezvous.Repository
 /* 
 Books API
 Add a Book//
-Edit a Book
+Edit a Book//
 Delete a Book//
 Get All Books//
 Search Books By Name//
@@ -658,7 +669,29 @@ Search Books By Author//
 Search Books By Publisher//
 Search Books By AgeRange//
 Search Books By Genre//
-Get All Books by User
+Get All Books by User------------------
 Return Book//
  */
+
+
+
+/*
+ 
+ {
+  "id": 0,
+  "imageUrl": "string",
+  "ageRangeId": 2,
+  "genreId": 1,
+  "title": "string",
+  "coverTypeId": 2,
+  "quantity": 2,
+  "author": "string",
+  "publisher": "string",
+  "language": "string",
+  "description": "string",
+  "isbN13": "kkkkkkkkkk"
+}
+ 
+ */
+
 

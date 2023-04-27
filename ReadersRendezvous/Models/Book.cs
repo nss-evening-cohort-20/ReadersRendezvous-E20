@@ -1,4 +1,6 @@
-﻿namespace ReadersRendezvous.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ReadersRendezvous.Models
 {
     public class Book
     {
@@ -16,11 +18,13 @@
         public string ISBN13 { get; set; }
         public AgeRange AgeRange { get; set; }
         public Genre Genre { get; set; }
+        //public CoverType CoverType {get; set;}
     }
 
 
     public class AddBook
     {
+        [Key]
         public int Id { get; set; }
         public string ImageUrl { get; set; }
         public int AgeRangeId { get; set; }
@@ -49,6 +53,8 @@
         public string ISBN13 { get; set; }
         public AgeRange AgeRange { get; set; }
         public Genre Genre { get; set; }
+
+        //public CoverType
 
     }
 }
