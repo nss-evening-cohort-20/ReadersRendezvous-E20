@@ -22,7 +22,18 @@ namespace ReadersRendezvous.Controllers
         {
             return Ok(_bookRepository.GetAllBooks());
         }
+        //---------------------------------------------
 
+        [HttpGet("AllPaginate")]
+        public IActionResult GetAllPaginatedBooks(int page = 2, int limit = 1)
+        {
+            int offset = 0;
+            if (page != 1 && page != 0) { offset = (page - 1) * limit; };
+            (var books, int pageQuantity) = _bookRepository.GetAllBooksPaginate(offset, limit);
+            HttpContext.Response.Headers.Add("X-Total-Count", pageQuantity.ToString());
+            return Ok(books);
+        }
+        //---------------------------------------------
         // GET api/<BookController>/5
         [HttpGet("GetById/{bookId}")]
         public IActionResult GetById(int bookId)

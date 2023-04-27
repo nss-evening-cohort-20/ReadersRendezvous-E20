@@ -19,6 +19,7 @@ namespace ReadersRendezvous
             builder.Services.AddTransient<ILoginRepository, LoginRepository>();
             builder.Services.AddTransient<IBookRepository, BookRepository>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<IAdminRepository, AdminRepository>();
 
             builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
                 .AddNegotiate();
