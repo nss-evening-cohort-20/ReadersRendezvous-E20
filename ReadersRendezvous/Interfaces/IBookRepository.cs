@@ -1,6 +1,6 @@
 ﻿using ReadersRendezvous.Models;
 
-namespace ReadersRendezvous.Repository
+namespace ReadersRendezvous.Interfaces
 {
     public interface IBookRepository
     {
