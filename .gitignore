@@ -3,6 +3,18 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# ignore compiled files
+*.dll
+*.exe
+*.pdb
+
+# ignore launch settings
+**/launchSettings.json
+
+# ignore build output
+/bin/
+/obj/
+
 # User-specific files
 *.rsuser
 *.suo

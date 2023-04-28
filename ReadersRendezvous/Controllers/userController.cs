@@ -60,7 +60,7 @@ namespace ReadersRendezvous.Controllers
             {
                 return BadRequest();
             }
-            _userRepository.Update(user);
+            _userRepository.Update(id, user);
             return NoContent();
         }
 

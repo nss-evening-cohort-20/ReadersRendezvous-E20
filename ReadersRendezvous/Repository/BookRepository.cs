@@ -1,6 +1,8 @@
-﻿using ReadersRendezvous.Models;
+﻿using ReadersRendezvous.Interfaces;
+using ReadersRendezvous.Models;
 using ReadersRendezvous.Repositories;
 using ReadersRendezvous.Utils;
+using System.Collections.Generic;
 using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;
 using static System.Reflection.Metadata.BlobBuilder;
@@ -117,6 +119,99 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
+
+        /*------------------GetAllBooks()------------------*/
+        public (List<Book>,int) GetAllBooksPaginate(int offset, int limit)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"    --Get count of all books
+                                            WITH CountAllBooks AS (
+                                            SELECT COUNT(Distinct [Book].Id) AS CountBooks FROM [BOOK]),
+                                            --get paginated table of Books
+                                            book_table AS (
+
+                                        SELECT [Book].[Id] 
+                                              ,[Book].[ImageUrl]
+                                              ,[Book].[AgeRangeId]
+                                              ,[Book].[GenreId]
+                                              ,[Book].[Title]
+                                              ,[Book].[Quantity]
+                                              ,[Book].[Author]
+                                              ,[Book].[Publisher]
+                                              ,[Book].[Language]
+                                              ,[Book].[Description]
+                                              ,[Book].[ISBN13]
+
+                                        FROM [ReadersRendezvous].[dbo].[Book]
+                                            ORDER BY [Book].Id
+                                            OFFSET @Offset ROWS
+                                            FETCH FIRST @Limit ROWS ONLY)
+
+                                            --use Book paginated table and count table, then join AgeRange and Genre,
+                                        SELECT book_table.[Id] AS BookId
+                                              ,book_table.[ImageUrl]
+                                              ,book_table.[Title]
+                                              ,book_table.[Quantity]
+                                              ,book_table.[Author]
+                                              ,book_table.[Publisher]
+                                              ,book_table.[Language]
+                                              ,book_table.[Description]
+                                              ,book_table.[ISBN13]
+                                              ,[AgeRange].[Id] AS AgeRangeId
+                                              ,[AgeRange].[Range] AS AgeRange
+                                              ,[Genre].[Id] AS GenreId
+                                              ,[Genre].[Description] As BookGenre,
+
+                                          CountBooks
+                                          FROM CountAllBooks, book_table
+                                          INNER JOIN AgeRange ON book_table.AgeRangeId = AgeRange.Id 
+                                          INNER JOIN Genre ON book_table.GenreId = Genre.Id
+                                          ORDER BY book_table.Id";
+
+                    DbUtils.AddParameter(cmd, "@Offset", offset);
+                    DbUtils.AddParameter(cmd, "@Limit", limit);
+
+                    var reader = cmd.ExecuteReader();
+                    var books = new List<Book>();
+                    int pageQuantity = 0;
+                    while (reader.Read())
+                    {
+                        var book = new Book()
+                        {
+                            Id = DbUtils.GetInt(reader, "BookId"),
+                            ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Quantity = DbUtils.GetInt(reader, "Quantity"),
+                            Author = DbUtils.GetString(reader, "Author"),
+                            Publisher = DbUtils.GetString(reader, "Publisher"),
+                            Language = DbUtils.GetString(reader, "Language"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                            ISBN13 = DbUtils.GetString(reader, "ISBN13"),
+                            AgeRange = new AgeRange()
+                            {
+                                Id = DbUtils.GetInt(reader, "AgeRangeId"),
+                                Range = DbUtils.GetString(reader, "AgeRange")
+                            },
+                            Genre = new Genre()
+                            {
+                                Id = DbUtils.GetInt(reader, "GenreId"),
+                                Description = DbUtils.GetString(reader, "BookGenre")
+                            }
+                        };
+                        if (DbUtils.IsNotDbNull(reader, "CountBooks") && pageQuantity == 0) pageQuantity = DbUtils.GetInt(reader, "CountBooks");
+
+                        books.Add(book);
+                    }
+                    conn.Close();
+                    return (books, pageQuantity);
+                }
+            }
+        }
+
 
         /*------------------SearchBooksById()----------------------*/
         public BookInfo SearchBooksByID(int bookId)
@@ -339,8 +434,8 @@ namespace ReadersRendezvous.Repository
                     //WHERE [Book].[Author] = @Author";
 
                     DbUtils.AddParameter(cmd, "@Author", $"%{author.ToLower()}%");//error when space
-                    //DbUtils.AddParameter(cmd, "@Title", $"%{title.ToLower()}%");
-                    //DbUtils.AddParameter(cmd, "@Author", author);
+                                                                                  //DbUtils.AddParameter(cmd, "@Title", $"%{title.ToLower()}%");
+                                                                                  //DbUtils.AddParameter(cmd, "@Author", author);
                     var reader = cmd.ExecuteReader();
 
                     var books = new List<BookInfo>();
@@ -409,8 +504,8 @@ namespace ReadersRendezvous.Repository
                     //WHERE [Book].[Author] = @Author";
 
                     DbUtils.AddParameter(cmd, "@Publisher", $"%{publisher.ToLower()}%");//error when space
-                    //DbUtils.AddParameter(cmd, "@Title", $"%{title.ToLower()}%");
-                    //DbUtils.AddParameter(cmd, "@Author", author);
+                                                                                        //DbUtils.AddParameter(cmd, "@Title", $"%{title.ToLower()}%");
+                                                                                        //DbUtils.AddParameter(cmd, "@Author", author);
                     var reader = cmd.ExecuteReader();
 
                     var books = new List<BookInfo>();
@@ -634,16 +729,16 @@ namespace ReadersRendezvous.Repository
         }
 
         //---------------------------------------------------
-     //   cmd.CommandText = @"
-					//					select Id, ImageUrl, AgeRangeId, GenreId, Title, 
-					//							CoverTypeId, Quantity, Author, Publisher, Language,
-					//							Description, ISBN13
-					//					from book 
-					//					where title like @Title
-					//					";
- 
-					//var searchTerm = $"%{title.Trim()}%";
-     //   DbUtils.AddParameter(cmd, "@Title", searchTerm);
+        //   cmd.CommandText = @"
+        //					select Id, ImageUrl, AgeRangeId, GenreId, Title, 
+        //							CoverTypeId, Quantity, Author, Publisher, Language,
+        //							Description, ISBN13
+        //					from book 
+        //					where title like @Title
+        //					";
+
+        //var searchTerm = $"%{title.Trim()}%";
+        //   DbUtils.AddParameter(cmd, "@Title", searchTerm);
         /*------------------GetAllBooksbyUser()-----------------*/
 
 

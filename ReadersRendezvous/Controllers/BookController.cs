@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ReadersRendezvous.Interfaces;
 using ReadersRendezvous.Models;
-using ReadersRendezvous.Repository;  
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ReadersRendezvous.Controllers
@@ -22,7 +22,18 @@ namespace ReadersRendezvous.Controllers
         {
             return Ok(_bookRepository.GetAllBooks());
         }
+        //---------------------------------------------
 
+        [HttpGet("AllPaginate")]
+        public IActionResult GetAllPaginatedBooks(int page = 2, int limit = 1)
+        {
+            int offset = 0;
+            if (page != 1 && page != 0) { offset = (page - 1) * limit; };
+            (var books, int pageQuantity) = _bookRepository.GetAllBooksPaginate(offset, limit);
+            HttpContext.Response.Headers.Add("X-Total-Count", pageQuantity.ToString());
+            return Ok(books);
+        }
+        //---------------------------------------------
         // GET api/<BookController>/5
         [HttpGet("GetById/{bookId}")]
         public IActionResult GetById(int bookId)

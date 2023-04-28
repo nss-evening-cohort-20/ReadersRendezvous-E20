@@ -1,6 +1,6 @@
 ﻿using ReadersRendezvous.Models;
 
-namespace ReadersRendezvous.Repository
+namespace ReadersRendezvous.Interfaces
 {
     public interface IBookRepository
     {
@@ -8,6 +8,7 @@ namespace ReadersRendezvous.Repository
         void DeleteBook(string iSBN);
         void EditBook(string ISBN13, AddBook book);
         List<Book> GetAllBooks();
+        (List<Book>, int) GetAllBooksPaginate(int offset, int limit);
         BookInfo SearchBooksByID(int bookId);
         BookInfo SearchBooksByISBN(string iSBN);
         Book SearchBooksByTitle(string title);
