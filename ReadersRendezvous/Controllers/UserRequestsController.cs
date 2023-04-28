@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReadersRendezvous.Models;
 using ReadersRendezvous.Models.Dtos.UserRequests;
@@ -7,6 +8,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace ReadersRendezvous.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserRequestsController : ControllerBase
@@ -20,6 +22,9 @@ namespace ReadersRendezvous.Controllers
         [HttpGet("[action]/{userId}")]
         public IActionResult  GetAllHoldRequestsByUser(int userId)
         {
+            string? firebaseUID = User.FindFirst(claim => claim.Type == "user_id")?.Value;
+            string? name = User?.Identity?.Name;
+
             var userRequestDto = _userRequestRepository.GetAllOpenHoldRequestsByUser(userId);
             if (userRequestDto == null) { return NotFound(); }
 
