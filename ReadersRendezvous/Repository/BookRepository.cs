@@ -1,5 +1,4 @@
-﻿using ReadersRendezvous.Interfaces;
-using ReadersRendezvous.Models;
+﻿using ReadersRendezvous.Models;
 using ReadersRendezvous.Repositories;
 using ReadersRendezvous.Utils;
 using System.Collections.Generic;
@@ -61,8 +60,66 @@ namespace ReadersRendezvous.Repository
             }
         }
 
-        /*------------------GetAllBooks()------------------*/
-        public List<Book> GetAllBooks()
+        ///*------------------GetAllBooks()--------1----------*/
+        //public List<Book> GetAllBooks()
+        //{
+        //    using (var conn = Connection)
+        //    {
+        //        conn.Open();
+        //        using (var cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"SELECT [Book].[Id] AS BookId
+        //                                      ,[Book].[ImageUrl]
+        //                                      ,[Book].[Title]
+        //                                      ,[Book].[Quantity]
+        //                                      ,[Book].[Author]
+        //                                      ,[Book].[Publisher]
+        //                                      ,[Book].[Language]
+        //                                      ,[Book].[Description]
+        //                                      ,[Book].[ISBN13]
+        //                                      ,[AgeRange].[Id] AS AgeRangeId
+        //                                      ,[AgeRange].[Range] AS AgeRange
+        //                                      ,[Genre].[Id] AS GenreId
+        //                                      ,[Genre].[Description] As BookGenre
+        //                                  FROM [ReadersRendezvous].[dbo].[Book]
+        //                                  INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
+        //                                  INNER JOIN Genre ON Book.GenreId = Genre.Id ";
+
+        //            var reader = cmd.ExecuteReader();
+        //            var books = new List<Book>();
+        //            while (reader.Read())
+        //            {
+        //                var book = new Book()
+        //                {
+        //                    Id = DbUtils.GetInt(reader, "BookId"),
+        //                    ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+        //                    Title = DbUtils.GetString(reader, "Title"),
+        //                    Quantity = DbUtils.GetInt(reader, "Quantity"),
+        //                    Author = DbUtils.GetString(reader, "Author"),
+        //                    Publisher = DbUtils.GetString(reader, "Publisher"),
+        //                    Language = DbUtils.GetString(reader, "Language"),
+        //                    Description = DbUtils.GetString(reader, "Description"),
+        //                    ISBN13 = DbUtils.GetString(reader, "ISBN13"),
+        //                    AgeRange = new AgeRange()
+        //                    {
+        //                        Id = DbUtils.GetInt(reader, "AgeRangeId"),
+        //                        Range = DbUtils.GetString(reader, "AgeRange")
+        //                    },
+        //                    Genre = new Genre()
+        //                    {
+        //                        Id = DbUtils.GetInt(reader, "GenreId"),
+        //                        Description = DbUtils.GetString(reader, "BookGenre")
+        //                    }
+        //                };
+        //                books.Add(book);
+        //            }
+        //            conn.Close();
+        //            return books;
+        //        }
+        //    }
+        //}
+        /*------------------GetAllBooks()--------2----------*/
+        public List<AddBook> GetAllBooks()
         {
             using (var conn = Connection)
             {
@@ -78,19 +135,14 @@ namespace ReadersRendezvous.Repository
                                               ,[Book].[Language]
                                               ,[Book].[Description]
                                               ,[Book].[ISBN13]
-                                              ,[AgeRange].[Id] AS AgeRangeId
-                                              ,[AgeRange].[Range] AS AgeRange
-                                              ,[Genre].[Id] AS GenreId
-                                              ,[Genre].[Description] As BookGenre
-                                          FROM [ReadersRendezvous].[dbo].[Book]
-                                          INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
-                                          INNER JOIN Genre ON Book.GenreId = Genre.Id ";
+                                          FROM [ReadersRendezvous].[dbo].[Book]";
+
 
                     var reader = cmd.ExecuteReader();
-                    var books = new List<Book>();
+                    var books = new List<AddBook>();
                     while (reader.Read())
                     {
-                        var book = new Book()
+                        var book = new AddBook()
                         {
                             Id = DbUtils.GetInt(reader, "BookId"),
                             ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
@@ -100,17 +152,8 @@ namespace ReadersRendezvous.Repository
                             Publisher = DbUtils.GetString(reader, "Publisher"),
                             Language = DbUtils.GetString(reader, "Language"),
                             Description = DbUtils.GetString(reader, "Description"),
-                            ISBN13 = DbUtils.GetString(reader, "ISBN13"),
-                            AgeRange = new AgeRange()
-                            {
-                                Id = DbUtils.GetInt(reader, "AgeRangeId"),
-                                Range = DbUtils.GetString(reader, "AgeRange")
-                            },
-                            Genre = new Genre()
-                            {
-                                Id = DbUtils.GetInt(reader, "GenreId"),
-                                Description = DbUtils.GetString(reader, "BookGenre")
-                            }
+                            ISBN13 = DbUtils.GetString(reader, "ISBN13")
+
                         };
                         books.Add(book);
                     }
@@ -119,9 +162,8 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
-
         /*------------------GetAllBooks()------------------*/
-        public (List<Book>,int) GetAllBooksPaginate(int offset, int limit)
+        public (List<Book>, int) GetAllBooksPaginate(int offset, int limit)
         {
             using (var conn = Connection)
             {
