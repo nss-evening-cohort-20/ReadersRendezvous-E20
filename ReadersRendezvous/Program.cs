@@ -27,7 +27,9 @@ namespace ReadersRendezvous
             builder.Services.AddTransient<IBookRepository, BookRepository>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IAdminRepository, AdminRepository>();
+            builder.Services.AddTransient<IUserBookRepository, UserBookRepository>();
             builder.Services.AddTransient<IUserRequestRepository, UserRequestRepository>();
+
 
             builder.Services.AddSwaggerGen(options =>
             {
