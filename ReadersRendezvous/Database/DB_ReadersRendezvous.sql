@@ -92,7 +92,9 @@ CREATE TABLE [UserRequest] (
   [UserId] int not null,
   [BookId] int not null,
   [RequestTS] DateTime not null,
-  [RequestTypeId] int not null
+  [RequestTypeId] int not null,
+  [CompletedTS] DateTime null,
+  [IsApproved] bit null
 )
 GO
 
@@ -144,112 +146,112 @@ GO
 -- starter Data for AgeRange table
 
 INSERT INTO [dbo].[AgeRange]
-           (
-           [Range])
-     VALUES
-           ('Children'),
-           ('Teens'),
-           ('Adults')
+		   (
+		   [Range])
+	 VALUES
+		   ('Children'),
+		   ('Teens'),
+		   ('Adults')
 GO
 
 -- starter Data for Genre table
 
 INSERT INTO [dbo].[Genre]
-           (
-           [Description])
-     VALUES
-           ('Fiction'),
-           ('Non-Fiction'),
-           ('Poetry'),
-           ('Drama'),
-           ('Comedy'),
-           ('Romance'),
-           ('Mystery'),
-           ('Science fiction'),
-           ('Fantasy'),
-           ('Horror')
+		   (
+		   [Description])
+	 VALUES
+		   ('Fiction'),
+		   ('Non-Fiction'),
+		   ('Poetry'),
+		   ('Drama'),
+		   ('Comedy'),
+		   ('Romance'),
+		   ('Mystery'),
+		   ('Science fiction'),
+		   ('Fantasy'),
+		   ('Horror')
 GO
 
 -- starter Data for CoverType table
 
 INSERT INTO [dbo].[CoverType]
-           (
-           [Description])
-     VALUES
-           ('Hardcover'),
-           ('Paperback')
+		   (
+		   [Description])
+	 VALUES
+		   ('Hardcover'),
+		   ('Paperback')
 GO
 
 -- starter Data for Book table
 
 INSERT INTO [dbo].[Book]
-           (
-           [ImageUrl]
-           ,[AgeRangeId]
-           ,[GenreId]
-           ,[Title]
-           ,[CoverTypeId]
-           ,[Quantity]
-           ,[Author]
-           ,[Publisher]
-           ,[Language]
-           ,[Description]
-           ,[ISBN13])
-     VALUES
-           (
-           'https://catalog.library.nashville.org/bookcover.php?size=medium&id=a57c2f8e-1974-e7ca-e0ca-c9c00c2ba5ea-eng'
-           ,1
-           ,2
-           ,'Just a Girl'
-           ,2
-           ,1
-           ,'Lia Levi'
-           ,'Varies, see individual formats and editions'
-           ,'English'
-           ,'In this award-winning memoir translated
-           from Italian to English, a Jewish girl grows
-           up during a difficult time of racial discrimination
-           and war, and discovers light in unexpected places.
-           This classic, powerful story from Lia Levi is adapted
-           for young readers, with beautiful black-and-white
-           illustrations, a family photo album.'
-           ,9780063065086),
-           (
-           'https://catalog.library.nashville.org/bookcover.php?id=67e57785-d088-efcb-ac56-46511ed300d5-eng&size=medium&type=grouped_work&category=Books'
-           ,1
-           ,2
-           ,'Animal feeding time'
-           ,1
-           ,1
-           ,'Davis, Lee'
-           ,'DK Publishing'
-           ,'English'
-           ,'Watch out for some wild weather!
-           Make reading your superpower,
-           leveled nonfiction. Use your reading 
-           superpowers to learn all about how animals
-           in the wild in Africa find and eat their 
-           food - a high-quality, fun, non-fiction reader 
-           - carefully leveled to help children progress.
-           Feeding Time is a beautifully designed reader 
-           all about the stunning animals found in the wild
-           in Africa and what they eat.' 
-           ,9780744066944),
-           (
-           'https://catalog.library.nashville.org/bookcover.php?id=67e57785-d088-efcb-ac56-46511ed300d5-eng&size=medium&type=grouped_work&category=Books'
-           ,1
-           ,3
-           ,'Shout: a poetry memoir'
-           ,1
-           ,1
-           ,'Anderson, Laurie Halse'
-           ,'Varies, see individual formats and editions'
-           ,'English'
-           ,'A New York Times bestseller and one of 2019
-           best-reviewed books, a poetic memoir and call
-           to action from the award-winning author of Speak ,
-           Laurie Halse Anderson!.' 
-           ,9780670012107)
+		   (
+		   [ImageUrl]
+		   ,[AgeRangeId]
+		   ,[GenreId]
+		   ,[Title]
+		   ,[CoverTypeId]
+		   ,[Quantity]
+		   ,[Author]
+		   ,[Publisher]
+		   ,[Language]
+		   ,[Description]
+		   ,[ISBN13])
+	 VALUES
+		   (
+		   'https://catalog.library.nashville.org/bookcover.php?size=medium&id=a57c2f8e-1974-e7ca-e0ca-c9c00c2ba5ea-eng'
+		   ,1
+		   ,2
+		   ,'Just a Girl'
+		   ,2
+		   ,1
+		   ,'Lia Levi'
+		   ,'Varies, see individual formats and editions'
+		   ,'English'
+		   ,'In this award-winning memoir translated
+		   from Italian to English, a Jewish girl grows
+		   up during a difficult time of racial discrimination
+		   and war, and discovers light in unexpected places.
+		   This classic, powerful story from Lia Levi is adapted
+		   for young readers, with beautiful black-and-white
+		   illustrations, a family photo album.'
+		   ,9780063065086),
+		   (
+		   'https://catalog.library.nashville.org/bookcover.php?id=67e57785-d088-efcb-ac56-46511ed300d5-eng&size=medium&type=grouped_work&category=Books'
+		   ,1
+		   ,2
+		   ,'Animal feeding time'
+		   ,1
+		   ,1
+		   ,'Davis, Lee'
+		   ,'DK Publishing'
+		   ,'English'
+		   ,'Watch out for some wild weather!
+		   Make reading your superpower,
+		   leveled nonfiction. Use your reading 
+		   superpowers to learn all about how animals
+		   in the wild in Africa find and eat their 
+		   food - a high-quality, fun, non-fiction reader 
+		   - carefully leveled to help children progress.
+		   Feeding Time is a beautifully designed reader 
+		   all about the stunning animals found in the wild
+		   in Africa and what they eat.' 
+		   ,9780744066944),
+		   (
+		   'https://catalog.library.nashville.org/bookcover.php?id=67e57785-d088-efcb-ac56-46511ed300d5-eng&size=medium&type=grouped_work&category=Books'
+		   ,1
+		   ,3
+		   ,'Shout: a poetry memoir'
+		   ,1
+		   ,1
+		   ,'Anderson, Laurie Halse'
+		   ,'Varies, see individual formats and editions'
+		   ,'English'
+		   ,'A New York Times bestseller and one of 2019
+		   best-reviewed books, a poetic memoir and call
+		   to action from the award-winning author of Speak ,
+		   Laurie Halse Anderson!.' 
+		   ,9780670012107)
 
 GO
 
@@ -259,41 +261,41 @@ USE [ReadersRendezvous]
 GO
 
 INSERT INTO [dbo].[User]
-           ([Id]
-           ,[FirstName]
-           ,[LastName]
-           ,[Email]
-           ,[LibraryCardNumber]
-           ,[IsActive]
-           ,[PhoneNumber]
-           ,[AddressLineOne]
-           ,[AddressLineTwo]
-           ,[City]
-           ,[State]
-           ,[Zip])
-     VALUES
-           (2
-           ,'Jennifer'
-           ,'Behman'
-           ,'jennifer@gmail.com'
-           ,'67789998'
-           ,''
-           ,'61593335654'
-           ,'568 knol way'
-           ,''
-           ,'Orang county'
-           ,'Calefornia'
-           ,'87145'),
+		   ([Id]
+		   ,[FirstName]
+		   ,[LastName]
+		   ,[Email]
+		   ,[LibraryCardNumber]
+		   ,[IsActive]
+		   ,[PhoneNumber]
+		   ,[AddressLineOne]
+		   ,[AddressLineTwo]
+		   ,[City]
+		   ,[State]
+		   ,[Zip])
+	 VALUES
+		   (2
+		   ,'Jennifer'
+		   ,'Behman'
+		   ,'jennifer@gmail.com'
+		   ,'67789998'
+		   ,''
+		   ,'61593335654'
+		   ,'568 knol way'
+		   ,''
+		   ,'Orang county'
+		   ,'Calefornia'
+		   ,'87145'),
 		   (3
-           ,'Daniel'
-           ,'Behman'
-           ,'Daniel@gmail.com'
-           ,'67758998'
-           ,''
-           ,'61478935654'
-           ,'568 knol way'
-           ,''
-           ,'Orang county'
-           ,'Calefornia'
-           ,'87145')
+		   ,'Daniel'
+		   ,'Behman'
+		   ,'Daniel@gmail.com'
+		   ,'67758998'
+		   ,''
+		   ,'61478935654'
+		   ,'568 knol way'
+		   ,''
+		   ,'Orang county'
+		   ,'Calefornia'
+		   ,'87145')
 GO
