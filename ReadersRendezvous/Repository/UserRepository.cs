@@ -137,8 +137,8 @@ public class UserRepository : BaseRepository, IUserRepository
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = @"INSERT INTO [User] 
-                                                    (Id
-                                                    ,firstName
+                                                    (
+                                                    firstName
                                                     ,lastName
                                                     ,email
                                                     ,libraryCardNumber
@@ -152,8 +152,8 @@ public class UserRepository : BaseRepository, IUserRepository
 
                                                     OUTPUT INSERTED.Id 
 
-                                                    VALUES (@Id
-                                                    ,@firstName
+                                                    VALUES (
+                                                    @firstName
                                                     ,@lastName
                                                     ,@email
                                                     ,@libraryCardNumber
@@ -164,7 +164,7 @@ public class UserRepository : BaseRepository, IUserRepository
                                                     ,@city
                                                     ,@state
                                                     ,@zip)";
-                DbUtils.AddParameter(cmd, "@Id", user.Id);
+                //DbUtils.AddParameter(cmd, "@Id", user.Id);
                 DbUtils.AddParameter(cmd, "@firstName", user.FirstName);
                 DbUtils.AddParameter(cmd, "@lastName", user.LastName);
                 DbUtils.AddParameter(cmd, "@email", user.Email);
@@ -197,8 +197,7 @@ public class UserRepository : BaseRepository, IUserRepository
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = @"UPDATE [dbo].[User]
-                                   SET [Id] = @id
-                                      ,[FirstName] = @firstName
+                                   SET [FirstName] = @firstName
                                       ,[LastName] = @lastName
                                       ,[Email] = @email
                                       ,[LibraryCardNumber] = @libraryCardNumber
