@@ -53,8 +53,7 @@ namespace ReadersRendezvous.Models
         public string ISBN13 { get; set; }
         public AgeRange AgeRange { get; set; }
         public Genre Genre { get; set; }
-
-        //public CoverType
+        public CoverType CoverType { get; set; }
 
     }
 }

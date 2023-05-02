@@ -275,10 +275,13 @@ namespace ReadersRendezvous.Repository
                                               ,[AgeRange].[Id] AS AgeRangeId
                                               ,[AgeRange].[Range] AS AgeRange
                                               ,[Genre].[Id] AS GenreId
-                                              ,[Genre].[Description] As BookGenre
+                                              ,[Genre].[Description] AS BookGenre
+                                              ,[CoverType].[Id] AS CoverId
+                                              ,[CoverType].[Description] AS BookCover
                                           FROM [ReadersRendezvous].[dbo].[Book]
                                           INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
                                           INNER JOIN Genre ON Book.GenreId = Genre.Id 
+                                          INNER JOIN [CoverType] ON Book.CoverTypeId = CoverType.Id 
                                           WHERE [Book].[Id] = @BookId";
 
                     DbUtils.AddParameter(cmd, "@BookId", bookId);
@@ -308,6 +311,11 @@ namespace ReadersRendezvous.Repository
                                 {
                                     Id = DbUtils.GetInt(reader, "GenreId"),
                                     Description = DbUtils.GetString(reader, "BookGenre")
+                                },
+                                CoverType = new CoverType()
+                                {
+                                    Id = DbUtils.GetInt(reader, "CoverId"),
+                                    Description = DbUtils.GetString(reader, "BookCover")
                                 }
                             };
                         }
@@ -326,7 +334,7 @@ namespace ReadersRendezvous.Repository
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [Book].[Id]
+                    cmd.CommandText = @"SELECT [Book].[Id] 
                                               ,[Book].[ImageUrl]
                                               ,[Book].[Title] 
                                               ,[Book].[Quantity]
@@ -338,10 +346,13 @@ namespace ReadersRendezvous.Repository
                                               ,[AgeRange].[Id] AS AgeRangeId
                                               ,[AgeRange].[Range] AS AgeRange
                                               ,[Genre].[Id] AS GenreId
-                                              ,[Genre].[Description] As BookGenre
+                                              ,[Genre].[Description] AS BookGenre
+                                              ,[CoverType].[Id] AS CoverId
+                                              ,[CoverType].[Description] AS BookCover
                                           FROM [ReadersRendezvous].[dbo].[Book]
                                           INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
                                           INNER JOIN Genre ON Book.GenreId = Genre.Id 
+                                          INNER JOIN [CoverType] ON Book.CoverTypeId = CoverType.Id 
                                           WHERE [Book].[Id] = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
@@ -371,6 +382,11 @@ namespace ReadersRendezvous.Repository
                                 {
                                     Id = DbUtils.GetInt(reader, "GenreId"),
                                     Description = DbUtils.GetString(reader, "BookGenre")
+                                },
+                                CoverType = new CoverType()
+                                {
+                                    Id = DbUtils.GetInt(reader, "CoverId"),
+                                    Description = DbUtils.GetString(reader, "BookCover")
                                 }
                             };
                         }

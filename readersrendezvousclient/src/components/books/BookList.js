@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import "./Book.css";
-import { Headder } from "../headder/Headder";
+import { Header } from "../header/Header";
 import { Book } from "./Book";
 
 export const BookList = () => {
@@ -23,12 +23,7 @@ export const BookList = () => {
     return (
         <>
             <div classNameName="bookContainer">
-                <div>
-                    <Headder />
-                </div>
-                <h1 key={`books`} className="head">
-                    All Books!
-                </h1>
+                <Header />
                 <section key={`books`} className="books">
                     {books.map((book) => {
                         return (
@@ -45,7 +40,7 @@ export const BookList = () => {
                                     Publisher={book.publisher}
                                     Language={book.language}
                                     Description={book.description}
-                                    ISBN13={book.iSBN13}
+                                    ISBN13={book.isBN13}
                                 />
                             </>
                         );
@@ -56,6 +51,3 @@ export const BookList = () => {
     );
 };
 //https://watch.screencastify.com/v/F4ZpSuhaPCLwoJDOdyk8
-
- 
-

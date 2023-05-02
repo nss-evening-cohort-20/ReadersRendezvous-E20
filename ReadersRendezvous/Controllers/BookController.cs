@@ -36,7 +36,7 @@ namespace ReadersRendezvous.Controllers
             return Ok(books);
         }
         //---------------------------------------------
-        // GET api/<BookController>/5
+        //GET api/<BookController>/5
         [HttpGet("GetById/{bookId}")]
         public IActionResult GetById(int bookId)
         {
