@@ -2,6 +2,7 @@ using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -28,6 +29,13 @@ namespace ReadersRendezvous
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IAdminRepository, AdminRepository>();
             builder.Services.AddTransient<IUserRequestRepository, UserRequestRepository>();
+
+            builder.Services.AddCors(options => options.AddPolicy("ReadersRendezvousPolicy", builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyMethod();
+                builder.AllowAnyMethod();
+            }));
 
             builder.Services.AddSwaggerGen(options =>
             {
@@ -105,6 +113,20 @@ namespace ReadersRendezvous
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseExceptionHandler(options =>
+            {
+                options.Run(async context =>
+                {
+                    context.Response.StatusCode = 500;
+                    context.Response.ContentType = "application/json";
+                    var ex = context.Features.Get<ExceptionHandlerFeature>();
+                    if (ex != null)
+                    {
+                        await context.Response.WriteAsync(ex.Error.Message);
+                    }
+                });
+            });
 
 
             app.MapControllers();
