@@ -68,7 +68,7 @@ namespace ReadersRendezvous.Repository
 
 
 
-        public UserBook SearchUserBookByUserId(int userId)
+        public List<UserBook> SearchUserBookByUserId(int userId)
         {
             using (var conn = Connection)
             {
@@ -88,108 +88,32 @@ namespace ReadersRendezvous.Repository
 
                     DbUtils.AddParameter(cmd, "@UserId", userId);
                     var reader = cmd.ExecuteReader();
-                    UserBook userBook = null;
+
+
+
+                    List<UserBook> userBook = new List<UserBook>();
                     while (reader.Read())
                     {
-                        if (userBook == null)
+                        var userBookVariety = new UserBook()
                         {
-                            userBook = new UserBook()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserBookId"),
-                                UserId = DbUtils.GetInt(reader, "UserBookUserId"),
-                                BookId = DbUtils.GetInt(reader, "UserBookBookId"),
-                                RentalStartDate = DbUtils.GetDateTime(reader, "UserBookRentalStartDate"),
-                                DueDate = DbUtils.GetDateTime(reader, "UserBookDueDate"),
-                                LateFee = DbUtils.GetDecimal(reader, "UserBookLateFee"),
-                                ReturnDate = DbUtils.GetDateTime(reader, "UserBookReturnDate"),
-                            };
-                        }
+                            Id = DbUtils.GetInt(reader, "UserBookId"),
+                            UserId = DbUtils.GetInt(reader, "UserBookUserId"),
+                            BookId = DbUtils.GetInt(reader, "UserBookBookId"),
+                            RentalStartDate = DbUtils.GetDateTime(reader, "UserBookRentalStartDate"),
+                            DueDate = DbUtils.GetDateTime(reader, "UserBookDueDate"),
+                            LateFee = DbUtils.GetDecimal(reader, "UserBookLateFee"),
+                            ReturnDate = DbUtils.GetDateTime(reader, "UserBookReturnDate"),
+                        };
+                        userBook.Add(userBookVariety);
                     }
                     reader.Close();
                     return userBook;
-
                 }
             }
         }
 
 
 
-        /*------------------Search UserBook by ISBN13----------------------*/
-
-
-
-        public UserBook SearchUserBookByIsbn13(int isbn13)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"SELECT
-		                                    [UserBook].[Id] AS UserBookId,
-		                                    [UserBook].[UserId] AS UserBookUserId,
-		                                    [UserBook].[BookId] AS UserBookBookId,
-		                                    [UserBook].[RentalStartDate] AS UserBookRentalStartDate,
-		                                    [UserBook].[DueDate] AS UserBookDueDate,
-		                                    [UserBook].[LateFee] AS UserBookLateFee,
-		                                    [UserBook].[ReturnDate] AS UserBookReturnDate,
-
-		                                    [User].[Id] AS UserId,
-		                                    [User].[FirstName] AS UserFirstName,
-		                                    [User].[LastName] AS UserLastName,
-		                                    [User].[Email] AS UserBookId,
-		                                    [User].[LibraryCardNumber] AS UserLibraryCardNumber,
-		                                    [User].[IsActive] AS UserIsActive,
-		                                    [User].[PhoneNumber] AS UserPhoneNumber,
-		                                    [User].[AddressLineOne] AS UserAddressLineOne,
-		                                    [User].[AddressLineTwo] AS UserAddressLineTwo,
-		                                    [User].[City] AS UserCity,
-		                                    [User].[State] AS UserState,
-		                                    [User].[Zip] AS UserZip,
-
-
-		                                    [Book].[Id] AS BookId,
-		                                    [Book].[ImageUrl] AS BookImageUrl,
-		                                    [Book].[AgeRangeId] AS BookAgeRangeId,
-		                                    [Book].[GenreId] AS BookGenreId,
-		                                    [Book].[Title] AS BookTitle,
-		                                    [Book].[CoverTypeId] AS BookCoverTypeId,
-		                                    [Book].[Quantity] AS BookQuantity,
-		                                    [Book].[Author] AS BookAuthor,
-		                                    [Book].[Publisher] AS BookPublisher,
-		                                    [Book].[Language] AS BookLanguage,
-		                                    [Book].[Description] AS BookDescription,
-		                                    [Book].[ISBN13] AS BookISBN13
-                                    FROM [ReadersRendezvous].[dbo].[UserBook]
-                                    INNER JOIN [User] ON UserBook.UserId = UserId 
-                                    INNER JOIN [Book] ON UserBook.BookId = BookId 
-                                    WHERE [Book].[ISBN13] = @ISBN13";
-
-                    DbUtils.AddParameter(cmd, "@ISBN13", isbn13);
-                    var reader = cmd.ExecuteReader();
-                    UserBook userBook = null;
-                    while (reader.Read())
-                    {
-                        if (userBook == null)
-                        {
-                            userBook = new UserBook()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserBookId"),
-                                UserId = DbUtils.GetInt(reader, "UserBookUserId"),
-                                BookId = DbUtils.GetInt(reader, "UserBookBookId"),
-                                RentalStartDate = DbUtils.GetDateTime(reader, "UserBookRentalStartDate"),
-                                DueDate = DbUtils.GetDateTime(reader, "UserBookDueDate"),
-                                LateFee = DbUtils.GetDecimal(reader, "UserBookLateFee"),
-                                ReturnDate = DbUtils.GetDateTime(reader, "UserBookReturnDate"),
-                            };
-                        }
-                    }
-                    reader.Close();
-                    return userBook;
-
-                }
-            }
-        }
 
 
 
@@ -197,7 +121,7 @@ namespace ReadersRendezvous.Repository
 
 
 
-        public UserBook SearchUserBookByLibraryCardNumber(int libraryCardNumber)
+        public List<UserBook> SearchUserBookByLibraryCardNumber(int libraryCardNumber)
         {
             using (var conn = Connection)
             {
@@ -212,60 +136,53 @@ namespace ReadersRendezvous.Repository
 		                                    [UserBook].[DueDate] AS UserBookDueDate,
 		                                    [UserBook].[LateFee] AS UserBookLateFee,
 		                                    [UserBook].[ReturnDate] AS UserBookReturnDate,
-
-		                                    [User].[Id] AS UserId,
-		                                    [User].[FirstName] AS UserFirstName,
-		                                    [User].[LastName] AS UserLastName,
-		                                    [User].[Email] AS UserBookId,
-		                                    [User].[LibraryCardNumber] AS UserLibraryCardNumber,
-		                                    [User].[IsActive] AS UserIsActive,
-		                                    [User].[PhoneNumber] AS UserPhoneNumber,
-		                                    [User].[AddressLineOne] AS UserAddressLineOne,
-		                                    [User].[AddressLineTwo] AS UserAddressLineTwo,
-		                                    [User].[City] AS UserCity,
-		                                    [User].[State] AS UserState,
-		                                    [User].[Zip] AS UserZip,
-
-
-		                                    [Book].[Id] AS BookId,
-		                                    [Book].[ImageUrl] AS BookImageUrl,
-		                                    [Book].[AgeRangeId] AS BookAgeRangeId,
-		                                    [Book].[GenreId] AS BookGenreId,
-		                                    [Book].[Title] AS BookTitle,
-		                                    [Book].[CoverTypeId] AS BookCoverTypeId,
-		                                    [Book].[Quantity] AS BookQuantity,
-		                                    [Book].[Author] AS BookAuthor,
-		                                    [Book].[Publisher] AS BookPublisher,
-		                                    [Book].[Language] AS BookLanguage,
-		                                    [Book].[Description] AS BookDescription,
-		                                    [Book].[ISBN13] AS BookISBN13
+		                                    U.[Id] AS UserId,
+		                                    U.[FirstName] AS UserFirstName,
+		                                    U.[LastName] AS UserLastName,
+		                                    U.[Email] AS UserBookId,
+		                                    U.[LibraryCardNumber] AS UserLibraryCardNumber,
+		                                    U.[IsActive] AS UserIsActive,
+		                                    U.[PhoneNumber] AS UserPhoneNumber,
+		                                    U.[AddressLineOne] AS UserAddressLineOne,
+		                                    U.[AddressLineTwo] AS UserAddressLineTwo,
+		                                    U.[City] AS UserCity,
+		                                    U.[State] AS UserState,
+		                                    U.[Zip] AS UserZip,
+		                                    B.[Id] AS BookId,
+		                                    B.[ImageUrl] AS BookImageUrl,
+		                                    B.[AgeRangeId] AS BookAgeRangeId,
+		                                    B.[GenreId] AS BookGenreId,
+		                                    B.[Title] AS BookTitle,
+		                                    B.[CoverTypeId] AS BookCoverTypeId,
+		                                    B.[Quantity] AS BookQuantity,
+		                                    B.[Author] AS BookAuthor,
+		                                    B.[Publisher] AS BookPublisher,
+		                                    B.[Language] AS BookLanguage,
+		                                    B.[Description] AS BookDescription,
+		                                    B.[ISBN13] AS BookISBN13
                                     FROM [ReadersRendezvous].[dbo].[UserBook]
-                                    INNER JOIN [User] ON UserBook.UserId = UserId 
-                                    INNER JOIN [Book] ON UserBook.BookId = BookId 
-                                    WHERE [User].[LibraryCardNumber] = @LibraryCardNumber";
-
+                                    INNER JOIN [User] U ON UserBook.UserId = U.Id
+                                    INNER JOIN [Book] B ON UserBook.BookId = B.Id
+                                    WHERE U.[LibraryCardNumber] = @LibraryCardNumber";
                     DbUtils.AddParameter(cmd, "@LibraryCardNumber", libraryCardNumber);
                     var reader = cmd.ExecuteReader();
-                    UserBook userBook = null;
+                    List<UserBook> userBook = new List<UserBook>();
                     while (reader.Read())
                     {
-                        if (userBook == null)
+                        var userBookVariety = new UserBook()
                         {
-                            userBook = new UserBook()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserBookId"),
-                                UserId = DbUtils.GetInt(reader, "UserBookUserId"),
-                                BookId = DbUtils.GetInt(reader, "UserBookBookId"),
-                                RentalStartDate = DbUtils.GetDateTime(reader, "UserBookRentalStartDate"),
-                                DueDate = DbUtils.GetDateTime(reader, "UserBookDueDate"),
-                                LateFee = DbUtils.GetDecimal(reader, "UserBookLateFee"),
-                                ReturnDate = DbUtils.GetDateTime(reader, "UserBookReturnDate"),
-                            };
-                        }
+                            Id = DbUtils.GetInt(reader, "UserBookId"),
+                            UserId = DbUtils.GetInt(reader, "UserBookUserId"),
+                            BookId = DbUtils.GetInt(reader, "UserBookBookId"),
+                            RentalStartDate = DbUtils.GetDateTime(reader, "UserBookRentalStartDate"),
+                            DueDate = DbUtils.GetDateTime(reader, "UserBookDueDate"),
+                            LateFee = DbUtils.GetDecimal(reader, "UserBookLateFee"),
+                            ReturnDate = DbUtils.GetDateTime(reader, "UserBookReturnDate"),
+                        };
+                        userBook.Add(userBookVariety);
                     }
                     reader.Close();
                     return userBook;
-
                 }
             }
         }
