@@ -253,6 +253,7 @@ INSERT INTO [dbo].[Book]
 		   Laurie Halse Anderson!.' 
 		   ,9780670012107)
 
+
 GO
 
 -- starter Data for User table
@@ -261,8 +262,8 @@ USE [ReadersRendezvous]
 GO
 
 INSERT INTO [dbo].[User]
-		   ([Id]
-		   ,[FirstName]
+		   (
+			[FirstName]
 		   ,[LastName]
 		   ,[Email]
 		   ,[LibraryCardNumber]
@@ -274,8 +275,8 @@ INSERT INTO [dbo].[User]
 		   ,[State]
 		   ,[Zip])
 	 VALUES
-		   (2
-		   ,'Jennifer'
+		   (
+		   'Jennifer'
 		   ,'Behman'
 		   ,'jennifer@gmail.com'
 		   ,'67789998'

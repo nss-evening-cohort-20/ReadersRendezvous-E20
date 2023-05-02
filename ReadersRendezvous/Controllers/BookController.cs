@@ -53,6 +53,24 @@ namespace ReadersRendezvous.Controllers
 
         }
 
+        //---------------------------------------------
+        // GET api/<BookController>/5
+        [HttpGet("GetAllBooks/Id")]
+        public IActionResult GetBookById(int id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            BookInfo book = _bookRepository.SearchBooksByID2(id);
+            if (book == null)
+            {
+                return NotFound($"{id} Not Found!");
+            }
+            return Ok(book);
+
+        }
+
         // GET api/<BookController>/title
         [HttpGet("GetByTitle/{title}")]
         public IActionResult GetTByitle(string title)

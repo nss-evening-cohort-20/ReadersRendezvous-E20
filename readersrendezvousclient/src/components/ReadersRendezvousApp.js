@@ -21,7 +21,6 @@ export const ReadersRendezvousApp = () => {
                         <>
                             <Navbar />
                             <ApplicationViews />
-                            <Footer />
                         </>
                    // {/* </Authorized> */}
                 }

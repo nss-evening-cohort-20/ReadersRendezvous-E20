@@ -71,13 +71,13 @@ namespace ReadersRendezvous
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.IncludeErrorDetails = true;
-                options.Authority = "https://securetoken.google.com/readersrendezvous-e20"; //use your project name
+                options.Authority = "https://securetoken.google.com/readersrendezvous-e20-80a40"; //use your project name
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = "https://securetoken.google.com/readersrendezvous-e20", //use your project name
+                    ValidIssuer = "https://securetoken.google.com/readersrendezvous-e20-80a40", //use your project name
                     ValidateAudience = true,
-                    ValidAudience = "readersrendezvous-e20",  //use your project name
+                    ValidAudience = "readersrendezvous-e20-80a40",  //use your project name
                     ValidateLifetime = true,
                 };
             });

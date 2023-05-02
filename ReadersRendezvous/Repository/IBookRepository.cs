@@ -11,6 +11,7 @@ namespace ReadersRendezvous.Repository
         List<AddBook> GetAllBooks();
         (List<Book>, int) GetAllBooksPaginate(int offset, int limit);
         BookInfo SearchBooksByID(int bookId);
+        BookInfo SearchBooksByID2(int id);
         BookInfo SearchBooksByISBN(string iSBN);
         Book SearchBooksByTitle(string title);
         List<BookInfo> SearchByAgeRange(string range);

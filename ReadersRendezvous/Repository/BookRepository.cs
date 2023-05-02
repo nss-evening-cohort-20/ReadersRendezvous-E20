@@ -255,7 +255,7 @@ namespace ReadersRendezvous.Repository
         }
 
 
-        /*------------------SearchBooksById()----------------------*/
+        /*------------------SearchBooksById()----1------------------*/
         public BookInfo SearchBooksByID(int bookId)
         {
             using (var conn = Connection)
@@ -291,6 +291,69 @@ namespace ReadersRendezvous.Repository
                             book = new BookInfo()
                             {
                                 Id = DbUtils.GetInt(reader, "BookId"),
+                                ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                                Title = DbUtils.GetString(reader, "Title"),
+                                Quantity = DbUtils.GetInt(reader, "Quantity"),
+                                Author = DbUtils.GetString(reader, "Author"),
+                                Publisher = DbUtils.GetString(reader, "Publisher"),
+                                Language = DbUtils.GetString(reader, "Language"),
+                                Description = DbUtils.GetString(reader, "Description"),
+                                ISBN13 = DbUtils.GetString(reader, "ISBN13"),
+                                AgeRange = new AgeRange()
+                                {
+                                    Id = DbUtils.GetInt(reader, "AgeRangeId"),
+                                    Range = DbUtils.GetString(reader, "AgeRange")
+                                },
+                                Genre = new Genre()
+                                {
+                                    Id = DbUtils.GetInt(reader, "GenreId"),
+                                    Description = DbUtils.GetString(reader, "BookGenre")
+                                }
+                            };
+                        }
+                    }
+                    reader.Close();
+                    return book;
+
+                }
+            }
+        }
+        /*------------------SearchBooksById()-------2---------------*/
+        public BookInfo SearchBooksByID2(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT [Book].[Id]
+                                              ,[Book].[ImageUrl]
+                                              ,[Book].[Title] 
+                                              ,[Book].[Quantity]
+                                              ,[Book].[Author]
+                                              ,[Book].[Publisher]
+                                              ,[Book].[Language]
+                                              ,[Book].[Description]
+                                              ,[Book].[ISBN13]
+                                              ,[AgeRange].[Id] AS AgeRangeId
+                                              ,[AgeRange].[Range] AS AgeRange
+                                              ,[Genre].[Id] AS GenreId
+                                              ,[Genre].[Description] As BookGenre
+                                          FROM [ReadersRendezvous].[dbo].[Book]
+                                          INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
+                                          INNER JOIN Genre ON Book.GenreId = Genre.Id 
+                                          WHERE [Book].[Id] = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+                    var reader = cmd.ExecuteReader();
+                    BookInfo book = null;
+                    while (reader.Read())
+                    {
+                        if (book == null)
+                        {
+                            book = new BookInfo()
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
                                 ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
                                 Title = DbUtils.GetString(reader, "Title"),
                                 Quantity = DbUtils.GetInt(reader, "Quantity"),
