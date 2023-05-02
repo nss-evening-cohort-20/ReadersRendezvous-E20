@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using ReadersRendezvous.Interfaces;
 using ReadersRendezvous.Repositories;
 using ReadersRendezvous.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ReadersRendezvous.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
