@@ -253,6 +253,7 @@ INSERT INTO [dbo].[Book]
 		   Laurie Halse Anderson!.' 
 		   ,9780670012107)
 
+
 GO
 
 -- starter Data for User table
