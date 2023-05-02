@@ -40,7 +40,15 @@ namespace ReadersRendezvous.Utils
         public static double GetDouble(SqlDataReader reader, string column)
         {
             return reader.GetDouble(reader.GetOrdinal(column));
+
         }
+
+
+        public static decimal GetDecimal(SqlDataReader reader, string column)
+        {
+            return reader.GetDecimal(reader.GetOrdinal(column));
+        }
+
 
         public static bool GetBoolean(SqlDataReader reader, string column)
         {

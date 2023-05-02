@@ -261,8 +261,8 @@ USE [ReadersRendezvous]
 GO
 
 INSERT INTO [dbo].[User]
-		   ([Id]
-		   ,[FirstName]
+		   (
+		   [FirstName]
 		   ,[LastName]
 		   ,[Email]
 		   ,[LibraryCardNumber]
@@ -274,8 +274,8 @@ INSERT INTO [dbo].[User]
 		   ,[State]
 		   ,[Zip])
 	 VALUES
-		   (2
-		   ,'Jennifer'
+		   (
+		   'Jennifer'
 		   ,'Behman'
 		   ,'jennifer@gmail.com'
 		   ,'67789998'
@@ -286,8 +286,8 @@ INSERT INTO [dbo].[User]
 		   ,'Orang county'
 		   ,'Calefornia'
 		   ,'87145'),
-		   (3
-		   ,'Daniel'
+		   (
+		   'Daniel'
 		   ,'Behman'
 		   ,'Daniel@gmail.com'
 		   ,'67758998'
