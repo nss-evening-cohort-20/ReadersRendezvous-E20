@@ -7,6 +7,7 @@ using System.Net;
 using System.Numerics;
 using System.Xml;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ReadersRendezvous.Repository
 {
@@ -110,7 +111,7 @@ namespace ReadersRendezvous.Repository
             }
         }
 
-        public User ValidateCredentialsAdmin(string passwordHash)
+        public User ValidateCredentials(int id, string passwordHash)
         {
             using (SqlConnection conn = Connection)
             {
@@ -123,9 +124,10 @@ namespace ReadersRendezvous.Repository
                             [User].State, [User].Zip 
                     FROM [User] 
                     LEFT JOIN [Login] ON [User].Id = [Login].UserId  
-                    WHERE [Login].PasswordHash = @PasswordHash;";
+                    WHERE [Login].PasswordHash = @PasswordHash AND [User].Id = @Id";
 
                     cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
+                    cmd.Parameters.AddWithValue("@Id", id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -155,54 +157,6 @@ namespace ReadersRendezvous.Repository
                     return null;
                 }
             }
-        }
-
-        public User ValidateCredentialsNonAdmin(string passwordHash)
-        {
-
-            using (SqlConnection conn = Connection)
-            {
-                conn.Open();
-
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"SELECT [User].Id, [User].FirstName, [User].LastName, [User].Email, [User].LibraryCardNumber, 
-                            [User].IsActive, [User].PhoneNumber, [User].AddressLineOne, [User].AddressLineTwo, [User].City, 
-                            [User].State, [User].Zip 
-                    FROM [User] 
-                    LEFT JOIN [Login] ON [User].Id = [Login].UserId  
-                    WHERE [Login].PasswordHash = @PasswordHash;";
-
-                    cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-
-                        if (reader.Read())
-                        {
-                            User user = new User
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Email = reader.GetString(reader.GetOrdinal("Email")),
-                                LibraryCardNumber = reader.GetInt32(reader.GetOrdinal("LibraryCardNumber")),
-                                IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive")),
-                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
-                                AddressLineOne = reader.GetString(reader.GetOrdinal("AddressLineOne")),
-                                AddressLineTwo = reader.GetString(reader.GetOrdinal("AddressLineTwo")),
-                                City = reader.GetString(reader.GetOrdinal("City")),
-                                State = reader.GetString(reader.GetOrdinal("State")),
-                                Zip = reader.GetInt32(reader.GetOrdinal("Zip"))
-                            };
-                            reader.Close();
-                            return user;
-                        }
-                    }
-                    return null;
-                }
-            }
-
         }
 
 
