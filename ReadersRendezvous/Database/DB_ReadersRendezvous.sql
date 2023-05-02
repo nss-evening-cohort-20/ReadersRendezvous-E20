@@ -263,7 +263,7 @@ GO
 
 INSERT INTO [dbo].[User]
 		   (
-			[FirstName]
+		   [FirstName]
 		   ,[LastName]
 		   ,[Email]
 		   ,[LibraryCardNumber]
@@ -287,8 +287,8 @@ INSERT INTO [dbo].[User]
 		   ,'Orang county'
 		   ,'Calefornia'
 		   ,'87145'),
-		   (3
-		   ,'Daniel'
+		   (
+		   'Daniel'
 		   ,'Behman'
 		   ,'Daniel@gmail.com'
 		   ,'67758998'

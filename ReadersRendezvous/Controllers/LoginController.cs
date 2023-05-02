@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using ReadersRendezvous.Interfaces;
 using ReadersRendezvous.Repositories;
 using ReadersRendezvous.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ReadersRendezvous.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -46,10 +48,10 @@ namespace ReadersRendezvous.Controllers
             return Ok(user);
         }
 
-        [HttpGet("validate/{passwordHash}")]
-        public IActionResult ValidateCredentialsAdmin(string passwordHash)
+        [HttpGet("validate/{id}/{passwordHash}")]
+        public IActionResult ValidateCredentials(int id, string passwordHash)
         {
-            var user = _loginRepo.ValidateCredentialsAdmin(passwordHash);
+            var user = _loginRepo.ValidateCredentials(id, passwordHash);
 
             if (user == null)
             {
@@ -58,19 +60,7 @@ namespace ReadersRendezvous.Controllers
 
             return Ok(user);
         }
-
-        [HttpGet("validateNonAdmin/{passwordHash}")]
-        public IActionResult ValidateCredentialsNonAdmin(string passwordHash)
-        {
-            var user = _loginRepo.ValidateCredentialsNonAdmin(passwordHash);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
-        }
+        
 
         [HttpPut("UpdateCredentialsNonAdmin/{userId}/{passwordHash}")]
         public IActionResult UpdateCredentialsNonAdmin(string userId, string passwordHash)
