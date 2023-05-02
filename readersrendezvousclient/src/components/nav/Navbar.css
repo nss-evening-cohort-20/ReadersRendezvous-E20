@@ -1,0 +1,13 @@
+.navLink {
+    transition: all 0.5s;
+    font-family: "Glegoo", "Roboto", "Open sans", "sans-serif";
+    font-size: larger;
+    color: aliceblue;
+}
+.navLink:hover {
+    color: #0b1c3b;
+    transition: all 0.5s;
+}
+.navLink:active {
+    color: #000;
+}

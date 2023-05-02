@@ -1,0 +1,50 @@
+
+.bookContainer {
+    /*        width: 30%;
+    height: fit-content;
+    left: 50px;
+    top: -1000px;*/
+    /* overflow: hidden; */
+}
+
+.head {
+    position: relative;
+    font-size: 2rem;
+    text-align: center;
+    font-family: "Roboto", "Helvetica Neue";
+    color: #ffffff;
+    margin-top: 20px;
+}
+.book {
+}
+
+.books {
+    position: relative;
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.page_contact {
+    position: relative;
+    font-size: 2rem;
+    text-align: center;
+    font-family: "SUNDAYMORNING-BWQE3", "Roboto", "Helvetica Neue";
+    color: #ed6c5c;
+}
+.bookImg{    
+    border-radius: 5%;
+    box-shadow: #554728 1px 1px 10px;
+    border: #f3f3f36e solid 1px;
+    margin: 10px;
+}
+
+.Headeer {
+    border: #ed6c5c solid 2px;
+    margin-bottom: 20px;
+    height: 100px;
+}
+

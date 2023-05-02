@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ReadersRendezvous.Interfaces;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ReadersRendezvous.Models;
+using ReadersRendezvous.Repository;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ReadersRendezvous.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
@@ -17,14 +19,14 @@ namespace ReadersRendezvous.Controllers
         }
 
         // GET: api/<BookController>
-        [HttpGet] 
+        [HttpGet("GetAllBooks")] 
         public IActionResult GetAll()
         {
             return Ok(_bookRepository.GetAllBooks());
         }
         //---------------------------------------------
 
-        [HttpGet("AllPaginate")]
+        [HttpGet("AllBooksPaginate")]
         public IActionResult GetAllPaginatedBooks(int page = 2, int limit = 1)
         {
             int offset = 0;
@@ -46,6 +48,24 @@ namespace ReadersRendezvous.Controllers
             if (book == null)
             {
                 return NotFound($"{bookId} Not Found!");
+            }
+            return Ok(book);
+
+        }
+
+        //---------------------------------------------
+        // GET api/<BookController>/5
+        [HttpGet("GetAllBooks/Id")]
+        public IActionResult GetBookById(int id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            BookInfo book = _bookRepository.SearchBooksByID2(id);
+            if (book == null)
+            {
+                return NotFound($"{id} Not Found!");
             }
             return Ok(book);
 
