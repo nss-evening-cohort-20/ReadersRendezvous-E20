@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ReadersRendezvous.Models;
 using ReadersRendezvous.Repository;
+using System.Net;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ReadersRendezvous.Controllers
@@ -55,21 +56,21 @@ namespace ReadersRendezvous.Controllers
 
         //---------------------------------------------
         // GET api/<BookController>/5
-        [HttpGet("GetAllBooks/Id")]
-        public IActionResult GetBookById(int id)
-        {
-            if (id == null)
-            {
-                return BadRequest();
-            }
-            BookInfo book = _bookRepository.SearchBooksByID2(id);
-            if (book == null)
-            {
-                return NotFound($"{id} Not Found!");
-            }
-            return Ok(book);
+        //[HttpGet("GetAllBooks/{Id}")]
+        //public IActionResult GetBookById(int id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    BookInfo book = _bookRepository.SearchBooksByID2(id);
+        //    if (book == null)
+        //    {
+        //        return NotFound($"{id} Not Found!");
+        //    }
+        //    return Ok(book);
 
-        }
+        //}
 
         // GET api/<BookController>/title
         [HttpGet("GetByTitle/{title}")]
@@ -178,10 +179,26 @@ namespace ReadersRendezvous.Controllers
         }
 
         // PUT api/<BookController>/5
-        [HttpPut("UpdateBook/{ISBN13}")]
+        [HttpPut("UpdateBookByISBN13/{ISBN13}")]
         public IActionResult Put(string ISBN13, AddBook book)
         {
-            _bookRepository.EditBook(ISBN13,book);
+            if(ISBN13 != book.ISBN13)
+            {
+                return BadRequest();
+            }
+            _bookRepository.EditBookByISBN13(book);
+            //return NoContent();
+            return Ok(book);
+        }
+
+        [HttpPut("UpdateBookById/{Id}")]
+        public IActionResult Put(int Id, AddBook book)
+        {
+            if (Id != book.Id)
+            {
+                return BadRequest();
+            }
+            _bookRepository.EditBookById(book);
             //return NoContent();
             return Ok(book);
         }

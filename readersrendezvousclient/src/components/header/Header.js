@@ -1,7 +1,7 @@
 export const Header = () => {
     return (
         <>
-            <nav className="navbar navbar-light bg-light">
+            <nav className="navbar navbar-light bg-light col-lg-12">
                 <div className="container-fluid">
                     <a href="#">
                         {" "}

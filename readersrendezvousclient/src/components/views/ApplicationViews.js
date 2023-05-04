@@ -4,6 +4,7 @@ import { BookList } from "../books/BookList";
 import React from "react";
 import { User } from "../users/User";
 import { BookDetails } from "../books/BookDetails";
+import { EditBook } from "../books/EditBook";
 
 export const ApplicationViews = () => {
     return (
@@ -13,6 +14,8 @@ export const ApplicationViews = () => {
                 <Route path="books" element={<BookList />} />
                 {/* <Route path="books/:bookId" element={<BookDetails />} /> */}
                 <Route path="books/:bookId" element={<BookDetails />} />
+                <Route path="books/edit/:bookEditId" element={<EditBook />} />  
+                <Route path="editBook" element={<EditBook />} />
                 <Route path="users" element={<User />} />
             </Routes>
         </React.StrictMode>

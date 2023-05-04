@@ -3,6 +3,7 @@ import React from "react";
 import "./Book.css";
 import { Header } from "../header/Header";
 import { Book } from "./Book";
+import { EditBook } from "./EditBook";
 
 export const BookList = () => {
     const [books, setBooks] = useState([]);
@@ -22,25 +23,25 @@ export const BookList = () => {
 
     return (
         <>
-            <div classNameName="bookContainer">
+            <div className="bookContainer ">
                 <Header />
                 <section key={`books`} className="books">
                     {books.map((book) => {
                         return (
-                            <>
+                            <> 
                                 <Book
                                     Id={book.id}
                                     ImageUrl={book.imageUrl}
+                                    Title={book.title}
                                     AgeRangeId={book.ageRangeId}
                                     GenreId={book.genreId}
-                                    Title={book.title}
                                     CoverTypeId={book.coverTypeId}
                                     Quantity={book.quantity}
                                     Author={book.author}
                                     Publisher={book.publisher}
                                     Language={book.language}
-                                    Description={book.description}
                                     ISBN13={book.isBN13}
+                                    Description={book.description}
                                 />
                             </>
                         );

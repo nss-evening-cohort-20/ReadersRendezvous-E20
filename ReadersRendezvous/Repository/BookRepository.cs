@@ -127,14 +127,17 @@ namespace ReadersRendezvous.Repository
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT [Book].[Id] AS BookId
-                                              ,[Book].[ImageUrl]
-                                              ,[Book].[Title]
-                                              ,[Book].[Quantity]
-                                              ,[Book].[Author]
-                                              ,[Book].[Publisher]
-                                              ,[Book].[Language]
-                                              ,[Book].[Description]
-                                              ,[Book].[ISBN13]
+                                              ,[ImageUrl]
+                                              ,[AgeRangeId]
+                                              ,[GenreId]
+                                              ,[Title]
+                                              ,[CoverTypeId]
+                                              ,[Quantity]
+                                              ,[Author]
+                                              ,[Publisher]
+                                              ,[Language]
+                                              ,[Description]
+                                              ,[ISBN13]
                                           FROM [ReadersRendezvous].[dbo].[Book]";
 
 
@@ -146,7 +149,10 @@ namespace ReadersRendezvous.Repository
                         {
                             Id = DbUtils.GetInt(reader, "BookId"),
                             ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            AgeRangeId = DbUtils.GetInt(reader, "AgeRangeId"),
+                            GenreId = DbUtils.GetInt(reader, "GenreId"),
                             Title = DbUtils.GetString(reader, "Title"),
+                            CoverTypeId = DbUtils.GetInt(reader, "CoverTypeId"),
                             Quantity = DbUtils.GetInt(reader, "Quantity"),
                             Author = DbUtils.GetString(reader, "Author"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
@@ -334,7 +340,7 @@ namespace ReadersRendezvous.Repository
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [Book].[Id] 
+                    cmd.CommandText = @"SELECT [Book].[Id] As Id
                                               ,[Book].[ImageUrl]
                                               ,[Book].[Title] 
                                               ,[Book].[Quantity]
@@ -793,9 +799,9 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
-        /*------------------EditBook()----------------------*/
+        /*------------------EditBook()-------By ISBN13---------------*/
 
-        public void EditBook(string ISBN13, AddBook book)
+        public void EditBookByISBN13(AddBook book)
         {
             using (var conn = Connection)
             {
@@ -825,7 +831,50 @@ namespace ReadersRendezvous.Repository
                     DbUtils.AddParameter(cmd, "@Publisher", book.Publisher);
                     DbUtils.AddParameter(cmd, "@Language", book.Language);
                     DbUtils.AddParameter(cmd, "@Description", book.Description);
-                    DbUtils.AddParameter(cmd, "@ISBN13", ISBN13);
+                    DbUtils.AddParameter(cmd, "@ISBN13", book.ISBN13);
+                    //book.Id = (int)cmd.ExecuteScalar();//needs output inserted.id
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+        /*------------------EditBook()-------By ID---------------*/
+
+        public void EditBookById(AddBook book)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE [dbo].[Book]
+                                           SET 
+                                               [ImageUrl] = @ImageUrl
+                                              ,[AgeRangeId] = @AgeRangeId
+                                              ,[GenreId] = @GenreId
+                                              ,[Title] = @Title
+                                              ,[CoverTypeId] = @CoverTypeId
+                                              ,[Quantity] = @Quantity
+                                              ,[Author] = @Author
+                                              ,[Publisher] = @Publisher
+                                              ,[Language] = @Language
+                                              ,[Description] = @Description
+                                              ,[ISBN13] = @ISBN13
+                                         WHERE [Id]=@Id";
+                    DbUtils.AddParameter(cmd, "@ImageUrl", book.ImageUrl);
+                    DbUtils.AddParameter(cmd, "@AgeRangeId", book.AgeRangeId);
+                    DbUtils.AddParameter(cmd, "@GenreId", book.GenreId);
+                    DbUtils.AddParameter(cmd, "@Title", book.Title);
+                    DbUtils.AddParameter(cmd, "@CoverTypeId", book.CoverTypeId);
+                    DbUtils.AddParameter(cmd, "@Quantity", book.Quantity);
+                    DbUtils.AddParameter(cmd, "@Author", book.Author);
+                    DbUtils.AddParameter(cmd, "@Publisher", book.Publisher);
+                    DbUtils.AddParameter(cmd, "@Language", book.Language);
+                    DbUtils.AddParameter(cmd, "@Description", book.Description);
+                    DbUtils.AddParameter(cmd, "@ISBN13", book.ISBN13);
+                    DbUtils.AddParameter(cmd, "@Id", book.Id);
                     //book.Id = (int)cmd.ExecuteScalar();//needs output inserted.id
 
                     cmd.ExecuteNonQuery();

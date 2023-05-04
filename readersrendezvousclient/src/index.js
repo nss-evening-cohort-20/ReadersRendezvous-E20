@@ -11,6 +11,7 @@ root.render(
     </BrowserRouter>
 );
 //TODO: npm install
+//TODO: npm start
 //TODO: npm install react-router-dom --save
 //TODO: npm install axios --save
 //TODO: npm install --save cdbreact

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 import "./Book.css";
 import { Header } from "../header/Header";
@@ -8,6 +8,7 @@ export const BookDetails = () => {
     const { bookId } = useParams();
     const [book, updateBook] = useState({});
 
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch(
@@ -16,9 +17,42 @@ export const BookDetails = () => {
             const singleBook = await response.json();
             updateBook(singleBook);
             console.log(singleBook);
+            //console.log(singleBook.CoverType);
         };
         fetchData();
     }, []);
+
+    // const handleUpdate = async (e) => {
+    //     e.preventDefault();
+    //     const form = document.getElementById("bookForm");
+    //     // if (form.checkValidity()) {
+    //     const response = await fetch(
+    //         `https://localhost:7229/api/Book/GetById/${bookId}`,
+    //         {
+    //             method: "PUT",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify(book),
+    //         }
+    //     );
+    //     await response.json();
+    //     navigate(`/books/edit/${bookId}`);
+    //     // } else {
+    //     //     form.reportValidity();
+    //     // }
+    // };
+
+    const handleDelete = () => {
+        fetch(`https://localhost:7229/api/Book/DeleteByISBN13/${book.isbN13}`, {
+            method: "DELETE",
+        }).then();
+        navigate("/books");
+    };
+
+    const handleUpdate = () => {
+        navigate(`/books/edit/${bookId}`);
+    };
 
     return (
         <>
@@ -26,22 +60,55 @@ export const BookDetails = () => {
                 <Header />
                 <section
                     key={`book--${book.id}`}
-                    className="bookContainerDetails"
+                    className="bookContainerDetails  col-12 background container-primary"
                 >
-                    <img src={book?.imageUrl} className="bookImgDetails" />
-                    <div className="bookDetails">
-                        <h2>Title: {book?.title}</h2>
+                    <div className="">
+                    {/* <hr /> */}
+                        <img src={book?.imageUrl} className="bookImgDetails" />
+                        <div className="bookDetails">
+                            <h4>Title: {book?.title}</h4>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={(click) => {
+                                    handleUpdate(click);
+                                }}
+                            >
+                                UPDATE
+                            </button>
+                            &nbsp;
+                            <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={(click) => {
+                                    window.confirm(
+                                        `Are you sure you want to delete ${book.title}?`
+                                    ) && handleDelete(click);
+                                }}
+                            >
+                                DELETE
+                            </button>
+                            &nbsp;
+                            <button
+                                type="button"
+                                className="btn btn-success"
+                            >
+                                ADDTOLIST
+                            </button>
+                        </div>
+                    </div>
+                    <div className="col-sm-6">
                         <hr />
-                        <h4>AgeRange: {book?.ageRange?.range}</h4>
-                        <h4>Genre: {book?.genre?.description}</h4>
-                        <h4>CoverType: {book?.CoverType?.description}</h4>
-                        <h4>Quantity: {book?.quantity}</h4>
-                        <h4>Author: {book?.author}</h4>
-                        <h4>Publisher: {book?.publisher}</h4>
-                        <h4>Language: {book?.language}</h4>
-                        <h4>ISBN13: {book.isBN13}</h4>
+                        <h5>AgeRange: {book?.ageRange?.range}</h5>
+                        <h5>Genre: {book?.genre?.description}</h5>
+                        <h5>CoverType: {book?.coverType?.description}</h5>
+                        <h5>Quantity: {book?.quantity}</h5>
+                        <h5>Author: {book?.author}</h5>
+                        <h5>Publisher: {book?.publisher}</h5>
+                        <h5>Language: {book?.language}</h5>
+                        <h5>ISBN13: {book.isbN13}</h5>
                         <hr />
-                        <h4>Description: {book?.description}</h4>
+                        <h5>Description: {book?.description}</h5>
                         <hr />
                     </div>
                 </section>

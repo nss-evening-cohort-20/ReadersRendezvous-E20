@@ -15,7 +15,7 @@
 
 .books {
     position: relative;
-    margin: 10px;
+    margin: 5px;
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -38,7 +38,7 @@
 }
 
 .bookDetails {
-    padding: 10px;
+    padding: 5px;
     /* max-width:900px ; */
 }
 
@@ -52,16 +52,19 @@
 }
 
 .bookImgDetails {
-    height: 300px;
-    width: 180;
+    height: 360px;
+    width: auto;
     border-radius: 1%;
     box-shadow: #554728 1px 1px 10px;
     border: #f3f3f36e solid 1px;
     margin: 10px;
 }
 
-.Headeer {
+.background {
+    background-color: #e8cf985f;
+}
+/* .Header {
     border: #ed6c5c solid 2px;
     margin-bottom: 20px;
     height: 100px;
-}
+} */

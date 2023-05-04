@@ -6,7 +6,9 @@ namespace ReadersRendezvous.Repository
     {
         void AddBook(AddBook book);
         void DeleteBook(string iSBN);
-        void EditBook(string ISBN13, AddBook book);
+        void EditBookByISBN13(AddBook book);
+        void EditBookById(AddBook book);
+
         //List<Book> GetAllBooks();
         List<AddBook> GetAllBooks();
         (List<Book>, int) GetAllBooksPaginate(int offset, int limit);
