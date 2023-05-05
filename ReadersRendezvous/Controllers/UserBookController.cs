@@ -6,7 +6,6 @@ using ReadersRendezvous.Repository;
 
 namespace ReadersRendezvous.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserBookController : ControllerBase
@@ -32,25 +31,6 @@ namespace ReadersRendezvous.Controllers
             if (userBook == null)
             {
                 return NotFound($"{userBookId} Not Found!");
-            }
-            return Ok(userBook);
-
-        }
-
-
-
-        // GET api/<BookController>/title
-        [HttpGet("GetByISBN13/{isbn13}")]
-        public IActionResult GetTByISBN13(int isbn13)
-        {
-            if (isbn13 == null)
-            {
-                return BadRequest();
-            }
-            var userBook = _userBookRepository.SearchUserBookByIsbn13(isbn13);
-            if (userBook == null)
-            {
-                return NotFound($"{isbn13} Not Found!");
             }
             return Ok(userBook);
 

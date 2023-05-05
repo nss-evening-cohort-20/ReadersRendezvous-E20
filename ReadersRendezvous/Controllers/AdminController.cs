@@ -6,7 +6,6 @@ using ReadersRendezvous.Repository;
 
 namespace ReadersRendezvous.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
