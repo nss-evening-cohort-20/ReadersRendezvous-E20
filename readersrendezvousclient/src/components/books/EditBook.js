@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export const EditBook = () => {
     const { bookEditId } = useParams();
     const [book, setUpdateBook] = useState({
-        id: 0,
+        id: bookEditId,
         imageUrl: "",
         ageRange: { id: 0, range: "" },
         genre: { id: 0, description: "" },
@@ -47,20 +47,22 @@ export const EditBook = () => {
             body: JSON.stringify(SendToAPI),
         };
         const response = await fetch(
-            `https://localhost:7229/api/Book/setUpdateBookById/${bookEditId}`,
+            `https://localhost:7229/api/Book/UpdateBookById/${bookEditId}`,
             fetchOptions
         );
-        navigate(`/books`);
+        //navigate(`/books`);
         const responseJson = await response.json();
         console.log(responseJson);
         return responseJson;
     };
 
+    /* ------------------------------ */
     const handleSaveButtonClick = (e) => {
         e.preventDefault();
         updateBook(book);
-        //navigate(`/books/${bookEditId}`);
+        navigate(`/books/${bookEditId}`);
     };
+    /* ------------------------------ */
 
     return (
         <>
@@ -327,6 +329,7 @@ export const EditBook = () => {
                         <button
                             onClick={(e) => handleSaveButtonClick(e)}
                             className="btn btn-primary"
+                            type="submit"
                         >
                             Update Book
                         </button>

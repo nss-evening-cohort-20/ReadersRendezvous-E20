@@ -20,5 +20,6 @@ namespace ReadersRendezvous.Repository
         List<BookInfo> SearchByAuthor(string author);
         List<BookInfo> SearchByGenre(string bookGenre);
         List<BookInfo> SearchByPublisher(string publisher);
+        void DeleteBookById(int id);
     }
 }

@@ -883,7 +883,7 @@ namespace ReadersRendezvous.Repository
             }
         }
 
-        /*------------------DeleteBook()----------------------*/
+        /*------------------DeleteBook()-1---------------------*/
         public void DeleteBook(string iSBN)
         {
             using (var conn = Connection)
@@ -897,7 +897,20 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
-
+        /*------------------DeleteBook()--2--------------------*/
+        public void DeleteBookById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Book WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         //---------------------------------------------------
         //   cmd.CommandText = @"
         //					select Id, ImageUrl, AgeRangeId, GenreId, Title, 

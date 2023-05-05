@@ -210,5 +210,12 @@ namespace ReadersRendezvous.Controllers
             _bookRepository.DeleteBook(iSBN);
             return NoContent();
         }
+
+        [HttpDelete("DeleteById/{Id}")]
+        public IActionResult DeleteBook(int id)
+        {
+            _bookRepository.DeleteBookById(id);
+            return NoContent();
+        }
     }
 }
