@@ -950,64 +950,9 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
-        //---------------------------------------------------
-        //   cmd.CommandText = @"
-        //					select Id, ImageUrl, AgeRangeId, GenreId, Title, 
-        //							CoverTypeId, Quantity, Author, Publisher, Language,
-        //							Description, ISBN13
-        //					from book 
-        //					where title like @Title
-        //					";
-
-        //var searchTerm = $"%{title.Trim()}%";
-        //   DbUtils.AddParameter(cmd, "@Title", searchTerm);
-        /*------------------GetAllBooksbyUser()-----------------*/
-
-
-
-
-
-
-
-
 
     }
 }
-/* 
-Books API
-Add a Book//
-Edit a Book//
-Delete a Book//
-Get All Books//
-Search Books By Name//
-Search Books By ISBN//
-Search Books By Author//
-Search Books By Publisher//
-Search Books By AgeRange//
-Search Books By Genre//
-Get All Books by User------------------
-Return Book//
- */
 
-
-
-/*
- 
- {
-  "id": 0,
-  "imageUrl": "string",
-  "ageRangeId": 2,
-  "genreId": 1,
-  "title": "string",
-  "coverTypeId": 2,
-  "quantity": 2,
-  "author": "string",
-  "publisher": "string",
-  "language": "string",
-  "description": "string",
-  "isbN13": "kkkkkkkkkk"
-}
- 
- */
 
 

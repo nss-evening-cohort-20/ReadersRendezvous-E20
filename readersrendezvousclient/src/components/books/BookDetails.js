@@ -44,7 +44,7 @@ export const BookDetails = () => {
     // };
 
     const handleDelete = () => {
-        fetch(`https://localhost:7229/api/Book/DeleteByISBN13/${book.isbN13}`, {
+        fetch(`https://localhost:7229/api/Book/DeleteById/${book.id}`, {
             method: "DELETE",
         }).then();
         navigate("/books");
@@ -63,7 +63,7 @@ export const BookDetails = () => {
                     className="bookContainerDetails  col-12 background container-primary"
                 >
                     <div className="">
-                    {/* <hr /> */}
+                        {/* <hr /> */}
                         <img src={book?.imageUrl} className="bookImgDetails" />
                         <div className="bookDetails">
                             <h4>Title: {book?.title}</h4>
@@ -89,10 +89,7 @@ export const BookDetails = () => {
                                 DELETE
                             </button>
                             &nbsp;
-                            <button
-                                type="button"
-                                className="btn btn-success"
-                            >
+                            <button type="button" className="btn btn-success">
                                 ADDTOLIST
                             </button>
                         </div>
