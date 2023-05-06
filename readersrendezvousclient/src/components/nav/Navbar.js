@@ -33,7 +33,7 @@ export const Navbar = () => {
                         </span>
                     </CDBSidebarHeader>
                     <CDBSidebarMenu>
-                        <NavLink to="/dashboard" className="navLink">
+                        <NavLink to="/home" className="navLink">
                             <CDBSidebarMenuItem icon="columns">
                                 Home
                             </CDBSidebarMenuItem>
@@ -84,6 +84,18 @@ export const Navbar = () => {
                         <NavLink to="/dashboard" className="navLink">
                             <CDBSidebarMenuItem icon="columns">
                                 Profile Page
+                            </CDBSidebarMenuItem>
+                        </NavLink>
+                        <hr />
+                        <NavLink to="/adminProfile" className="navLink">
+                            <CDBSidebarMenuItem icon="columns">
+                                Admin Profile Page
+                            </CDBSidebarMenuItem>
+                        </NavLink>
+                        <hr />
+                        <NavLink to="/addAdmin" className="navLink">
+                            <CDBSidebarMenuItem icon="columns">
+                                Add Admin Page
                             </CDBSidebarMenuItem>
                         </NavLink>
                         <hr />
