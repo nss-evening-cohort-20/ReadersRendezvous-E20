@@ -8,12 +8,12 @@ import { useNavigate, useParams } from "react-router-dom";
 export const EditBook = () => {
     const { bookEditId } = useParams();
     const [book, setUpdateBook] = useState({
-        id: bookEditId,
+        id: 0,
         imageUrl: "",
-        ageRange: { id: 0, range: "" },
-        genre: { id: 0, description: "" },
+        ageRangeId: 0,
+        genreId: 0,
         title: "",
-        coverType: { id: 0, description: "" },
+        coverTypeId: 0,
         quantity: 0,
         author: "",
         publisher: "",
@@ -51,6 +51,7 @@ export const EditBook = () => {
             fetchOptions
         );
         //navigate(`/books`);
+        navigate(`/books/${bookEditId}`);
         const responseJson = await response.json();
         console.log(responseJson);
         return responseJson;
@@ -60,7 +61,6 @@ export const EditBook = () => {
     const handleSaveButtonClick = (e) => {
         e.preventDefault();
         updateBook(book);
-        navigate(`/books/${bookEditId}`);
     };
     /* ------------------------------ */
 
@@ -116,18 +116,18 @@ export const EditBook = () => {
                             <div className="form-group col-sm-3">
                                 <label htmlFor="name">AgeRange:</label>
                                 <select
-                                    value={book.ageRange.range}
+                                    value={book.ageRangeId}
                                     className="form-select"
                                     onChange={(evt) => {
                                         const copy = { ...book };
-                                        copy.ageRange.range = parseInt(
+                                        copy.ageRangeId = parseInt(
                                             evt.target.value
                                         );
                                         setUpdateBook(copy);
                                     }}
                                 >
-                                    <option value={book.ageRange.range}>
-                                        {book.ageRange.range}
+                                    <option value={book.ageRangeId}>
+                                        {book.ageRangeId}
                                     </option>
                                     <option value="1">Children</option>
                                     <option value="2">Teens</option>
@@ -138,18 +138,18 @@ export const EditBook = () => {
                             <div className="form-group col-sm-3">
                                 <label htmlFor="name">Genre:</label>
                                 <select
-                                    value={book.genre.description}
+                                    value={book.genreId}
                                     className="form-select"
                                     onChange={(evt) => {
                                         const copy = { ...book };
-                                        copy.genre.description = parseInt(
+                                        copy.genreId = parseInt(
                                             evt.target.value
                                         );
                                         setUpdateBook(copy);
                                     }}
                                 >
-                                    <option value={book.genre.description}>
-                                        {book.genre.description}
+                                    <option value={book.genreId}>
+                                        {book.genreId}
                                     </option>
                                     <option value="1">Fiction</option>
                                     <option value="2">Non-Fiction</option>
@@ -184,18 +184,18 @@ export const EditBook = () => {
                                 /> */}
 
                                 <select
-                                    value={book.coverType.description}
+                                    value={book.coverType}
                                     className="form-select"
                                     onChange={(evt) => {
                                         const copy = { ...book };
-                                        copy.coverType.description = parseInt(
+                                        copy.coverTypeId = parseInt(
                                             evt.target.value
                                         );
                                         setUpdateBook(copy);
                                     }}
                                 >
-                                    <option value={book.coverType.description}>
-                                        {book.coverType.description}
+                                    <option value={book.coverTypeId}>
+                                        {book.coverTypeId}
                                     </option>
                                     <option value="1">Hardcover</option>
                                     <option value="2">Paperback</option>

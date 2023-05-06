@@ -840,7 +840,7 @@ namespace ReadersRendezvous.Repository
             }
         }
 
-        /*------------------EditBook()-------By ID---------------*/
+        /*------------------EditBook()-------By ID 1---------------*/
 
         public void EditBookById(AddBook book)
         {
@@ -882,7 +882,46 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
+        //How can I make update data with Join Is that possible?
+        /*------------------EditBook()-------By ID 2---------------*/
 
+        public void EditBookInfoById(BookInfo book)
+        {
+            //using (var conn = Connection)
+            //{
+            //    conn.Open();
+            //    using (var cmd = conn.CreateCommand())
+            //    {
+            //        cmd.CommandText = @"UPDATE [dbo].[Book]
+            //                    SET 
+            //                        [ImageUrl] = @ImageUrl,
+            //                        [AgeRangeId] = @AgeRangeId,
+            //                        [GenreId] = @GenreId,
+            //                        [Title] = @Title,
+            //                        [CoverTypeId] = @CoverTypeId,
+            //                        [Quantity] = @Quantity,
+            //                        [Author] = @Author,
+            //                        [Publisher] = @Publisher,
+            //                        [Language] = @Language,
+            //                        [Description] = @Description,
+            //                        [ISBN13] = @ISBN13
+            //                    WHERE [Id] = @Id";
+            //        DbUtils.AddParameter(cmd, "@ImageUrl", book.ImageUrl);
+            //        DbUtils.AddParameter(cmd, "@AgeRangeId", book.AgeRange);
+            //        DbUtils.AddParameter(cmd, "@GenreId",book.Genre);
+            //        DbUtils.AddParameter(cmd, "@Title", book.Title);
+            //        DbUtils.AddParameter(cmd, "@CoverTypeId", book.CoverType);
+            //        DbUtils.AddParameter(cmd, "@Quantity", book.Quantity);
+            //        DbUtils.AddParameter(cmd, "@Author", book.Author);
+            //        DbUtils.AddParameter(cmd, "@Publisher", book.Publisher);
+            //        DbUtils.AddParameter(cmd, "@Language", book.Language);
+            //        DbUtils.AddParameter(cmd, "@Description", book.Description);
+            //        DbUtils.AddParameter(cmd, "@ISBN13", book.ISBN13);
+            //        DbUtils.AddParameter(cmd, "@Id", book.Id);
+            //        cmd.ExecuteNonQuery();
+            //    }
+            //}
+        }
         /*------------------DeleteBook()-1---------------------*/
         public void DeleteBook(string iSBN)
         {

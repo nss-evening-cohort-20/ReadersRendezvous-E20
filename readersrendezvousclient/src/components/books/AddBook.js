@@ -2,21 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AddBook = () => {
-    /*     const [book, setAddBook] = useState({
-        id: 0,
-        imageUrl: "",
-        ageRange: { id: 0, range: "" },
-        genre: { id: 0, description: "" },
-        title: "",
-        coverType: { id: 0, description: "" },
-        quantity: 0,
-        author: "",
-        publisher: "",
-        language: "",
-        description: "",
-        isbN13: "",
-    }); */
-
     const [book, setAddBook] = useState({
         //id: 0,
         imageUrl: "",
@@ -66,7 +51,7 @@ export const AddBook = () => {
                     {/* col-sm-6  col-md-7 */}
                     <form id="bookForm" className="needs-validation" novalidate>
                         <div className="row g-3">
-                            <h2 className="profile__title">Edit Book:</h2>
+                            <h2 className="profile__title">Add Book:</h2>
                             {/* <fieldset> */}
 
                             <div className="form-group">

@@ -203,6 +203,18 @@ namespace ReadersRendezvous.Controllers
             return Ok(book);
         }
 
+        [HttpPut("UpdateBookInfoById/{Id}")]
+        public IActionResult Edit(int Id, BookInfo book)
+        {
+            if (Id != book.Id)
+            {
+                return BadRequest();
+            }
+            _bookRepository.EditBookInfoById(book);
+            //return NoContent();
+            return Ok(book);
+        }
+
         // DELETE api/<BookController>/5
         [HttpDelete("DeleteByISBN13/{iSBN}")]
         public IActionResult Delete(string iSBN)
