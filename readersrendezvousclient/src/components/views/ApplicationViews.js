@@ -8,6 +8,7 @@ import { EditBook } from "../books/EditBook";
 import { AddBook } from "../books/AddBook";
 import { AdminProfile } from "../Admin/AdminProfile";
 import { AddAdmin } from "../Admin/AddAdmin";
+import { EditAdmin } from "../Admin/EditAdmin";
 
 export const ApplicationViews = () => {
     return (
@@ -23,6 +24,7 @@ export const ApplicationViews = () => {
                 <Route path="addBook" element={<AddBook />} />
                 <Route path="adminProfile" element={<AdminProfile />} />
                 <Route path="addAdmin" element={<AddAdmin />} />
+                <Route path="editAdmin" element={<EditAdmin />} />
             </Routes>
         </React.StrictMode>
     );
