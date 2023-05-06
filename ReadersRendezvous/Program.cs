@@ -31,7 +31,9 @@ namespace ReadersRendezvous
             builder.Services.AddTransient<IUserBookRepository, UserBookRepository>();
             builder.Services.AddTransient<IUserRequestRepository, UserRequestRepository>();
 
-            builder.Services.AddCors(options => options.AddPolicy("ReadersRendezvousPolicy", builder =>
+            builder.Services.AddCors(options =>
+            options.AddPolicy("ReadersRendezvousPolicy",
+            builder =>
             {
                 builder.AllowAnyOrigin();
                 builder.AllowAnyMethod();
@@ -111,6 +113,7 @@ namespace ReadersRendezvous
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("ReadersRendezvousPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();
