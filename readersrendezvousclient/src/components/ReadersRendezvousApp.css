@@ -1,15 +1,13 @@
 #root {
     display:flex;
-    height: initial;
 }
 
 body {
-    /* margin: 0; */
+    margin: 0;
     font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
         "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #9B6D33;
-
+    background-color: #9b6d33;
 }
