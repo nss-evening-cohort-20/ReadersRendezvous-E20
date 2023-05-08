@@ -223,8 +223,8 @@ namespace ReadersRendezvous.Controllers
             return NoContent();
         }
 
-        [HttpDelete("DeleteById/{Id}")]
-        public IActionResult DeleteBook(int id)
+        [HttpDelete("DeleteById/{id}")]
+        public IActionResult DeleteByIdBook(int id)
         {
             _bookRepository.DeleteBookById(id);
             return NoContent();
