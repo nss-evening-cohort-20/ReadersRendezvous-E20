@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { Headder } from "../headder/Headder"
+import { Header } from "../header/Header"
 import { User } from "./User"
 import React from "react";
 
@@ -39,7 +39,7 @@ export const UserDetails = () => {
     return (
         <>
             <div>
-                <Headder />
+                <Header />
                 <section
                     key={`user--${user.id}`}
                     className="userContainerDetails  col-12 background container-primary"
