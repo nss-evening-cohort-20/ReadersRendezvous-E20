@@ -26,7 +26,7 @@ export const UserList = () => {
         <>
             <div className="userContainer ">
 
-                <section key={`users`} >
+                <section key={`users`} className="users">
                     {users.map((user) => {
                         return (
                             <>
