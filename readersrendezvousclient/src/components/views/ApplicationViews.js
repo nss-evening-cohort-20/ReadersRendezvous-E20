@@ -14,6 +14,7 @@ import { Login } from "../auth/Login";
 import { Logout } from "../auth/Logout";
 
 export const ApplicationViews = () => {
+
   return (
     <React.StrictMode>
       <Routes>
@@ -23,7 +24,6 @@ export const ApplicationViews = () => {
         <Route path='books/:bookId' element={<BookDetails />} />
         {/* <Route path="users/:userId" element={<Userlist />} /> */}
         {/* <Route path="books/:bookId" element={<BookDetails />} /> */}
-        <Route path='books/:bookId' element={<BookDetails />} />
         <Route path='books/edit/:bookEditId' element={<EditBook />} />
         <Route path='editBook' element={<EditBook />} />
         <Route path='users' element={<User />} />
@@ -31,7 +31,7 @@ export const ApplicationViews = () => {
         <Route path='adminProfile' element={<AdminProfile />} />
         <Route path='login' element={<Login />} />
         <Route path='addAdmin' element={<AddAdmin />} />
-        <Route path='editAdmin' element={<EditAdmin />} />
+        <Route path="editAdmin/:adminId" element={<EditAdmin />} />
         <Route path='Login' element={<Logout />} />
       </Routes>
     </React.StrictMode>
