@@ -30,7 +30,7 @@ export const ApplicationViews = () => {
                 <Route path="addBook" element={<AddBook />} />
                 <Route path="adminProfile" element={<AdminProfile />} />
                 <Route path="addAdmin" element={<AddAdmin />} />
-                <Route path="editAdmin" element={<EditAdmin />} />
+                <Route path="editAdmin/:adminId" element={<EditAdmin />} />
             </Routes>
         </React.StrictMode>
     );
