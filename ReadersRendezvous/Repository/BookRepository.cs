@@ -127,14 +127,17 @@ namespace ReadersRendezvous.Repository
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT [Book].[Id] AS BookId
-                                              ,[Book].[ImageUrl]
-                                              ,[Book].[Title]
-                                              ,[Book].[Quantity]
-                                              ,[Book].[Author]
-                                              ,[Book].[Publisher]
-                                              ,[Book].[Language]
-                                              ,[Book].[Description]
-                                              ,[Book].[ISBN13]
+                                              ,[ImageUrl]
+                                              ,[AgeRangeId]
+                                              ,[GenreId]
+                                              ,[Title]
+                                              ,[CoverTypeId]
+                                              ,[Quantity]
+                                              ,[Author]
+                                              ,[Publisher]
+                                              ,[Language]
+                                              ,[Description]
+                                              ,[ISBN13]
                                           FROM [ReadersRendezvous].[dbo].[Book]";
 
 
@@ -146,7 +149,10 @@ namespace ReadersRendezvous.Repository
                         {
                             Id = DbUtils.GetInt(reader, "BookId"),
                             ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            AgeRangeId = DbUtils.GetInt(reader, "AgeRangeId"),
+                            GenreId = DbUtils.GetInt(reader, "GenreId"),
                             Title = DbUtils.GetString(reader, "Title"),
+                            CoverTypeId = DbUtils.GetInt(reader, "CoverTypeId"),
                             Quantity = DbUtils.GetInt(reader, "Quantity"),
                             Author = DbUtils.GetString(reader, "Author"),
                             Publisher = DbUtils.GetString(reader, "Publisher"),
@@ -275,10 +281,13 @@ namespace ReadersRendezvous.Repository
                                               ,[AgeRange].[Id] AS AgeRangeId
                                               ,[AgeRange].[Range] AS AgeRange
                                               ,[Genre].[Id] AS GenreId
-                                              ,[Genre].[Description] As BookGenre
+                                              ,[Genre].[Description] AS BookGenre
+                                              ,[CoverType].[Id] AS CoverId
+                                              ,[CoverType].[Description] AS BookCover
                                           FROM [ReadersRendezvous].[dbo].[Book]
                                           INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
                                           INNER JOIN Genre ON Book.GenreId = Genre.Id 
+                                          INNER JOIN [CoverType] ON Book.CoverTypeId = CoverType.Id 
                                           WHERE [Book].[Id] = @BookId";
 
                     DbUtils.AddParameter(cmd, "@BookId", bookId);
@@ -308,6 +317,11 @@ namespace ReadersRendezvous.Repository
                                 {
                                     Id = DbUtils.GetInt(reader, "GenreId"),
                                     Description = DbUtils.GetString(reader, "BookGenre")
+                                },
+                                CoverType = new CoverType()
+                                {
+                                    Id = DbUtils.GetInt(reader, "CoverId"),
+                                    Description = DbUtils.GetString(reader, "BookCover")
                                 }
                             };
                         }
@@ -326,7 +340,7 @@ namespace ReadersRendezvous.Repository
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [Book].[Id]
+                    cmd.CommandText = @"SELECT [Book].[Id] As Id
                                               ,[Book].[ImageUrl]
                                               ,[Book].[Title] 
                                               ,[Book].[Quantity]
@@ -338,10 +352,13 @@ namespace ReadersRendezvous.Repository
                                               ,[AgeRange].[Id] AS AgeRangeId
                                               ,[AgeRange].[Range] AS AgeRange
                                               ,[Genre].[Id] AS GenreId
-                                              ,[Genre].[Description] As BookGenre
+                                              ,[Genre].[Description] AS BookGenre
+                                              ,[CoverType].[Id] AS CoverId
+                                              ,[CoverType].[Description] AS BookCover
                                           FROM [ReadersRendezvous].[dbo].[Book]
                                           INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
                                           INNER JOIN Genre ON Book.GenreId = Genre.Id 
+                                          INNER JOIN [CoverType] ON Book.CoverTypeId = CoverType.Id 
                                           WHERE [Book].[Id] = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
@@ -371,6 +388,11 @@ namespace ReadersRendezvous.Repository
                                 {
                                     Id = DbUtils.GetInt(reader, "GenreId"),
                                     Description = DbUtils.GetString(reader, "BookGenre")
+                                },
+                                CoverType = new CoverType()
+                                {
+                                    Id = DbUtils.GetInt(reader, "CoverId"),
+                                    Description = DbUtils.GetString(reader, "BookCover")
                                 }
                             };
                         }
@@ -777,9 +799,9 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
-        /*------------------EditBook()----------------------*/
+        /*------------------EditBook()-------By ISBN13---------------*/
 
-        public void EditBook(string ISBN13, AddBook book)
+        public void EditBookByISBN13(AddBook book)
         {
             using (var conn = Connection)
             {
@@ -809,7 +831,7 @@ namespace ReadersRendezvous.Repository
                     DbUtils.AddParameter(cmd, "@Publisher", book.Publisher);
                     DbUtils.AddParameter(cmd, "@Language", book.Language);
                     DbUtils.AddParameter(cmd, "@Description", book.Description);
-                    DbUtils.AddParameter(cmd, "@ISBN13", ISBN13);
+                    DbUtils.AddParameter(cmd, "@ISBN13", book.ISBN13);
                     //book.Id = (int)cmd.ExecuteScalar();//needs output inserted.id
 
                     cmd.ExecuteNonQuery();
@@ -818,7 +840,90 @@ namespace ReadersRendezvous.Repository
             }
         }
 
-        /*------------------DeleteBook()----------------------*/
+        /*------------------EditBook()-------By ID 1---------------*/
+
+        public void EditBookById(AddBook book)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE [dbo].[Book]
+                                           SET 
+                                               [ImageUrl] = @ImageUrl
+                                              ,[AgeRangeId] = @AgeRangeId
+                                              ,[GenreId] = @GenreId
+                                              ,[Title] = @Title
+                                              ,[CoverTypeId] = @CoverTypeId
+                                              ,[Quantity] = @Quantity
+                                              ,[Author] = @Author
+                                              ,[Publisher] = @Publisher
+                                              ,[Language] = @Language
+                                              ,[Description] = @Description
+                                              ,[ISBN13] = @ISBN13
+                                         WHERE [Id]=@Id";
+                    DbUtils.AddParameter(cmd, "@ImageUrl", book.ImageUrl);
+                    DbUtils.AddParameter(cmd, "@AgeRangeId", book.AgeRangeId);
+                    DbUtils.AddParameter(cmd, "@GenreId", book.GenreId);
+                    DbUtils.AddParameter(cmd, "@Title", book.Title);
+                    DbUtils.AddParameter(cmd, "@CoverTypeId", book.CoverTypeId);
+                    DbUtils.AddParameter(cmd, "@Quantity", book.Quantity);
+                    DbUtils.AddParameter(cmd, "@Author", book.Author);
+                    DbUtils.AddParameter(cmd, "@Publisher", book.Publisher);
+                    DbUtils.AddParameter(cmd, "@Language", book.Language);
+                    DbUtils.AddParameter(cmd, "@Description", book.Description);
+                    DbUtils.AddParameter(cmd, "@ISBN13", book.ISBN13);
+                    DbUtils.AddParameter(cmd, "@Id", book.Id);
+                    //book.Id = (int)cmd.ExecuteScalar();//needs output inserted.id
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+        //How can I make update data with Join Is that possible?
+        /*------------------EditBook()-------By ID 2---------------*/
+
+        public void EditBookInfoById(BookInfo book)
+        {
+            //using (var conn = Connection)
+            //{
+            //    conn.Open();
+            //    using (var cmd = conn.CreateCommand())
+            //    {
+            //        cmd.CommandText = @"UPDATE [dbo].[Book]
+            //                    SET 
+            //                        [ImageUrl] = @ImageUrl,
+            //                        [AgeRangeId] = @AgeRangeId,
+            //                        [GenreId] = @GenreId,
+            //                        [Title] = @Title,
+            //                        [CoverTypeId] = @CoverTypeId,
+            //                        [Quantity] = @Quantity,
+            //                        [Author] = @Author,
+            //                        [Publisher] = @Publisher,
+            //                        [Language] = @Language,
+            //                        [Description] = @Description,
+            //                        [ISBN13] = @ISBN13
+            //                    WHERE [Id] = @Id";
+            //        DbUtils.AddParameter(cmd, "@ImageUrl", book.ImageUrl);
+            //        DbUtils.AddParameter(cmd, "@AgeRangeId", book.AgeRange);
+            //        DbUtils.AddParameter(cmd, "@GenreId",book.Genre);
+            //        DbUtils.AddParameter(cmd, "@Title", book.Title);
+            //        DbUtils.AddParameter(cmd, "@CoverTypeId", book.CoverType);
+            //        DbUtils.AddParameter(cmd, "@Quantity", book.Quantity);
+            //        DbUtils.AddParameter(cmd, "@Author", book.Author);
+            //        DbUtils.AddParameter(cmd, "@Publisher", book.Publisher);
+            //        DbUtils.AddParameter(cmd, "@Language", book.Language);
+            //        DbUtils.AddParameter(cmd, "@Description", book.Description);
+            //        DbUtils.AddParameter(cmd, "@ISBN13", book.ISBN13);
+            //        DbUtils.AddParameter(cmd, "@Id", book.Id);
+            //        cmd.ExecuteNonQuery();
+            //    }
+            //}
+        }
+        /*------------------DeleteBook()-1---------------------*/
+
         public void DeleteBook(string iSBN)
         {
             using (var conn = Connection)
@@ -832,65 +937,23 @@ namespace ReadersRendezvous.Repository
                 }
             }
         }
-
-        //---------------------------------------------------
-        //   cmd.CommandText = @"
-        //					select Id, ImageUrl, AgeRangeId, GenreId, Title, 
-        //							CoverTypeId, Quantity, Author, Publisher, Language,
-        //							Description, ISBN13
-        //					from book 
-        //					where title like @Title
-        //					";
-
-        //var searchTerm = $"%{title.Trim()}%";
-        //   DbUtils.AddParameter(cmd, "@Title", searchTerm);
-        /*------------------GetAllBooksbyUser()-----------------*/
-
-
-
-
-
-
-
-
+        /*------------------DeleteBook()--2--------------------*/
+        public void DeleteBookById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Book WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
     }
 }
-/* 
-Books API
-Add a Book//
-Edit a Book//
-Delete a Book//
-Get All Books//
-Search Books By Name//
-Search Books By ISBN//
-Search Books By Author//
-Search Books By Publisher//
-Search Books By AgeRange//
-Search Books By Genre//
-Get All Books by User------------------
-Return Book//
- */
 
-
-
-/*
- 
- {
-  "id": 0,
-  "imageUrl": "string",
-  "ageRangeId": 2,
-  "genreId": 1,
-  "title": "string",
-  "coverTypeId": 2,
-  "quantity": 2,
-  "author": "string",
-  "publisher": "string",
-  "language": "string",
-  "description": "string",
-  "isbN13": "kkkkkkkkkk"
-}
- 
- */
 
 

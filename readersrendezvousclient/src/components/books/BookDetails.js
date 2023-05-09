@@ -1,60 +1,115 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 import "./Book.css";
-import { useParams } from "react-router";
-import { Headder } from "../headder/Headder";
+import { Header } from "../header/Header";
 
 export const BookDetails = () => {
     const { bookId } = useParams();
-    const { book, updateBook } = useState({});
+    const [book, updateBook] = useState({});
 
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch(
-                `https://localhost:7229/api/Book/GetAllBooks/Id?id=${bookId}`
+                `https://localhost:7229/api/Book/GetById/${bookId}`
             );
-            const BookData = await response.json();
-            console.log(response);
-            updateBook(BookData[0]);
-            //updateBook(BookData);
-            console.log(BookData[0]);
+            const singleBook = await response.json();
+            updateBook(singleBook);
+            console.log(singleBook);
+            //console.log(singleBook.CoverType);
         };
         fetchData();
-    }, [bookId]);
-//https://localhost:7229/api/Book/GetAllBooks/Id?id=1
+    }, []);
+
+    // const handleUpdate = async (e) => {
+    //     e.preventDefault();
+    //     const form = document.getElementById("bookForm");
+    //     // if (form.checkValidity()) {
+    //     const response = await fetch(
+    //         `https://localhost:7229/api/Book/GetById/${bookId}`,
+    //         {
+    //             method: "PUT",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify(book),
+    //         }
+    //     );
+    //     await response.json();
+    //     navigate(`/books/edit/${bookId}`);
+    //     // } else {
+    //     //     form.reportValidity();
+    //     // }
+    // };
+
+    const handleDelete = () => {
+        fetch(`https://localhost:7229/api/Book/DeleteById/${book.id}`, {
+            method: "DELETE",
+        }).then();
+        navigate("/books");
+    };
+
+    const handleUpdate = () => {
+        navigate(`/books/edit/${bookId}`);
+    };
+
     return (
         <>
-{/*         <div classNameName="bookContainer">
-        <div>
-        <Headder />
-                </div>
-                <h1 key={`books`} className="head">
-                    A Book!
-                </h1>
-                <section key={`books`} className="books">
-                    <section className="book" key={`book--${Id}`}>
-                        <img src={ImageUrl} className="bookImg" />
-                    </section>
-                    <h1>{Id}</h1>
+            <div>
+                <Header />
+                <section
+                    key={`book--${book.id}`}
+                    className="bookContainerDetails  col-12 background container-primary"
+                >
+                    <div className="">
+                        {/* <hr /> */}
+                        <img src={book?.imageUrl} className="bookImgDetails" />
+                        <div className="bookDetails">
+                            <h4>Title: {book?.title}</h4>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={(click) => {
+                                    handleUpdate(click);
+                                }}
+                            >
+                                UPDATE
+                            </button>
+                            &nbsp;
+                            <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={(click) => {
+                                    window.confirm(
+                                        `Are you sure you want to delete ${book.title}?`
+                                    ) && handleDelete(click);
+                                }}
+                            >
+                                DELETE
+                            </button>
+                            &nbsp;
+                            <button type="button" className="btn btn-success">
+                                ADDTOLIST
+                            </button>
+                        </div>
+                    </div>
+                    <div className="col-sm-6">
+                        <hr />
+                        <h5>AgeRange: {book?.ageRange?.range}</h5>
+                        <h5>Genre: {book?.genre?.description}</h5>
+                        <h5>CoverType: {book?.coverType?.description}</h5>
+                        <h5>Quantity: {book?.quantity}</h5>
+                        <h5>Author: {book?.author}</h5>
+                        <h5>Publisher: {book?.publisher}</h5>
+                        <h5>Language: {book?.language}</h5>
+                        <h5>ISBN13: {book.isbN13}</h5>
+                        <hr />
+                        <h5>Description: {book?.description}</h5>
+                        <hr />
+                    </div>
                 </section>
-            </div>  */}
-
-
-
-
-            <section className="book">
-                <div>Title: {book?.title}</div>
-{/*                 <header className="book__header">{book?.}</header>
-                
-                <div>Specialty: {book?.specialty}</div>
-                <div>Rate: {book?.rate}</div>
-                <footer className="book__footer">
-                    Currently Working on
-                    {book?.bookTickets?.length}
-                </footer> */}
-            </section>
-
-
+            </div>
         </>
     );
 };

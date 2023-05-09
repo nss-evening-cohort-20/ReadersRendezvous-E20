@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import "./Book.css";
-import { Headder } from "../headder/Headder";
+import { Header } from "../header/Header";
 import { Book } from "./Book";
+import { EditBook } from "./EditBook";
 
 export const BookList = () => {
     const [books, setBooks] = useState([]);
@@ -22,30 +23,25 @@ export const BookList = () => {
 
     return (
         <>
-            <div classNameName="bookContainer">
-                <div>
-                    <Headder />
-                </div>
-                <h1 key={`books`} className="head">
-                    All Books!
-                </h1>
+            <div className="bookContainer ">
+                <Header key={"Header"} />
                 <section key={`books`} className="books">
                     {books.map((book) => {
                         return (
-                            <>
+                            <> 
                                 <Book
                                     Id={book.id}
                                     ImageUrl={book.imageUrl}
+                                    Title={book.title}
                                     AgeRangeId={book.ageRangeId}
                                     GenreId={book.genreId}
-                                    Title={book.title}
                                     CoverTypeId={book.coverTypeId}
                                     Quantity={book.quantity}
                                     Author={book.author}
                                     Publisher={book.publisher}
                                     Language={book.language}
+                                    ISBN13={book.isBN13}
                                     Description={book.description}
-                                    ISBN13={book.iSBN13}
                                 />
                             </>
                         );
@@ -56,6 +52,3 @@ export const BookList = () => {
     );
 };
 //https://watch.screencastify.com/v/F4ZpSuhaPCLwoJDOdyk8
-
- 
-

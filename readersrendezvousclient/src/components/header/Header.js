@@ -1,17 +1,15 @@
-export const Headder = () => {
+export const Header = () => {
     return (
         <>
-            <nav className="navbar navbar-light bg-light">
-                <div
-                    className="container-fluid"
-                    style={{ display: "flex", alignItems: "center" }}
-                >
+            <nav className="navbar navbar-light bg-light col-lg-12">
+                <div className="container-fluid">
                     <a href="#">
                         {" "}
                         <img
-                            src={require(`../images/Headder2_Logo.jpg`)}
+                            src={require(`../images/Header2_Logo.jpg`)}
                             alt=""
-                            style={{ width: "300px" }}
+                            style={{ width: "250px" }}
+                            className="navbar-brand"
                         />
                     </a>
 
