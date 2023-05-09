@@ -15,7 +15,7 @@ namespace ReadersRendezvous.Repository
         BookInfo SearchBooksByID(int bookId);
         BookInfo SearchBooksByID2(int id);
         BookInfo SearchBooksByISBN(string iSBN);
-        Book SearchBooksByTitle(string title);
+        BookInfo SearchBooksByTitle(string title);
         List<BookInfo> SearchByAgeRange(string range);
         List<BookInfo> SearchByAuthor(string author);
         List<BookInfo> SearchByGenre(string bookGenre);

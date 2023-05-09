@@ -10,6 +10,7 @@ import { AddBook } from "../books/AddBook";
 import { AdminProfile } from "../Admin/AdminProfile";
 import { AddAdmin } from "../Admin/AddAdmin";
 import { EditAdmin } from "../Admin/EditAdmin";
+import { SearchBook } from "../books/SearchBook";
 
 
 export const ApplicationViews = () => {
@@ -30,6 +31,7 @@ export const ApplicationViews = () => {
                 <Route path="adminProfile" element={<AdminProfile />} />
                 <Route path="addAdmin" element={<AddAdmin />} />
                 <Route path="editAdmin" element={<EditAdmin />} />
+                <Route path="searchBook" element={<SearchBook />} />
             </Routes>
         </React.StrictMode>
     );

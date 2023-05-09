@@ -405,7 +405,7 @@ namespace ReadersRendezvous.Repository
         }
 
         /*------------------SearchBooksByTitle()----------------------*/
-        public Book SearchBooksByTitle(string title) //Just a Girl
+        public BookInfo SearchBooksByTitle(string title) //Just a Girl
         {
             using (var conn = Connection)
             {
@@ -425,21 +425,24 @@ namespace ReadersRendezvous.Repository
                                               ,[AgeRange].[Range] AS AgeRange
                                               ,[Genre].[Id] AS GenreId
                                               ,[Genre].[Description] As BookGenre
+                                              ,[CoverType].[Id] AS CoverId
+                                              ,[CoverType].[Description] AS BookCover
                                           FROM [ReadersRendezvous].[dbo].[Book]
                                           INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
                                           INNER JOIN Genre ON Book.GenreId = Genre.Id 
+                                          INNER JOIN [CoverType] ON Book.CoverTypeId = CoverType.Id 
                                           WHERE[Book].[Title] LIKE @Title";
                     //WHERE [Book].[Title] LIKE '%'+'Just a Girl'+'%';
                     //DbUtils.AddParameter(cmd, "@Title", title);
                     //cmd.Parameters.AddWithValue("@Title", "%" + title + "%");
                     DbUtils.AddParameter(cmd, "@Title", $"%{title.ToLower()}%");
                     var reader = cmd.ExecuteReader();
-                    Book book = null;
+                    BookInfo book = null;
                     while (reader.Read())
                     {
                         if (book == null)
                         {//Book book = null;
-                            book = new Book()
+                            book = new BookInfo()
                             {
                                 Id = DbUtils.GetInt(reader, "BookId"),
                                 ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
@@ -459,6 +462,11 @@ namespace ReadersRendezvous.Repository
                                 {
                                     Id = DbUtils.GetInt(reader, "GenreId"),
                                     Description = DbUtils.GetString(reader, "BookGenre")
+                                },
+                                CoverType = new CoverType()
+                                {
+                                    Id = DbUtils.GetInt(reader, "CoverId"),
+                                    Description = DbUtils.GetString(reader, "BookCover")
                                 }
                             };
                         }

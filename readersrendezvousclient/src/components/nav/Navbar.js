@@ -69,7 +69,7 @@ export const Navbar = () => {
                             </CDBSidebarMenuItem>
                         </NavLink>
                         <hr />
-                        <NavLink to="/dashboard" className="navLink">
+                        <NavLink to="/searchBook" className="navLink">
                             <CDBSidebarMenuItem icon="columns">
                                 Search Book
                             </CDBSidebarMenuItem>
