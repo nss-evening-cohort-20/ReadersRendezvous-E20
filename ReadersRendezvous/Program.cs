@@ -38,15 +38,15 @@ namespace ReadersRendezvous
                     Title = "ReadersRendezvousAPI",
                     Version = "v1",
                 });
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "Enter JWT bearer Token: bearer <token>"
-                });
+                //options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                //{
+                //    Name = "Authorization",
+                //    Type = SecuritySchemeType.ApiKey,
+                //    Scheme = "Bearer",
+                //    BearerFormat = "JWT",
+                //    In = ParameterLocation.Header,
+                //    Description = "Enter JWT bearer Token: bearer <token>"
+                //});
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -62,6 +62,7 @@ namespace ReadersRendezvous
                     }
                 });
             });
+
 
             FirebaseApp.Create(new AppOptions()
             {
@@ -93,7 +94,7 @@ namespace ReadersRendezvous
             //});
 
             builder.Services.AddAuthorization();
-
+      
             var app = builder.Build();
 
             //for react ------------------- 
@@ -101,6 +102,7 @@ namespace ReadersRendezvous
                                         .AllowAnyMethod()
                                         .SetIsOriginAllowed(origin => true)
                                         .AllowCredentials());
+                                      
 
 
             // Configure the HTTP request pipeline.

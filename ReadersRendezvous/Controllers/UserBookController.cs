@@ -39,21 +39,21 @@ namespace ReadersRendezvous.Controllers
 
 
         // GET api/<BookController>/title
-        [HttpGet("GetByISBN13/{isbn13}")]
-        public IActionResult GetTByISBN13(int isbn13)
-        {
-            if (isbn13 == null)
-            {
-                return BadRequest();
-            }
-            var userBook = _userBookRepository.SearchUserBookByIsbn13(isbn13);
-            if (userBook == null)
-            {
-                return NotFound($"{isbn13} Not Found!");
-            }
-            return Ok(userBook);
+        //[HttpGet("GetByISBN13/{isbn13}")]
+        //public IActionResult GetTByISBN13(int isbn13)
+        //{
+        //    if (isbn13 == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    var userBook = _userBookRepository.SearchUserBookByIsbn13(isbn13);
+        //    if (userBook == null)
+        //    {
+        //        return NotFound($"{isbn13} Not Found!");
+        //    }
+        //    return Ok(userBook);
 
-        }
+        //}
 
 
 
