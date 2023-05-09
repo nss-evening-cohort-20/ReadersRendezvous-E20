@@ -10,6 +10,7 @@ import { AddBook } from "../books/AddBook";
 import { AdminProfile } from "../Admin/AdminProfile";
 import { AddAdmin } from "../Admin/AddAdmin";
 import { EditAdmin } from "../Admin/EditAdmin";
+import { Login } from "../auth/Login";
 
 
 export const ApplicationViews = () => {
@@ -33,6 +34,17 @@ export const ApplicationViews = () => {
             </Routes>
         </React.StrictMode>
     );
+  return (
+    <React.StrictMode>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="books" element={<BookList />} />
+        <Route path="books/:bookId" element={<BookDetails />} />
+        <Route path="users" element={<User />} />
+      </Routes>
+    </React.StrictMode>
+  );
 };
 
 //<Link to="/create" element={Create}/>

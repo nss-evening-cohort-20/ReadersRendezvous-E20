@@ -9,24 +9,22 @@ import "./ReadersRendezvousApp.css";
 import React from "react";
 
 export const ReadersRendezvousApp = () => {
-    return (
-        <>
-        <Routes>
-            {/* <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} /> */}
-            <Route
-                path="*"
-                element={
-                   // {/* <Authorized> */}
-                        <>
-                            <Navbar />
-                            <ApplicationViews />
-                        </>
-                   // {/* </Authorized> */}
-                }
-            />
-        </Routes> 
-        </>
-    );
+  return (
+    <>
+      <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="*"
+          element={
+            // {/* <Authorized> */}
+            <>
+              <Navbar />
+              <ApplicationViews />
+            </>
+            // {/* </Authorized> */}
+          }
+        />
+      </Routes>
+    </>
+  );
 };
-
