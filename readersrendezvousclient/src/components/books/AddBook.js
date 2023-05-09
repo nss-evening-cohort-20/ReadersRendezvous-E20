@@ -288,7 +288,7 @@ export const AddBook = () => {
                                     type="textArea"
                                     rows="4"
                                     cols="50"
-                                    maxlength="200"
+                                    maxlength="2000"
                                     className="form-control"
                                     id="description"
                                     name="description"

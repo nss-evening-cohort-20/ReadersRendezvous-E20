@@ -24,7 +24,7 @@ export const BookList = () => {
     return (
         <>
             <div className="bookContainer ">
-                <Header />
+                <Header key={"Header"} />
                 <section key={`books`} className="books">
                     {books.map((book) => {
                         return (

@@ -72,24 +72,24 @@ namespace ReadersRendezvous
                 });
             });
 
-            FirebaseApp.Create(new AppOptions()
-            {
-                Credential = GoogleCredential.FromFile(builder.Configuration["FirebaseConfig"]),
-            });
+            //FirebaseApp.Create(new AppOptions()
+            //{
+            //    Credential = GoogleCredential.FromFile(builder.Configuration["FirebaseConfig"]),
+            //});
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-            {
-                options.IncludeErrorDetails = true;
-                options.Authority = "https://securetoken.google.com/readersrendezvous-e20"; //use your project name
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = "https://securetoken.google.com/readersrendezvous-e20", //use your project name
-                    ValidateAudience = true,
-                    ValidAudience = "readersrendezvous-e20",  //use your project name
-                    ValidateLifetime = true,
-                };
-            });
+            //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            //{
+            //    options.IncludeErrorDetails = true;
+            //    options.Authority = "https://securetoken.google.com/readersrendezvous-e20-80a40"; //use your project name
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidIssuer = "https://securetoken.google.com/readersrendezvous-e20-80a40", //use your project name
+            //        ValidateAudience = true,
+            //        ValidAudience = "readersrendezvous-e20-80a40",  //use your project name
+            //        ValidateLifetime = true,
+            //    };
+            //});
 
             //builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
             //    .AddNegotiate();

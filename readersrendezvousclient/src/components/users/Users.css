@@ -1,0 +1,22 @@
+.users {
+    color: rgb(211, 203, 47);
+
+    text-align: center;
+    border-radius: 5%;
+    box-shadow: #554728 1px 1px 10px;
+    border: #cd0e0e6e solid 5px;
+
+}
+
+.userContainer {
+    margin-left: 30%;
+    border: #2b16a66e solid 5px;
+}
+
+.users_8 {
+    border: #e183e56e solid 5px;
+}
+
+.userTest {
+    border: #090609df solid 5px;
+}
