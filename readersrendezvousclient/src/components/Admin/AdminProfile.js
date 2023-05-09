@@ -1,11 +1,40 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import React from "react";
+import "./AdminProfileStyle.css";
 
 
 export const AdminProfile = () => {
-    return (
-        <>
-        <h1>Admin Profile Page</h1>
-        </>
-    )
+const [adminsProfile, setAdminProfile] = useState([])
+const navigate = useNavigate()
+
+var userId = localStorage.getItem("userId")
+
+
+useEffect(() => {
+    fetch(`https://localhost:7229/api/Admin/GetById/1`)
+      .then((response) => response.json())
+      .then((adminsProfileArray) => {
+        setAdminProfile(adminsProfileArray);
+        console.log(adminsProfileArray)
+      });
+  }, []);
+
+
+  return (
+    <div className = "AdminProfilePageContainer">
+        <div className="AdminProfileContainer">
+
+                <section className="adminProfileSection">
+                    <div className="EditAdminButton" onClick={() => navigate("/editAdmin")}>Edit Admin</div>
+                    <div className="adminProfileDetail">Name: {adminsProfile.firstName} {adminsProfile.lastName}</div>
+                    <div className="adminProfileDetail">Email: {adminsProfile.email}</div>
+                </section>
+
+        <div className="AddAdminButton" onClick={() => navigate("/addAdmin")}>Add Admin</div>
+        </div>
+    </div>
+      );
+
+
 }
