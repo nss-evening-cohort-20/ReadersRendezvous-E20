@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
+import "./EditAdminStyle.css";
 
 
 export const EditAdmin = () => {
@@ -47,12 +48,12 @@ useEffect(() => {
 
         <fieldset>
           <div className="EditAdminDetail">
-            <label htmlFor="attractionName">First Name:</label>
+            <label htmlFor="EditAdminLabel">First Name:</label>
             <input
               required
               autoFocus
               type="text"
-              className="form-control"
+              className="edit-form-control"
               placeholder="Add event name"
               value={editAdminsProfile.firstName}
               onChange={(evt) => {
@@ -66,12 +67,12 @@ useEffect(() => {
         
         <fieldset>
           <div className="EditAdminDetail">
-            <label htmlFor="attractionName">Last Name:</label>
+            <label htmlFor="EditAdminLabel">Last Name:</label>
             <input
               required
               autoFocus
               type="text"
-              className="form-control"
+              className="edit-form-control"
               placeholder="Add event name"
               value={editAdminsProfile.lastName}
               onChange={(evt) => {
@@ -85,12 +86,12 @@ useEffect(() => {
 
         <fieldset>
           <div className="EditAdminDetail">
-            <label htmlFor="attractionName">Email:</label>
+            <label htmlFor="EditAdminLabel">Email:</label>
             <input
               required
               autoFocus
               type="text"
-              className="form-control"
+              className="edit-form-control"
               placeholder="Add event name"
               value={editAdminsProfile.email}
               onChange={(evt) => {
