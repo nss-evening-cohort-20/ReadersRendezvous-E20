@@ -68,7 +68,7 @@ namespace ReadersRendezvous.Repository
 
 
 
-        public List<UserBook> SearchUserBookByUserId(int userId)
+        public List<UserBookDto> SearchUserBookByUserId(int userId)
         {
             using (var conn = Connection)
             {
@@ -76,14 +76,40 @@ namespace ReadersRendezvous.Repository
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT
-                                            [UserBook].[Id] AS UserBookId,
-                                            [UserBook].[UserId] AS UserBookUserId,
-                                            [UserBook].[BookId] AS UserBookBookId,
-                                            [UserBook].[RentalStartDate] AS UserBookRentalStartDate,
-                                            [UserBook].[DueDate] AS UserBookDueDate,
-                                            [UserBook].[LateFee] AS UserBookLateFee,
-                                            [UserBook].[ReturnDate] AS UserBookReturnDate
-                                            FROM [ReadersRendezvous].[dbo].[UserBook]
+		                                    [UserBook].[Id] AS UserBookId,
+		                                    [UserBook].[UserId] AS UserBookUserId,
+		                                    [UserBook].[BookId] AS UserBookBookId,
+		                                    [UserBook].[RentalStartDate] AS UserBookRentalStartDate,
+		                                    [UserBook].[DueDate] AS UserBookDueDate,
+		                                    [UserBook].[LateFee] AS UserBookLateFee,
+		                                    [UserBook].[ReturnDate] AS UserBookReturnDate,
+		                                    U.[Id] AS UserId,
+		                                    U.[FirstName] AS UserFirstName,
+		                                    U.[LastName] AS UserLastName,
+		                                    U.[Email] AS UserBookId,
+		                                    U.[LibraryCardNumber] AS UserLibraryCardNumber,
+		                                    U.[IsActive] AS UserIsActive,
+		                                    U.[PhoneNumber] AS UserPhoneNumber,
+		                                    U.[AddressLineOne] AS UserAddressLineOne,
+		                                    U.[AddressLineTwo] AS UserAddressLineTwo,
+		                                    U.[City] AS UserCity,
+		                                    U.[State] AS UserState,
+		                                    U.[Zip] AS UserZip,
+		                                    B.[Id] AS BookId,
+		                                    B.[ImageUrl] AS BookImageUrl,
+		                                    B.[AgeRangeId] AS BookAgeRangeId,
+		                                    B.[GenreId] AS BookGenreId,
+		                                    B.[Title] AS BookTitle,
+		                                    B.[CoverTypeId] AS BookCoverTypeId,
+		                                    B.[Quantity] AS BookQuantity,
+		                                    B.[Author] AS BookAuthor,
+		                                    B.[Publisher] AS BookPublisher,
+		                                    B.[Language] AS BookLanguage,
+		                                    B.[Description] AS BookDescription,
+		                                    B.[ISBN13] AS BookISBN13
+                                    FROM [ReadersRendezvous].[dbo].[UserBook]
+                                    INNER JOIN [User] U ON UserBook.UserId = U.Id
+                                    INNER JOIN [Book] B ON UserBook.BookId = B.Id
                                             WHERE [UserBook].[UserId] = @UserId";
 
                     DbUtils.AddParameter(cmd, "@UserId", userId);
@@ -91,15 +117,15 @@ namespace ReadersRendezvous.Repository
 
 
 
-                    List<UserBook> userBook = new List<UserBook>();
+                    List<UserBookDto> userBook = new List<UserBookDto>();
                     while (reader.Read())
                     {
-                        var userBookVariety = new UserBook()
+                        var userBookVariety = new UserBookDto()
                         {
                             Id = DbUtils.GetInt(reader, "UserBookId"),
-                            UserId = DbUtils.GetInt(reader, "UserBookUserId"),
-                            BookId = DbUtils.GetInt(reader, "UserBookBookId"),
-                            RentalStartDate = DbUtils.GetDateTime(reader, "UserBookRentalStartDate"),
+                            BookImageUrl = DbUtils.GetString(reader, "BookImageUrl"),
+                            BookTitle = DbUtils.GetString(reader, "BookTitle"),
+                            BookAuthor = DbUtils.GetString(reader, "BookAuthor"),
                             DueDate = DbUtils.GetDateTime(reader, "UserBookDueDate"),
                             LateFee = DbUtils.GetDecimal(reader, "UserBookLateFee"),
                             ReturnDate = DbUtils.GetDateTime(reader, "UserBookReturnDate"),
