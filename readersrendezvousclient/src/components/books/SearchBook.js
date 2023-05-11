@@ -93,7 +93,7 @@ export const SearchBook = (title) => {
                                 required
                                 onChange={(e) => {
                                     const select = parseInt(e.target.value);
-                                    console.log(select);
+                                    //console.log(select);
                                     setDropDown1(select);
                                 }}
                             >
