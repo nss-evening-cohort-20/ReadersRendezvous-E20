@@ -19,11 +19,23 @@ namespace ReadersRendezvous.Controllers
             _userRequestRepository = userRequestRepository;
         }
 
-        [HttpGet("[action]/{userId}")]
-        public IActionResult  GetAllHoldRequestsByUser(int userId)
+        [HttpGet("[action]/")]
+        public ActionResult<IEnumerable<UserRequestDto>>  GetAllHoldRequests()
         {
-            string? firebaseUID = User.FindFirst(claim => claim.Type == "user_id")?.Value;
-            string? name = User?.Identity?.Name;
+            //string? firebaseUID = User.FindFirst(claim => claim.Type == "user_id")?.Value;
+            //string? name = User?.Identity?.Name;
+
+            var holdRequests = _userRequestRepository.GetAllHoldRequests();
+            if (holdRequests == null) { return NotFound(); }
+
+            return Ok(holdRequests);
+        }
+
+        [HttpGet("[action]/{userId}")]
+        public IActionResult GetAllHoldRequestsByUser(int userId)
+        {
+            //string? firebaseUID = User.FindFirst(claim => claim.Type == "user_id")?.Value;
+            //string? name = User?.Identity?.Name;
 
             var userRequestDto = _userRequestRepository.GetAllOpenHoldRequestsByUser(userId);
             if (userRequestDto == null) { return NotFound(); }
