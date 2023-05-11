@@ -126,6 +126,7 @@ namespace ReadersRendezvous.Repository
                             BookImageUrl = DbUtils.GetString(reader, "BookImageUrl"),
                             BookTitle = DbUtils.GetString(reader, "BookTitle"),
                             BookAuthor = DbUtils.GetString(reader, "BookAuthor"),
+                            RentalStartDate = DbUtils.GetDateTime(reader, "UserBookRentalStartDate"),
                             DueDate = DbUtils.GetDateTime(reader, "UserBookDueDate"),
                             LateFee = DbUtils.GetDecimal(reader, "UserBookLateFee"),
                             ReturnDate = DbUtils.GetDateTime(reader, "UserBookReturnDate"),
