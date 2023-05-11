@@ -1,5 +1,6 @@
 .bookContainer {
-    margin: 0;
+    margin: 10;
+    padding: 50 !important;
 }
 
 .head {
@@ -72,4 +73,8 @@
     height: 150px;
     width: auto;
     margin: 10px;
+}
+
+.container-fluid {
+    padding: 0 !important;
 }

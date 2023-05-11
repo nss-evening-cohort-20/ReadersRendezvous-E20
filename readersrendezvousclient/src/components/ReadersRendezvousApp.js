@@ -12,6 +12,7 @@ export const ReadersRendezvousApp = () => {
   return (
     <>
       <Routes>
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/register" element={<Register />} />
         <Route
           path="*"

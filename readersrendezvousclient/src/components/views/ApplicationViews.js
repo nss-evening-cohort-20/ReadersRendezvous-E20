@@ -15,6 +15,7 @@ import { Logout } from "../auth/Logout";
 import { UserRequests } from "../requests/UserRequests";
 import { UserRequest } from "../requests/UserRequest";
 import { UserRequestDetails } from "../requests/UserRequestDetails";
+import { SearchBook } from "../books/SearchBook";
 
 export const ApplicationViews = () => {
   return (
@@ -37,6 +38,7 @@ export const ApplicationViews = () => {
         <Route path="Login" element={<Logout />} />
         <Route path="requests" element={<UserRequests />} />
         <Route path="userrequest/:requestId" element={<UserRequestDetails />} />
+        <Route path="searchBook" element={<SearchBook />} />
         {/* <Route path="user/:userId" element={<UserRequest />} /> */}
       </Routes>
     </React.StrictMode>

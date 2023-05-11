@@ -25,6 +25,15 @@ namespace ReadersRendezvous.Controllers
         {
             return Ok(_bookRepository.GetAllBooks());
         }
+
+
+        [HttpGet("GetAllBooksInfo")]
+        public IActionResult GetAllBooks()
+        {
+            return Ok(_bookRepository.GetAllBooksInfo());
+        }
+
+
         //---------------------------------------------
 
         [HttpGet("AllBooksPaginate")]
