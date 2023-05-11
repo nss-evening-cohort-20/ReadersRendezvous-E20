@@ -2,6 +2,7 @@ using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -30,6 +31,14 @@ namespace ReadersRendezvous
             builder.Services.AddTransient<IUserBookRepository, UserBookRepository>();
             builder.Services.AddTransient<IUserRequestRepository, UserRequestRepository>();
 
+            builder.Services.AddCors(options =>
+            options.AddPolicy("ReadersRendezvousPolicy",
+            builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyMethod();
+                builder.AllowAnyMethod();
+            }));
 
             builder.Services.AddSwaggerGen(options =>
             {
@@ -38,15 +47,15 @@ namespace ReadersRendezvous
                     Title = "ReadersRendezvousAPI",
                     Version = "v1",
                 });
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "Enter JWT bearer Token: bearer <token>"
-                });
+                //options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                //{
+                //    Name = "Authorization",
+                //    Type = SecuritySchemeType.ApiKey,
+                //    Scheme = "Bearer",
+                //    BearerFormat = "JWT",
+                //    In = ParameterLocation.Header,
+                //    Description = "Enter JWT bearer Token: bearer <token>"
+                //});
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -93,7 +102,7 @@ namespace ReadersRendezvous
             //});
 
             builder.Services.AddAuthorization();
-
+      
             var app = builder.Build();
 
             //for react ------------------- 
@@ -101,6 +110,7 @@ namespace ReadersRendezvous
                                         .AllowAnyMethod()
                                         .SetIsOriginAllowed(origin => true)
                                         .AllowCredentials());
+                                      
 
 
             // Configure the HTTP request pipeline.
@@ -111,9 +121,24 @@ namespace ReadersRendezvous
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("ReadersRendezvousPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseExceptionHandler(options =>
+            {
+                options.Run(async context =>
+                {
+                    context.Response.StatusCode = 500;
+                    context.Response.ContentType = "application/json";
+                    var ex = context.Features.Get<ExceptionHandlerFeature>();
+                    if (ex != null)
+                    {
+                        await context.Response.WriteAsync(ex.Error.Message);
+                    }
+                });
+            });
 
 
             app.MapControllers();

@@ -8,7 +8,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace ReadersRendezvous.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserRequestsController : ControllerBase
