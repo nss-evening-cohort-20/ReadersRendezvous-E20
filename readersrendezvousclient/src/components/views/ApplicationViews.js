@@ -12,11 +12,13 @@ import { AddAdmin } from "../Admin/AddAdmin";
 import { EditAdmin } from "../Admin/EditAdmin";
 import { Login } from "../auth/Login";
 import { Logout } from "../auth/Logout";
+import { RegisterUser } from "../auth/Register";
 import { UserRequests } from "../requests/UserRequests";
 import { UserRequest } from "../requests/UserRequest";
 import { UserRequestDetails } from "../requests/UserRequestDetails";
 import { SearchBook } from "../books/SearchBook";
 import { AboutApp } from "../aboutApp/AboutApp";
+
 
 export const ApplicationViews = () => {
   return (

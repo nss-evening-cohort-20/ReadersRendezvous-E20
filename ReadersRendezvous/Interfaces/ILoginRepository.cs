@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ReadersRendezvous.Models;
+﻿using ReadersRendezvous.Models;
 using ReadersRendezvous.Models.Dtos.Login;
 
 namespace ReadersRendezvous.Interfaces
@@ -8,10 +7,9 @@ namespace ReadersRendezvous.Interfaces
     {
         User fetchuserbyAdminId(string adminid);
         User FetchUserByIdNonAdmin(string userId);
+        LoginResponse LoginWithCredentials(LoginRequest loginRequest);
+        void RegisterUser(RegisterUserClass registerUser);
         void UpdateCredentialsAdmin(string adminId, string passwordHash);
         void UpdateCredentialsNonAdmin(string userId, string passwordHash);
-        LoginResponse LoginWithCredentials(LoginRequest loginRequest);
-
-        public void RegisterUser(User user);
     }
 }

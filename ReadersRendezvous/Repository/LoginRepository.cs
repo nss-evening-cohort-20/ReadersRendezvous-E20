@@ -227,7 +227,7 @@ namespace ReadersRendezvous.Repository
                         cmd.ExecuteNonQuery();
 
                         Console.WriteLine("credentials successfully updated");
-                       
+
                     }
                 }
             }
@@ -241,13 +241,13 @@ namespace ReadersRendezvous.Repository
         }
 
 
-        public void RegisterUser (User user) 
+        public void RegisterUser(RegisterUserClass registerUser)
         {
-            using(SqlConnection conn = Connection) 
+            using (SqlConnection conn = Connection)
             {
                 conn.Open();
 
-                    using(SqlCommand cmd = conn.CreateCommand()) 
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO [User] (
                     FirstName, LastName, Email, LibraryCardNumber, IsActive,
@@ -255,24 +255,26 @@ namespace ReadersRendezvous.Repository
                 VALUES (
                     @FirstName, @LastName, @Email, @LibraryCardNumber, @IsActive,
                     @PhoneNumber, @AddressLineOne, @AddressLineTwo, @City, @State, @Zip);
-";
+                INSERT INTO [Login] (UserId, PasswordHash) VALUES (SCOPE_IDENTITY(), @PasswordHash);";
 
-                    cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
-                    cmd.Parameters.AddWithValue("@LastName", user.LastName);
-                    cmd.Parameters.AddWithValue("@Email", user.Email);
-                    cmd.Parameters.AddWithValue("@LibraryCardNumber", user.LibraryCardNumber);
-                    cmd.Parameters.AddWithValue("@IsActive", user.IsActive);
-                    cmd.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
-                    cmd.Parameters.AddWithValue("@AddressLineOne", user.AddressLineOne);
-                    cmd.Parameters.AddWithValue("@AddressLineTwo", user.AddressLineTwo);
-                    cmd.Parameters.AddWithValue("@City", user.City);
-                    cmd.Parameters.AddWithValue("@State", user.State);
-                    cmd.Parameters.AddWithValue("@Zip", user.Zip);
-
+                    cmd.Parameters.AddWithValue("@FirstName", registerUser.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", registerUser.LastName);
+                    cmd.Parameters.AddWithValue("@Email", registerUser.Email);
+                    Random random = new Random();
+                    int libraryCardNumber = random.Next(1, 100000);
+                    cmd.Parameters.AddWithValue("@LibraryCardNumber", libraryCardNumber);
+                    cmd.Parameters.AddWithValue("@IsActive", true);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", registerUser.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@AddressLineOne", registerUser.AddressLineOne);
+                    cmd.Parameters.AddWithValue("@AddressLineTwo", registerUser.AddressLineTwo);
+                    cmd.Parameters.AddWithValue("@City", registerUser.City);
+                    cmd.Parameters.AddWithValue("@State", registerUser.State);
+                    cmd.Parameters.AddWithValue("@Zip", registerUser.Zip);
+                    cmd.Parameters.AddWithValue("@PasswordHash", registerUser.PasswordHash);
                     cmd.ExecuteNonQuery();
+                    
                 }
             }
         }
-
     }
 }

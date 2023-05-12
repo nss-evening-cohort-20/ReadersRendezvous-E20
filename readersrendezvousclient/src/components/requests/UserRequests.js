@@ -11,7 +11,7 @@ export const UserRequests = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `https://localhost:7229/api/UserRequests/GetAllHoldRequestsByUser/11`
+        `https://localhost:7229/api/UserRequests/GetAllHoldRequestsByUser/1`
       );
       const userRequestsArray = await response.json();
       console.log(userRequestsArray);
@@ -27,7 +27,7 @@ export const UserRequests = (props) => {
     <article className="userRequests">
       <h3 className="title">User Requests - Holds and Extensions</h3>
       <section className="userRequest">
-        <div className="userRequestTitle">{`User Name: ${user.firstName} ${user.lastName}`}</div>
+        <div className="userRequestTitle">{`User Name: ${user?.firstName} ${user?.lastName}`}</div>
         <div className="userRequestTitle">{`Library Card #: ${user?.libraryCardNumber}`}</div>
         <div className="userRequestTitle">{`Email          : ${user?.email}`}</div>
         {userRequests.map((userRequest) => (

@@ -20,27 +20,36 @@ export const Login = () => {
   const navigateDashboard = () => navigate("/dashboard");
 
   const setLocalStorage = (data) => {
+    console.log(data);
     const transitoryobject = {
       firstName: data.firstName,
-      lastName: data.LastName,
+      lastName: data.lastName,
       Email: data.email,
-      isStaff: false,
+      UserType: data.userType,
     };
 
     console.log(transitoryobject);
 
-    if (transitoryobject.Email) {
-      let libraryUser = "libraryUser";
+    try {
+      if (transitoryobject.UserType === "Admin") {
+        let libraryUser = "libraryUser";
 
-      localStorage.setItem(
-        libraryUser,
-        JSON.stringify({
-          FirstName: transitoryobject.firstName,
-          LastName: transitoryobject.lastName,
-          Email: transitoryobject.email,
-          isStaff: transitoryobject.isStaff,
-        })
-      );
+        localStorage.setItem(
+          libraryUser,
+          JSON.stringify({
+            FirstName: transitoryobject.firstName,
+            LastName: transitoryobject.lastName,
+            Email: transitoryobject.email,
+            UserType: transitoryobject.UserType,
+          })
+        );
+      } else {
+        new Error(
+          console.log(`There was an error loggin in error message: ${Error}`)
+        );
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -60,11 +69,10 @@ export const Login = () => {
       );
 
       const data = await response.json();
-      console.log(data)
-      console.log(data["user"])
+      console.log(data);
+      console.log(data["user"]);
       setLocalStorage(data["user"]);
       setUserType(data);
-      
 
       if (
         response.ok &&
