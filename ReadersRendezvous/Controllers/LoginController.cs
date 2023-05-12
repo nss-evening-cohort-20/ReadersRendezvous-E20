@@ -55,8 +55,9 @@ namespace ReadersRendezvous.Controllers
         public IActionResult LoginWithCredentials([FromBody] LoginRequest loginRequest)
         {
 
-
             var loginResponse = _loginRepo.LoginWithCredentials(loginRequest);
+            
+            Console.WriteLine(loginResponse);
 
             if (loginResponse == null)
             {
@@ -70,6 +71,10 @@ namespace ReadersRendezvous.Controllers
                 Expires = DateTime.UtcNow.AddDays(2),
                 SameSite = SameSiteMode.None,
             };
+
+      
+            Console.WriteLine(loginResponse);
+
 
             var responseBody = new
             {
@@ -100,9 +105,9 @@ namespace ReadersRendezvous.Controllers
         }
 
         [HttpPost("RegisterUser")]
-        public IActionResult RegisterUser(User user)
+        public IActionResult RegisterUser(RegisterUserClass registerUser)
         {
-            _loginRepo.RegisterUser(user);
+            _loginRepo.RegisterUser(registerUser);
             return NoContent();
 
         }
