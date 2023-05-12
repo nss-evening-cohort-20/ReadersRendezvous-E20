@@ -16,6 +16,8 @@ import { RegisterUser } from "../auth/Register";
 import { UserRequests } from "../requests/UserRequests";
 import { UserRequest } from "../requests/UserRequest";
 import { UserRequestDetails } from "../requests/UserRequestDetails";
+import { UserBooks } from "../userBooks/UserBooks";
+import { EditUserBooks } from "../userBooks/EditUserBook";
 
 
 export const ApplicationViews = () => {
@@ -39,6 +41,8 @@ export const ApplicationViews = () => {
         <Route path="Login" element={<Logout />} />
         <Route path="requests" element={<UserRequests />} />
         <Route path="userrequest/:requestId" element={<UserRequestDetails />} />
+        <Route path="userBooks" element={<UserBooks />} />
+        <Route path="editUserBook" element={<EditUserBooks />} />
         {/* <Route path="user/:userId" element={<UserRequest />} /> */}
       </Routes>
     </React.StrictMode>
