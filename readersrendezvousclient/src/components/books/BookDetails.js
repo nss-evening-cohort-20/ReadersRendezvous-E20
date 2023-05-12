@@ -16,32 +16,11 @@ export const BookDetails = () => {
             );
             const singleBook = await response.json();
             updateBook(singleBook);
-            console.log(singleBook);
+            //console.log(singleBook);
             //console.log(singleBook.CoverType);
         };
         fetchData();
     }, []);
-
-    // const handleUpdate = async (e) => {
-    //     e.preventDefault();
-    //     const form = document.getElementById("bookForm");
-    //     // if (form.checkValidity()) {
-    //     const response = await fetch(
-    //         `https://localhost:7229/api/Book/GetById/${bookId}`,
-    //         {
-    //             method: "PUT",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify(book),
-    //         }
-    //     );
-    //     await response.json();
-    //     navigate(`/books/edit/${bookId}`);
-    //     // } else {
-    //     //     form.reportValidity();
-    //     // }
-    // };
 
     const handleDelete = () => {
         fetch(`https://localhost:7229/api/Book/DeleteById/${book.id}`, {

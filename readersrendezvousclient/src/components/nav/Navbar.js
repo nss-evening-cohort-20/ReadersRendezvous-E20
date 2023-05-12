@@ -29,23 +29,33 @@ export const Navbar = () => {
           </CDBSidebarHeader>
           <CDBSidebarMenu>
             <NavLink to="/home" className="navLink">
-              <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="columns">
+                Home
+              </CDBSidebarMenuItem>
             </NavLink>
             <hr />
             <NavLink to="/books" className="navLink">
-              <CDBSidebarMenuItem icon="columns">All Books</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="columns">
+                All Books
+              </CDBSidebarMenuItem>
             </NavLink>
             <hr />
             <NavLink to="/users" className="navLink">
-              <CDBSidebarMenuItem icon="columns">All Users</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="columns">
+                All Users
+              </CDBSidebarMenuItem>
             </NavLink>
             <hr />
             <NavLink to="/dashboard" className="navLink">
-              <CDBSidebarMenuItem icon="columns">Add User</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="columns">
+                Add User
+              </CDBSidebarMenuItem>
             </NavLink>
             <hr />
             <NavLink to="/addBook" className="navLink">
-              <CDBSidebarMenuItem icon="columns">Add Book</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="columns">
+                Add Book
+              </CDBSidebarMenuItem>
             </NavLink>
             <hr />
             <NavLink to="/requests" className="navLink">
@@ -54,14 +64,16 @@ export const Navbar = () => {
               </CDBSidebarMenuItem>
             </NavLink>
             <hr />
-            <NavLink to="/dashboard" className="navLink">
+            <NavLink to="/searchBook" className="navLink">
               <CDBSidebarMenuItem icon="columns">
                 Search Book
               </CDBSidebarMenuItem>
             </NavLink>
             <hr />
             <NavLink to="/dashboard" className="navLink">
-              <CDBSidebarMenuItem icon="columns">Extension</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="columns">
+                Extension
+              </CDBSidebarMenuItem>
             </NavLink>
             <hr />
             <NavLink to="/dashboard" className="navLink">
@@ -95,14 +107,12 @@ export const Navbar = () => {
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
-
         <hr
           style={{
             backgroundColor: "gray",
             margin: "0,20px",
           }}
         />
-
         <CDBSidebarFooter style={{ textAlign: "center" }}>
           <div className="sidebar-btn-wrapper" style={{ padding: "20px 5px" }}>
             <Link
