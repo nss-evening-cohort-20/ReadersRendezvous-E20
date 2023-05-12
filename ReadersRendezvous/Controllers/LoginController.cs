@@ -4,10 +4,13 @@ using ReadersRendezvous.Interfaces;
 using ReadersRendezvous.Repositories;
 using ReadersRendezvous.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
+using FirebaseAdmin.Messaging;
+using ReadersRendezvous.Models.Dtos.Login;
 
 namespace ReadersRendezvous.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -21,46 +24,69 @@ namespace ReadersRendezvous.Controllers
         }
 
 
-        [HttpGet("{userId}")]
-        public IActionResult FetchUserByIdNonAdmin(string userId)
-        {
-            var fetchedUser = _loginRepo.FetchUserByIdNonAdmin(userId);
+        //[HttpGet("{userId}")]
+        //public IActionResult FetchUserByIdNonAdmin(string userId)
+        //{
+        //    var fetchedUser = _loginRepo.FetchUserByIdNonAdmin(userId);
 
-            if (fetchedUser == null)
+        //    if (fetchedUser == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(fetchedUser);
+        //}
+
+
+        //[HttpGet("admin/{adminId}")]
+        //public IActionResult FetchUserByIdAdmin(string adminId)
+        //{
+        //    var user = _loginRepo.fetchuserbyAdminId(adminId);
+
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(user);
+        //}
+
+        [HttpPost("loginvalidate")]
+        public IActionResult LoginWithCredentials([FromBody] LoginRequest loginRequest)
+        {
+
+            var loginResponse = _loginRepo.LoginWithCredentials(loginRequest);
+            
+            Console.WriteLine(loginResponse);
+
+            if (loginResponse == null)
             {
                 return NotFound();
             }
 
-            return Ok(fetchedUser);
-        }
-
-
-        [HttpGet("admin/{adminId}")]
-        public IActionResult FetchUserByIdAdmin(string adminId)
-        {
-            var user = _loginRepo.fetchuserbyAdminId(adminId);
-
-            if (user == null)
+            CookieOptions cookie = new CookieOptions
             {
-                return NotFound();
-            }
+                HttpOnly = false,
+                Secure = true,
+                Expires = DateTime.UtcNow.AddDays(2),
+                SameSite = SameSiteMode.None,
+            };
 
-            return Ok(user);
-        }
+      
+            Console.WriteLine(loginResponse);
 
-        [HttpGet("validate/{id}/{passwordHash}")]
-        public IActionResult ValidateCredentials(int id, string passwordHash)
-        {
-            var user = _loginRepo.ValidateCredentials(id, passwordHash);
 
-            if (user == null)
+            var responseBody = new
             {
-                return NotFound();
-            }
+                StatusCode = 200,
+                StatusText = "OK",
+                User = loginResponse
+            };
 
-            return Ok(user);
+            Response.Cookies.Append("authCookie", $"{loginRequest.Email}", cookie);
+            return Ok(responseBody);
         }
-        
+
 
         [HttpPut("UpdateCredentialsNonAdmin/{userId}/{passwordHash}")]
         public IActionResult UpdateCredentialsNonAdmin(string userId, string passwordHash)
@@ -76,6 +102,14 @@ namespace ReadersRendezvous.Controllers
             _loginRepo.UpdateCredentialsAdmin(adminId, passwordHash);
 
             return NoContent();
+        }
+
+        [HttpPost("RegisterUser")]
+        public IActionResult RegisterUser(RegisterUserClass registerUser)
+        {
+            _loginRepo.RegisterUser(registerUser);
+            return NoContent();
+
         }
     }
 

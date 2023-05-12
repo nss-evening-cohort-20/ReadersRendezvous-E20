@@ -64,6 +64,58 @@ namespace ReadersRendezvous.Repository
             }
         }
 
+        public IEnumerable<UserRequestDto> GetAllHoldRequests()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        select u1.Id, u1.FirstName, u1.LastName, u1.Email, u1.LibraryCardNumber
+                                        ,u1.PhoneNumber, u1.AddressLineOne, u1.AddressLineTwo, u1.City
+                                        ,u1.State, u1.Zip
+                                        from [dbo].[User] u1
+                                        ";
+
+                    var reader = cmd.ExecuteReader();
+
+                    var allHoldRequests = new List<UserRequestDto>();
+                    UserRequestDto userRequestDto = null;
+
+
+                    while (reader.Read())
+                    {
+                        userRequestDto = new UserRequestDto()
+                        {
+                            User = new UserDto()
+                            {
+                                UserId = DbUtils.GetInt(reader, "Id"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName"),
+                                Email = DbUtils.GetString(reader, "Email"),
+                                LibraryCardNumber = DbUtils.GetInt(reader, "LibraryCardNumber"),
+                                PhoneNumber = DbUtils.GetString(reader, "PhoneNumber"),
+                                AddressLineOne = DbUtils.GetString(reader, "AddressLineOne"),
+                                AddressLineTwo = DbUtils.GetString(reader, "AddressLineTwo"),
+                                City = DbUtils.GetString(reader, "City"),
+                                State = DbUtils.GetString(reader, "State"),
+                                Zip = DbUtils.GetInt(reader, "Zip")
+                            },
+
+                            BookRequests = GetAllHoldRequestsByUser(DbUtils.GetInt(reader, "Id"))
+                        };
+
+                        allHoldRequests.Add(userRequestDto);
+
+                    }
+
+                    reader.Close();
+                    return allHoldRequests;
+                }
+            }
+        }
+
         public UserRequestDto GetAllOpenHoldRequestsByUser(int userId)
         {
             using (var conn = Connection)

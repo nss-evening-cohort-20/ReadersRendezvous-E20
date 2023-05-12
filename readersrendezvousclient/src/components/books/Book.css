@@ -1,5 +1,6 @@
 .bookContainer {
-    margin: 0;
+    margin: 10;
+    padding: 50 !important;
 }
 
 .head {
@@ -68,3 +69,12 @@
     margin-bottom: 20px;
     height: 100px;
 } */
+.bookImgSearch {
+    height: 150px;
+    width: auto;
+    margin: 10px;
+}
+
+.container-fluid {
+    padding: 0 !important;
+}

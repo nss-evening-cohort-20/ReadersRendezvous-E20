@@ -8,6 +8,8 @@ using System.Numerics;
 using System.Xml;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using ReadersRendezvous.Utils;
+using ReadersRendezvous.Models.Dtos.Login;
 
 namespace ReadersRendezvous.Repository
 {
@@ -41,18 +43,18 @@ namespace ReadersRendezvous.Repository
                         {
                             User user = new User
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Email = reader.GetString(reader.GetOrdinal("Email")),
-                                LibraryCardNumber = reader.GetInt32(reader.GetOrdinal("LibraryCardNumber")),
-                                IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive")),
-                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
-                                AddressLineOne = reader.GetString(reader.GetOrdinal("AddressLineOne")),
-                                AddressLineTwo = reader.GetString(reader.GetOrdinal("AddressLineTwo")),
-                                City = reader.GetString(reader.GetOrdinal("City")),
-                                State = reader.GetString(reader.GetOrdinal("State")),
-                                Zip = reader.GetInt32(reader.GetOrdinal("Zip"))
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName"),
+                                Email = DbUtils.GetString(reader, "Email"),
+                                LibraryCardNumber = DbUtils.GetInt(reader, "LibraryCardNumber"),
+                                IsActive = DbUtils.GetBoolean(reader, "IsActive"),
+                                PhoneNumber = DbUtils.GetString(reader, "PhoneNumber"),
+                                AddressLineOne = DbUtils.GetString(reader, "AddressLineOne"),
+                                AddressLineTwo = DbUtils.GetString(reader, "AddressLineTwo"),
+                                City = DbUtils.GetString(reader, "City"),
+                                State = DbUtils.GetString(reader, "State"),
+                                Zip = DbUtils.GetInt(reader, "Zip")
                             };
 
 
@@ -84,18 +86,18 @@ namespace ReadersRendezvous.Repository
                         {
                             User user = new User
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Email = reader.GetString(reader.GetOrdinal("Email")),
-                                LibraryCardNumber = reader.GetInt32(reader.GetOrdinal("LibraryCardNumber")),
-                                IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive")),
-                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
-                                AddressLineOne = reader.GetString(reader.GetOrdinal("AddressLineOne")),
-                                AddressLineTwo = reader.GetString(reader.GetOrdinal("AddressLineTwo")),
-                                City = reader.GetString(reader.GetOrdinal("City")),
-                                State = reader.GetString(reader.GetOrdinal("State")),
-                                Zip = reader.GetInt32(reader.GetOrdinal("Zip"))
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName"),
+                                Email = DbUtils.GetString(reader, "Email"),
+                                LibraryCardNumber = DbUtils.GetInt(reader, "LibraryCardNumber"),
+                                IsActive = DbUtils.GetBoolean(reader, "IsActive"),
+                                PhoneNumber = DbUtils.GetString(reader, "PhoneNumber"),
+                                AddressLineOne = DbUtils.GetString(reader, "AddressLineOne"),
+                                AddressLineTwo = DbUtils.GetString(reader, "AddressLineTwo"),
+                                City = DbUtils.GetString(reader, "City"),
+                                State = DbUtils.GetString(reader, "State"),
+                                Zip = DbUtils.GetInt(reader, "Zip")
                             };
 
                             reader.Close();
@@ -111,7 +113,7 @@ namespace ReadersRendezvous.Repository
             }
         }
 
-        public User ValidateCredentials(int id, string passwordHash)
+        public LoginResponse LoginWithCredentials(LoginRequest loginRequest)
         {
             using (SqlConnection conn = Connection)
             {
@@ -119,38 +121,55 @@ namespace ReadersRendezvous.Repository
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [User].Id, [User].FirstName, [User].LastName, [User].Email, [User].LibraryCardNumber, 
-                            [User].IsActive, [User].PhoneNumber, [User].AddressLineOne, [User].AddressLineTwo, [User].City, 
-                            [User].State, [User].Zip 
-                    FROM [User] 
-                    LEFT JOIN [Login] ON [User].Id = [Login].UserId  
-                    WHERE [Login].PasswordHash = @PasswordHash AND [User].Id = @Id";
+                    cmd.CommandText = @"SELECT TOP 1 * FROM(SELECT 'User' AS UserType, [User].Id AS Id, [User].FirstName AS FirstName, [User].LastName AS LastName, [User].Email AS Email, [User].LibraryCardNumber AS LibraryCardNumber,
+                            [User].IsActive AS IsActive, [User].PhoneNumber AS PhoneNumber, [User].AddressLineOne AS AddressLineOne, [User].AddressLineTwo AS AddressLineTwo, [User].City AS City,
+                            [User].State AS State, [User].Zip AS Zip
+                    FROM[User]
+                    --INNER JOIN[Login] ON[User].Id = [Login].UserId
+                    WHERE--[Login].PasswordHash = 'Jane'
+                    [User].Email = @EmailId
 
-                    cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
-                    cmd.Parameters.AddWithValue("@Id", id);
+
+                    UNION
+
+                    SELECT 'Admin' AS UserType, [Admin].Id AS Id, [Admin].FirstName AS FirstName, [Admin].LastName AS LastName, [Admin].Email AS Email, '' AS LibraryCardNumber,
+                            '' AS IsActive, '' AS PhoneNumber, '' AS AddressLineOne, '' AS AddressLineTwo, '' AS City,
+                            '' AS State, '' AS Zip
+                    FROM[Admin]
+                    -- INNER JOIN[Login] ON[Admin].Id = [Login].UserId
+                    WHERE--[Login].PasswordHash = 'Jane'
+                    [Admin].Email = @EmailId) TBL
+
+                    ORDER BY UserType";
+
+                    cmd.Parameters.AddWithValue("@Password", loginRequest.Password);
+                    //cmd.Parameters.AddWithValue("@Id", credentials.Id);
+                    cmd.Parameters.AddWithValue("@EmailId", loginRequest.Email);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
 
                         if (reader.Read())
                         {
-                            User user = new User
+                            LoginResponse loginResponse = new LoginResponse
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                Email = reader.GetString(reader.GetOrdinal("Email")),
-                                LibraryCardNumber = reader.GetInt32(reader.GetOrdinal("LibraryCardNumber")),
-                                IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive")),
-                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
-                                AddressLineOne = reader.GetString(reader.GetOrdinal("AddressLineOne")),
-                                AddressLineTwo = reader.GetString(reader.GetOrdinal("AddressLineTwo")),
-                                City = reader.GetString(reader.GetOrdinal("City")),
-                                State = reader.GetString(reader.GetOrdinal("State")),
-                                Zip = reader.GetInt32(reader.GetOrdinal("Zip"))
+                                UserType = DbUtils.GetString(reader, "UserType"),
+                                IsAuthorized = true,
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName"),
+                                Email = DbUtils.GetString(reader, "Email"),
+                                LibraryCardNumber = DbUtils.GetInt(reader, "LibraryCardNumber"),
+                                IsActive = DbUtils.GetBoolean(reader, "IsActive"),
+                                PhoneNumber = DbUtils.GetString(reader, "PhoneNumber"),
+                                AddressLineOne = DbUtils.GetString(reader, "AddressLineOne"),
+                                AddressLineTwo = DbUtils.GetString(reader, "AddressLineTwo"),
+                                City = DbUtils.GetString(reader, "City"),
+                                State = DbUtils.GetString(reader, "State"),
+                                Zip = DbUtils.GetInt(reader, "Zip")
                             };
                             reader.Close();
-                            return user;
+                            return loginResponse;
                         }
                     }
 
@@ -208,7 +227,7 @@ namespace ReadersRendezvous.Repository
                         cmd.ExecuteNonQuery();
 
                         Console.WriteLine("credentials successfully updated");
-                       
+
                     }
                 }
             }
@@ -221,5 +240,41 @@ namespace ReadersRendezvous.Repository
 
         }
 
+
+        public void RegisterUser(RegisterUserClass registerUser)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO [User] (
+                    FirstName, LastName, Email, LibraryCardNumber, IsActive,
+                    PhoneNumber, AddressLineOne, AddressLineTwo, City, State, Zip)
+                VALUES (
+                    @FirstName, @LastName, @Email, @LibraryCardNumber, @IsActive,
+                    @PhoneNumber, @AddressLineOne, @AddressLineTwo, @City, @State, @Zip);
+                INSERT INTO [Login] (UserId, PasswordHash) VALUES (SCOPE_IDENTITY(), @PasswordHash);";
+
+                    cmd.Parameters.AddWithValue("@FirstName", registerUser.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", registerUser.LastName);
+                    cmd.Parameters.AddWithValue("@Email", registerUser.Email);
+                    Random random = new Random();
+                    int libraryCardNumber = random.Next(1, 100000);
+                    cmd.Parameters.AddWithValue("@LibraryCardNumber", libraryCardNumber);
+                    cmd.Parameters.AddWithValue("@IsActive", true);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", registerUser.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@AddressLineOne", registerUser.AddressLineOne);
+                    cmd.Parameters.AddWithValue("@AddressLineTwo", registerUser.AddressLineTwo);
+                    cmd.Parameters.AddWithValue("@City", registerUser.City);
+                    cmd.Parameters.AddWithValue("@State", registerUser.State);
+                    cmd.Parameters.AddWithValue("@Zip", registerUser.Zip);
+                    cmd.Parameters.AddWithValue("@PasswordHash", registerUser.PasswordHash);
+                    cmd.ExecuteNonQuery();
+                    
+                }
+            }
+        }
     }
 }
