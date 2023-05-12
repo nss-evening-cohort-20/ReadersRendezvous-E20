@@ -8,6 +8,6 @@ namespace ReadersRendezvous.Repository
         void DeleteUserBook(int id);
         UserBook SearchUserBookById(int userBookId);
         List<UserBook> SearchUserBookByLibraryCardNumber(int libraryCardNumber);
-        List<UserBook> SearchUserBookByUserId(int userId);
+        List<UserBookDto> SearchUserBookByUserId(int userId);
     }
 }

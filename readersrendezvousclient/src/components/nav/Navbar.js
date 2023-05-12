@@ -94,6 +94,12 @@ export const Navbar = () => {
               </CDBSidebarMenuItem>
             </NavLink>
             <hr />
+            <NavLink to="/userBooks" className="navLink">
+              <CDBSidebarMenuItem icon="columns">
+                User Books
+              </CDBSidebarMenuItem>
+            </NavLink>
+            <hr />
             <NavLink to="/Login" className="navLink">
               <CDBSidebarMenuItem icon="columns">
                 <Logout />
