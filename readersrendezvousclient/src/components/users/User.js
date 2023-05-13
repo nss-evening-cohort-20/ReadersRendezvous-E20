@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom"
 import { UserDetails } from "./UserDetails";
-import "./Users.css"
+import "./User.css"
 
 
 

@@ -46,7 +46,7 @@ export const Navbar = () => {
               </CDBSidebarMenuItem>
             </NavLink>
             <hr />
-            <NavLink to="/dashboard" className="navLink">
+            <NavLink to="/addUser" className="navLink">
               <CDBSidebarMenuItem icon="columns">
                 Add User
               </CDBSidebarMenuItem>
@@ -125,7 +125,6 @@ export const Navbar = () => {
             <CDBIcon fab pulse icon="github" />
           </div>
         </CDBSidebarFooter>
-
         <CDBSidebarFooter style={{ textAlign: "center" }}>
           <div
             className="sidebar-btn-wrapper"

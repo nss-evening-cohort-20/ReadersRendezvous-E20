@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { User } from "./User"
 // import { Header } from "../headder/Headder"
-import "./Users.css"
+import "./User.css"
 import { UserDetails } from "./UserDetails";
 
 export const UserList = () => {
@@ -24,6 +24,7 @@ export const UserList = () => {
 
     return (
         <>
+      
             <div className="userContainer ">
 
                 <section key={`users`} className="users">
