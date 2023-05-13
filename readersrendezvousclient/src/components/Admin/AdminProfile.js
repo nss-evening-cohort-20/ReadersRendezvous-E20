@@ -10,11 +10,12 @@ const [adminsProfile, setAdminProfile] = useState([])
 
 const navigate = useNavigate()
 
-var userId = localStorage.getItem("libraryUser")
+var appUser = localStorage.getItem("app_user");
+var appUserObject = JSON.parse(appUser);
 
 
 useEffect(() => {
-    fetch(`https://localhost:7229/api/Admin/GetById/1`)
+    fetch(`https://localhost:7229/api/Admin/GetById/${appUserObject.id}`)
       .then((response) => response.json())
       .then((adminsProfileArray) => {
         setAdminProfile(adminsProfileArray);

@@ -108,7 +108,7 @@ export const AddAdmin = () => {
                 }}
                 className="AddAdminEvent"
               >
-                Add Event
+                Add Admin
               </button>
 
           </div>
