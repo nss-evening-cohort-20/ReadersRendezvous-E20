@@ -36,7 +36,18 @@ export const CustomerUserBooks = () => {
     >
       {userBooks.map((userBook) => {
         return (
-          <section className="UserBooksContainer">
+          <section
+            className="UserBooksContainer"
+            style={{
+              color: "#ffffff",
+              marginLeft: "-20%",
+              marginTop: "10%",
+              width: "25vw",
+              height: "15%",
+              padding: "20%",
+              border: "5px solid black",
+            }}
+          >
             <img src={userBook.bookImageUrl} />
             <div>Name: {userBook.bookTitle}</div>
             <div>By {userBook.bookAuthor}</div>

@@ -10,7 +10,10 @@
 }
 
 .userContainer {
-  margin-left: 30%;
+  margin-left: 5%;
+  margin-top: 5%;
+  padding: 2%;
+  width: 80%;
   /* border: #2b16a66e solid 5px; */
   /* flex-wrap: wrap;
   display: flex;
@@ -22,8 +25,10 @@
 
 .users_8 {
   /* border: #e183e56e solid 3px; */
+  padding: 2%;
 }
 
 .userTest {
   border: #090609df solid 2px;
+  padding: 3%;
 }

@@ -21,17 +21,19 @@ export const UsersProfile = () => {
 
   return (
     <div className="UsersProfilePageContainer">
-      <div
-        className="UsersProfileContainer"
-        style={{
-          color: "#ffffff",
-          marginLeft: "90%",
-          marginTop: "20%",
-          width: "70%",
-          height: "80%",
-        }}
-      >
-        <section className="UsersProfileSection">
+      <div className="UsersProfileContainer">
+        <section
+          className="UsersProfileSection"
+          style={{
+            color: "#ffffff",
+            marginLeft: "90%",
+            marginTop: "20%",
+            width: "80%",
+            height: "80%",
+            padding: "10%",
+            border: "5px solid black",
+          }}
+        >
           <div className="UsersProfileDetail">
             Name: {usersProfile.firstName} {usersProfile.lastName}
           </div>
