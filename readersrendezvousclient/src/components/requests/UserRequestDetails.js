@@ -127,7 +127,7 @@ export const UserRequestDetails = (props) => {
       <div>ISBN13: {requestDetail?.isbN13}</div>
       <div>Genre: {requestDetail?.genre}</div>
       <div>
-        Description: <p>{requestDetail?.description}</p>
+        Description: <div>{requestDetail?.description}</div>
       </div>
       <footer className="userRequest__footer">
         <div>Requested on: {requestDetail?.requestTS}</div>

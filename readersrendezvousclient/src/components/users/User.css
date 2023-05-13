@@ -1,22 +1,29 @@
 .users {
-    color: rgb(211, 203, 47);
+  color: #ffffff;
 
-    text-align: center;
-    border-radius: 5%;
-    box-shadow: #554728 1px 1px 10px;
-    border: #cd0e0e6e solid 5px;
-
+  text-align: center;
+  border-radius: 5%;
+  /* box-shadow: #554728 1px 1px 10px;
+  border: #cd0e0e6e solid 5px; */
+  /* width: 80vw;
+  height: 80vh; */
 }
 
 .userContainer {
-    margin-left: 30%;
-    border: #2b16a66e solid 5px;
+  margin-left: 30%;
+  /* border: #2b16a66e solid 5px; */
+  /* flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80vw;
+  height: 80vh; */
 }
 
 .users_8 {
-    border: #e183e56e solid 5px;
+  /* border: #e183e56e solid 3px; */
 }
 
 .userTest {
-    border: #090609df solid 5px;
+  border: #090609df solid 2px;
 }
