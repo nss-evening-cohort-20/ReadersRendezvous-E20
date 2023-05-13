@@ -1,0 +1,92 @@
+.AdminUserBooksPageContainer{
+    width:100%;
+    height:99.5vh;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.AdminUserBooksCardContainer{
+    width: 95%;
+    height: 95%;
+    margin-left: 40px;
+    margin-top: 20px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.AdminUserBooksCard{
+    border: 1px solid #343D41;
+    height: 40vh;
+    width: 15vw;
+    color:white;
+    background:#343D41;
+    border-radius: 3px;
+    display:flex;
+    flex-direction: column;
+    margin-right: 15px;
+}
+.AdminUserBooksHeader{
+    height: 10%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.AdminUserBooksBody{
+    height: 55%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.AdminUserBooksImageContainer{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.AdminUserBooksAuthorContainer{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+.AdminUserBooksFooter{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 35%;
+}
+.AdminUserBooksFooterDetail{
+    height: 50%;
+    width: 50%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.AdminUserBooksFooterDetailHeader {
+    color: rgba(255, 255, 255, 0.637);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.AdminUserBooksFooterDetailFooter {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.AdminUserBooksEditButtonContainer{
+    width: 15vw;
+    height: 3vh;
+    border: 1px solid rgba(49, 119, 173, 0.757);
+    margin-top: 15px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    color:white;
+    background-color: rgba(49, 119, 173, 0.757);
+}
+.AdminUserBooksEditButtonContainer:hover{
+    cursor: pointer;
+}
+.AdminUserBooksEditButton{}

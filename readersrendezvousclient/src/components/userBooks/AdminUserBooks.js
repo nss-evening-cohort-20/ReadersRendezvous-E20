@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 import { UserBookSearch } from "./UserBookSearch";
+import "./AdminUserBooksStyle.css"
 
 
 export const AdminUserBooks = () => {
@@ -43,33 +44,96 @@ const fetchSearchByLibraryCard = (e) => {
 
 
       return (
-        <article className="UserBooksPageContainer">
+        <div className="AdminUserBooksPageContainer">
           <UserBookSearch searchClicked={e => fetchSearchByLibraryCard(e) }/>
+          <div className="AdminUserBooksCardContainer">
+
           {adminUserBooks.map((adminUserBook) => {
-            return (
-              <section className="UserBooksContainer">
+              return (
 
-                <button onClick={() => navigate(`/editUserBook/${adminUserBook.id}`)}>
-                    Edit User Book
-                </button>
+                <div className="AdminUserBooksParent">
 
-                <img src={adminUserBook.bookImageUrl}/>
-                <div>Name: {adminUserBook.bookTitle}</div>
-                <div>By {adminUserBook.bookAuthor}</div>
+                    <div className="AdminUserBooksCard">
+                      <div className="AdminUserBooksHeader">
+                        Pride and Prejudice
+                      </div>
+                      <div className="AdminUserBooksBody">
+                        <div className="AdminUserBooksImageContainer">
+                          <img src={adminUserBook.bookImageUrl}/>
+                        </div>
+                        <div className="AdminUserBooksAuthorContainer">
+                          By {adminUserBook.bookAuthor}
+                        </div>
+                      </div>
+                      <div className="AdminUserBooksFooter">
+                        <div className="AdminUserBooksFooterDetail">
+                          <div className="AdminUserBooksFooterDetailHeader">Rental Start Date</div>
+                          <div className="AdminUserBooksFooterDetailFooter">{formatDate(adminUserBook.rentalStartDate)}</div>
+                        </div>
+                        <div className="AdminUserBooksFooterDetail">
+                          <div className="AdminUserBooksFooterDetailHeader">Rental Due Date</div>
+                          <div className="AdminUserBooksFooterDetailFooter">{formatDate(adminUserBook.dueDate)}</div>
+                        </div>
+                        <div className="AdminUserBooksFooterDetail">
+                          <div className="AdminUserBooksFooterDetailHeader">Returned</div>
+                          <div className="AdminUserBooksFooterDetailFooter">{formatDate(adminUserBook.returnDate)}</div>
+                        </div>
+                        <div className="AdminUserBooksFooterDetail">
+                          <div className="AdminUserBooksFooterDetailHeader">Late Fee</div>
+                          <div className="AdminUserBooksFooterDetailFooter">${adminUserBook.lateFee}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="AdminUserBooksEditButtonContainer" onClick={() => navigate(`/editUserBook/${adminUserBook.id}`)}>
+                      <div className="AdminUserBooksEditButton">Edit</div>
+                    </div>
+
+                </div>
 
 
-                <div>Rental Start Date : {formatDate(adminUserBook.rentalStartDate)}</div>
+
+                );
+            })}
 
 
-                <div>Rental Due Date : {formatDate(adminUserBook.dueDate)}</div>
 
 
-                <div>Return Date : {formatDate(adminUserBook.returnDate)}</div>
+          </div>
+        </div>
 
-                <div>Late Fee : ${adminUserBook.lateFee}</div>
-              </section>
-            );
-          })}
-        </article>
+
+
+
+
+
+
+        // <article className="UserBooksPageContainer">
+        //   <UserBookSearch searchClicked={e => fetchSearchByLibraryCard(e) }/>
+        //   {adminUserBooks.map((adminUserBook) => {
+        //     return (
+        //       <section className="UserBooksContainer">
+
+        //         <button onClick={() => navigate(`/editUserBook/${adminUserBook.id}`)}>
+        //             Edit User Book
+        //         </button>
+
+        //         <img src={adminUserBook.bookImageUrl}/>
+        //         <div>Name: {adminUserBook.bookTitle}</div>
+        //         <div>By {adminUserBook.bookAuthor}</div>
+
+
+        //         <div>Rental Start Date : {formatDate(adminUserBook.rentalStartDate)}</div>
+
+
+        //         <div>Rental Due Date : {formatDate(adminUserBook.dueDate)}</div>
+
+
+        //         <div>Return Date : {formatDate(adminUserBook.returnDate)}</div>
+
+        //         <div>Late Fee : ${adminUserBook.lateFee}</div>
+        //       </section>
+        //     );
+        //   })}
+        // </article>
       );
 }
