@@ -1,0 +1,14 @@
+.circle{
+    border:1px solid rgb(33, 33, 33);
+    background:rgb(33, 33, 33);
+    width:245px;
+    height:245px;
+    border-radius:50%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p{
+    font-size:3.5rem;
+}
