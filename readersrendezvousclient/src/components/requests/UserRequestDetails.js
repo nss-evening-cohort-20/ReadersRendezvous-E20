@@ -2,10 +2,87 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 
 export const UserRequestDetails = (props) => {
+  const appUser = localStorage.getItem("app_user");
+  const appUserObject = JSON.parse(appUser);
   const location = useLocation();
   const { userInfo, requestDetail } = location.state;
   const navigate = useNavigate();
   const { requestId } = useParams();
+
+  const handleApproveButtonClick = (event) => {
+    event.preventDefault();
+    console.log(`userInfo`, userInfo);
+    console.log(`requestDetail`, requestDetail);
+    const approveRequest = {
+      id: requestDetail?.requestId,
+      userId: userInfo?.userId,
+      bookId: requestDetail?.bookId,
+      requestTS: new Date().toISOString(),
+      requestTypeId: 1,
+      completedTS: new Date().toISOString(),
+      isApproved: true,
+    };
+    console.log(approveRequest);
+    // TODO: Perform the fetch() to POST the object to the API
+    const postApproval = async () => {
+      try {
+        const options = {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(approveRequest),
+        };
+        const response = await fetch(
+          `https://localhost:7229/api/UserRequests/UpdateHoldRequestStatus/${requestDetail?.requestId}`,
+          options
+        );
+        // const result = await response.json();
+        // console.log("Success:", result);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    postApproval();
+    navigate("/requests");
+  };
+
+  const handleDenyButtonClick = (event) => {
+    event.preventDefault();
+
+    const denyRequest = {
+      id: requestDetail?.requestId,
+      userId: userInfo?.userId,
+      bookId: requestDetail?.bookId,
+      requestTS: new Date().toISOString(),
+      requestTypeId: 1,
+      completedTS: new Date().toISOString(),
+      isApproved: false,
+    };
+    console.log(denyRequest);
+    // TODO: Perform the fetch() to POST the object to the API
+    const postDeny = async () => {
+      try {
+        const options = {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(denyRequest),
+        };
+        const response = await fetch(
+          `https://localhost:7229/api/UserRequests/UpdateHoldRequestStatus/${requestDetail?.requestId}`,
+          options
+        );
+        // const result = await response.json();
+        // console.log("Success:", result);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    postDeny();
+    navigate("/requests");
+  };
 
   return (
     <section className="userRequestItem">
@@ -35,24 +112,22 @@ export const UserRequestDetails = (props) => {
           </div>
         </div>
         <div className="status--container--item">
-          {!requestDetail?.isApproved && (
+          {appUserObject?.isAdmin && (
             <div className="status--container--item">
               <div className="status--container--item status--container--item">
                 <button
+                  type="submit"
                   className="btn btn-primary"
-                  onClick={() => {
-                    console.log("Approved");
-                  }}
+                  onClick={handleApproveButtonClick}
                 >
                   Approve
                 </button>
               </div>
               <div className="status--container--item">
                 <button
+                  type="submit"
                   className="btn btn-primary status--container--item"
-                  onClick={() => {
-                    console.log("Denied");
-                  }}
+                  onClick={handleDenyButtonClick}
                 >
                   Deny
                 </button>
