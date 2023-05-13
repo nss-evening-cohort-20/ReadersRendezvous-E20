@@ -20,6 +20,7 @@ import { SearchBook } from "../books/SearchBook";
 import { AboutApp } from "../aboutApp/AboutApp";
 import { UserBooks } from "../userBooks/UserBooks";
 import { EditUserBooks } from "../userBooks/EditUserBook";
+import { UserRequestsAdminView } from "../requests/UserRequestsAdminView";
 
 export const AdminViews = () => {
   return (
@@ -51,7 +52,7 @@ export const AdminViews = () => {
           <Route path="addAdmin" element={<AddAdmin />} />
           <Route path="editAdmin/:adminId" element={<EditAdmin />} />
           <Route path="Login" element={<Logout />} />
-          <Route path="requests" element={<UserRequests />} />
+          <Route path="requests" element={<UserRequestsAdminView />} />
           <Route
             path="userrequest/:requestId"
             element={<UserRequestDetails />}
