@@ -28,10 +28,10 @@ const navigate = useNavigate()
 
 
       return (
-        <article className="customers">
+        <article className="UserBooksPageContainer">
           {userBooks.map((userBook) => {
             return (
-              <section className="customer">
+              <section className="UserBooksContainer">
 
                 <button onClick={() => navigate(`/editUserBook/${userBook.id}`)}>
                     Edit User Book

@@ -47,7 +47,7 @@ export const ApplicationViews = () => {
         <Route path="searchBook" element={<SearchBook />} />
         <Route path="aboutApp" element={<AboutApp />} />
         <Route path="userBooks" element={<UserBooks />} />
-        <Route path="editUserBook" element={<EditUserBooks />} />
+        <Route path="editUserBook/:userBookId" element={<EditUserBooks />} />
         {/* <Route path="user/:userId" element={<UserRequest />} /> */}
       </Routes>
     </React.StrictMode>
