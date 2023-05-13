@@ -11,3 +11,4 @@ export const ApplicationViews = () => {
     return <UserViews />;
   }
 };
+
