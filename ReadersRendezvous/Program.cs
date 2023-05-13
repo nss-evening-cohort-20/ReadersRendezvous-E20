@@ -30,6 +30,7 @@ namespace ReadersRendezvous
             builder.Services.AddTransient<IAdminRepository, AdminRepository>();
             builder.Services.AddTransient<IUserBookRepository, UserBookRepository>();
             builder.Services.AddTransient<IUserRequestRepository, UserRequestRepository>();
+            builder.Services.AddTransient<IFavoriteBookRepository, FavoriteBookRepository>();
 
             builder.Services.AddCors(options =>
             options.AddPolicy("ReadersRendezvousPolicy",

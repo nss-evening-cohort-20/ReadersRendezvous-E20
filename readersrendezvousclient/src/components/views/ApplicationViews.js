@@ -20,6 +20,7 @@ import { SearchBook } from "../books/SearchBook";
 import { AboutApp } from "../aboutApp/AboutApp";
 import { UserBooks } from "../userBooks/UserBooks";
 import { EditUserBooks } from "../userBooks/EditUserBook";
+import { FavoriteBooks } from "../books/FavoriteBooks";
 
 
 
@@ -31,8 +32,6 @@ export const ApplicationViews = () => {
         <Route path="books" element={<BookList />} />
         <Route path="users" element={<UserList />} />
         <Route path="books/:bookId" element={<BookDetails />} />
-        {/* <Route path="users/:userId" element={<Userlist />} /> */}
-        {/* <Route path="books/:bookId" element={<BookDetails />} /> */}
         <Route path="books/edit/:bookEditId" element={<EditBook />} />
         <Route path="editBook" element={<EditBook />} />
         <Route path="users" element={<User />} />
@@ -48,6 +47,8 @@ export const ApplicationViews = () => {
         <Route path="aboutApp" element={<AboutApp />} />
         <Route path="userBooks" element={<UserBooks />} />
         <Route path="editUserBook" element={<EditUserBooks />} />
+        <Route path="favoriteBooks" element={<FavoriteBooks />} />
+        <Route path="aboutApp" element={<AboutApp />} />
         {/* <Route path="user/:userId" element={<UserRequest />} /> */}
       </Routes>
     </React.StrictMode>

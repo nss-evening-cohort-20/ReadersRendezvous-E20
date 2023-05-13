@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -6,6 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>7605e8ee-8fcf-405f-9795-978f6de0a9c0</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Database\4-INSERT-FavoriteBook.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Database\4-INSERT-FavoriteBook.sql" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FirebaseAdmin" Version="2.3.0" />
