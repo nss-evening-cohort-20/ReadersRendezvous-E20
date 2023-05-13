@@ -24,7 +24,7 @@ export const UserRequestDetails = (props) => {
     };
     console.log(approveRequest);
     // TODO: Perform the fetch() to POST the object to the API
-    const postApproval = async () => {
+    const putApproval = async () => {
       try {
         const options = {
           method: "PUT",
@@ -43,7 +43,7 @@ export const UserRequestDetails = (props) => {
         console.error("Error:", error);
       }
     };
-    postApproval();
+    putApproval();
     navigate("/requests");
   };
 
@@ -61,7 +61,7 @@ export const UserRequestDetails = (props) => {
     };
     console.log(denyRequest);
     // TODO: Perform the fetch() to POST the object to the API
-    const postDeny = async () => {
+    const putDeny = async () => {
       try {
         const options = {
           method: "PUT",
@@ -80,7 +80,32 @@ export const UserRequestDetails = (props) => {
         console.error("Error:", error);
       }
     };
-    postDeny();
+    putDeny();
+    navigate("/requests");
+  };
+
+  const handleDeleteButtonClick = (event) => {
+    event.preventDefault();
+
+    const deleteHold = async () => {
+      try {
+        const options = {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        const response = await fetch(
+          `https://localhost:7229/api/UserRequests/DeleteHoldRequest?requestId=${requestDetail?.requestId}`,
+          options
+        );
+        // const result = await response.json();
+        // console.log("Success:", result);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    deleteHold();
     navigate("/requests");
   };
 
@@ -126,10 +151,23 @@ export const UserRequestDetails = (props) => {
               <div className="status--container--item">
                 <button
                   type="submit"
-                  className="btn btn-primary status--container--item"
+                  className="btn btn-secondary status--container--item"
                   onClick={handleDenyButtonClick}
                 >
                   Deny
+                </button>
+              </div>
+            </div>
+          )}
+          {!appUserObject?.isAdmin && (
+            <div className="status--container--item">
+              <div className="status--container--item status--container--item">
+                <button
+                  type="submit"
+                  className="btn btn-secondary"
+                  onClick={handleDeleteButtonClick}
+                >
+                  Delete
                 </button>
               </div>
             </div>
