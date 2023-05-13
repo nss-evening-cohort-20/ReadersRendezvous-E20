@@ -4,6 +4,8 @@ import { UserRequest } from "./UserRequest";
 import "./UserRequests.css";
 
 export const UserRequests = (props) => {
+  const appUser = localStorage.getItem("app_user");
+  const appUserObject = JSON.parse(appUser);
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [userRequests, setUserRequests] = useState([]);
@@ -11,7 +13,7 @@ export const UserRequests = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `https://localhost:7229/api/UserRequests/GetAllHoldRequestsByUser/1`
+        `https://localhost:7229/api/UserRequests/GetAllHoldRequestsByUser/${appUserObject.id}`
       );
       const userRequestsArray = await response.json();
       console.log(userRequestsArray);
