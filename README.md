@@ -50,24 +50,24 @@ To run this application locally, you need to have Node.js, .NET Core SDK, and a 
 ```
 git clone https://github.com/nss-evening-cohort-20/ReadersRendezvous-E20.git
 ```
-2. Navigate to the `client` folder and run `npm install` to install all the required client-side dependencies.
+2. Navigate to the `readersrendezvousclient` folder and run `npm install` to install all the required client-side dependencies.
 
 ```
-cd client
+cd readersrendezvousclient
 npm install
 ```
 
-3. Navigate to the `server` folder and run `dotnet run` to start the server.
+3. Navigate to the `ReadersRendezvous-E20` folder and run `dotnet run` to start the server.
 
 ```
-cd server
+ReadersRendezvous-E20
 dotnet run
 ```
 
-4. Open a new terminal window, navigate to the `client` folder and run `npm start` to start the React app.
+4. Open a new terminal window, navigate to the `readersrendezvousclient` folder and run `npm start` to start the React app.
 
 ```
-cd client
+cd readersrendezvousclient
 npm start
 ```
 

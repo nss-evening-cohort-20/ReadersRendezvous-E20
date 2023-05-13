@@ -3,7 +3,6 @@ import React from "react";
 import "./Book.css";
 import { Header } from "../header/Header";
 import { Book } from "./Book";
-import { EditBook } from "./EditBook";
 
 export const BookList = () => {
     const [books, setBooks] = useState([]);

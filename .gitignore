@@ -398,3 +398,4 @@ FodyWeavers.xsd
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/readersrendezvousclient/src/components/books/SearchBook copy.js

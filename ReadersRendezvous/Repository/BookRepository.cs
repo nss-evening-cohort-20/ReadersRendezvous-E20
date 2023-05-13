@@ -61,63 +61,71 @@ namespace ReadersRendezvous.Repository
         }
 
         ///*------------------GetAllBooks()--------1----------*/
-        //public List<Book> GetAllBooks()
-        //{
-        //    using (var conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (var cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"SELECT [Book].[Id] AS BookId
-        //                                      ,[Book].[ImageUrl]
-        //                                      ,[Book].[Title]
-        //                                      ,[Book].[Quantity]
-        //                                      ,[Book].[Author]
-        //                                      ,[Book].[Publisher]
-        //                                      ,[Book].[Language]
-        //                                      ,[Book].[Description]
-        //                                      ,[Book].[ISBN13]
-        //                                      ,[AgeRange].[Id] AS AgeRangeId
-        //                                      ,[AgeRange].[Range] AS AgeRange
-        //                                      ,[Genre].[Id] AS GenreId
-        //                                      ,[Genre].[Description] As BookGenre
-        //                                  FROM [ReadersRendezvous].[dbo].[Book]
-        //                                  INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
-        //                                  INNER JOIN Genre ON Book.GenreId = Genre.Id ";
+        public List<BookInfo> GetAllBooksInfo()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT [Book].[Id] AS BookId
+                                              ,[Book].[ImageUrl]
+                                              ,[Book].[Title]
+                                              ,[Book].[Quantity]
+                                              ,[Book].[Author]
+                                              ,[Book].[Publisher]
+                                              ,[Book].[Language]
+                                              ,[Book].[Description]
+                                              ,[Book].[ISBN13]
+                                              ,[AgeRange].[Id] AS AgeRangeId
+                                              ,[AgeRange].[Range] AS AgeRange
+                                              ,[Genre].[Id] AS GenreId
+                                              ,[Genre].[Description] As BookGenre
+                                              ,[CoverType].[Id] AS CoverId
+                                              ,[CoverType].[Description] AS BookCover
+                                          FROM [ReadersRendezvous].[dbo].[Book]
+                                          INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
+                                          INNER JOIN Genre ON Book.GenreId = Genre.Id 
+                                          INNER JOIN [CoverType] ON Book.CoverTypeId = CoverType.Id ";
 
-        //            var reader = cmd.ExecuteReader();
-        //            var books = new List<Book>();
-        //            while (reader.Read())
-        //            {
-        //                var book = new Book()
-        //                {
-        //                    Id = DbUtils.GetInt(reader, "BookId"),
-        //                    ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
-        //                    Title = DbUtils.GetString(reader, "Title"),
-        //                    Quantity = DbUtils.GetInt(reader, "Quantity"),
-        //                    Author = DbUtils.GetString(reader, "Author"),
-        //                    Publisher = DbUtils.GetString(reader, "Publisher"),
-        //                    Language = DbUtils.GetString(reader, "Language"),
-        //                    Description = DbUtils.GetString(reader, "Description"),
-        //                    ISBN13 = DbUtils.GetString(reader, "ISBN13"),
-        //                    AgeRange = new AgeRange()
-        //                    {
-        //                        Id = DbUtils.GetInt(reader, "AgeRangeId"),
-        //                        Range = DbUtils.GetString(reader, "AgeRange")
-        //                    },
-        //                    Genre = new Genre()
-        //                    {
-        //                        Id = DbUtils.GetInt(reader, "GenreId"),
-        //                        Description = DbUtils.GetString(reader, "BookGenre")
-        //                    }
-        //                };
-        //                books.Add(book);
-        //            }
-        //            conn.Close();
-        //            return books;
-        //        }
-        //    }
-        //}
+                    var reader = cmd.ExecuteReader();
+                    var books = new List<BookInfo>();
+                    while (reader.Read())
+                    {
+                        var book = new BookInfo()
+                        {
+                            Id = DbUtils.GetInt(reader, "BookId"),
+                            ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Quantity = DbUtils.GetInt(reader, "Quantity"),
+                            Author = DbUtils.GetString(reader, "Author"),
+                            Publisher = DbUtils.GetString(reader, "Publisher"),
+                            Language = DbUtils.GetString(reader, "Language"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                            ISBN13 = DbUtils.GetString(reader, "ISBN13"),
+                            AgeRange = new AgeRange()
+                            {
+                                Id = DbUtils.GetInt(reader, "AgeRangeId"),
+                                Range = DbUtils.GetString(reader, "AgeRange")
+                            },
+                            Genre = new Genre()
+                            {
+                                Id = DbUtils.GetInt(reader, "GenreId"),
+                                Description = DbUtils.GetString(reader, "BookGenre")
+                            },
+                            CoverType = new CoverType()
+                            {
+                                Id = DbUtils.GetInt(reader, "CoverId"),
+                                Description = DbUtils.GetString(reader, "BookCover")
+                            }
+                        };
+                        books.Add(book);
+                    }
+                    conn.Close();
+                    return books;
+                }
+            }
+        }
         /*------------------GetAllBooks()--------2----------*/
         public List<AddBook> GetAllBooks()
         {
@@ -405,7 +413,7 @@ namespace ReadersRendezvous.Repository
         }
 
         /*------------------SearchBooksByTitle()----------------------*/
-        public Book SearchBooksByTitle(string title) //Just a Girl
+        public BookInfo SearchBooksByTitle(string title) //Just a Girl
         {
             using (var conn = Connection)
             {
@@ -425,21 +433,24 @@ namespace ReadersRendezvous.Repository
                                               ,[AgeRange].[Range] AS AgeRange
                                               ,[Genre].[Id] AS GenreId
                                               ,[Genre].[Description] As BookGenre
+                                              ,[CoverType].[Id] AS CoverId
+                                              ,[CoverType].[Description] AS BookCover
                                           FROM [ReadersRendezvous].[dbo].[Book]
                                           INNER JOIN AgeRange ON Book.AgeRangeId = AgeRange.Id 
                                           INNER JOIN Genre ON Book.GenreId = Genre.Id 
+                                          INNER JOIN [CoverType] ON Book.CoverTypeId = CoverType.Id 
                                           WHERE[Book].[Title] LIKE @Title";
                     //WHERE [Book].[Title] LIKE '%'+'Just a Girl'+'%';
                     //DbUtils.AddParameter(cmd, "@Title", title);
                     //cmd.Parameters.AddWithValue("@Title", "%" + title + "%");
                     DbUtils.AddParameter(cmd, "@Title", $"%{title.ToLower()}%");
                     var reader = cmd.ExecuteReader();
-                    Book book = null;
+                    BookInfo book = null;
                     while (reader.Read())
                     {
                         if (book == null)
                         {//Book book = null;
-                            book = new Book()
+                            book = new BookInfo()
                             {
                                 Id = DbUtils.GetInt(reader, "BookId"),
                                 ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
@@ -459,6 +470,11 @@ namespace ReadersRendezvous.Repository
                                 {
                                     Id = DbUtils.GetInt(reader, "GenreId"),
                                     Description = DbUtils.GetString(reader, "BookGenre")
+                                },
+                                CoverType = new CoverType()
+                                {
+                                    Id = DbUtils.GetInt(reader, "CoverId"),
+                                    Description = DbUtils.GetString(reader, "BookCover")
                                 }
                             };
                         }
