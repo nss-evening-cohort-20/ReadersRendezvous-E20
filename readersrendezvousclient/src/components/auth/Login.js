@@ -118,6 +118,8 @@ export const Login = () => {
 
   return (
     <>
+      <h1>ReadersRendezvous-E20</h1>
+      <h3>Please Login</h3>
       <form onSubmit={submissionHandler}>
         <label>
           Username:
@@ -129,7 +131,7 @@ export const Login = () => {
         </label>
         Password:
         <input
-          type="text"
+          type="password"
           value={passwordHash}
           onChange={(event) => setPasswordHash(event.target.value)}
         ></input>
