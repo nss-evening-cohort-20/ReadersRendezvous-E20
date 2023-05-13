@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 
 
-export const UserBooks = () => {
+export const CustomerUserBooks = () => {
 const [userBooks, setUserBooks] = useState([])
 const navigate = useNavigate()
 
@@ -36,10 +36,6 @@ var appUserObject = JSON.parse(appUser);
           {userBooks.map((userBook) => {
             return (
               <section className="UserBooksContainer">
-
-                <button onClick={() => navigate(`/editUserBook/${userBook.id}`)}>
-                    Edit User Book
-                </button>
 
                 <img src={userBook.bookImageUrl}/>
                 <div>Name: {userBook.bookTitle}</div>

@@ -21,6 +21,9 @@ import { AboutApp } from "../aboutApp/AboutApp";
 import { UserBooks } from "../userBooks/UserBooks";
 import { EditUserBooks } from "../userBooks/EditUserBook";
 import { UserRequestsAdminView } from "../requests/UserRequestsAdminView";
+import { UserDetails } from "../users/UserDetails";
+import { EditUser } from "../users/EditUser";
+import { AdminUserBooks } from "../userBooks/AdminUserBooks";
 
 export const AdminViews = () => {
   return (
@@ -30,8 +33,6 @@ export const AdminViews = () => {
           path="/"
           element={
             <>
-              <h1>Welcome to ReadersRendezvous-E20</h1>
-              <div>You are logged in as Admin</div>
 
               <Outlet />
             </>
@@ -46,6 +47,8 @@ export const AdminViews = () => {
           <Route path="books/edit/:bookEditId" element={<EditBook />} />
           <Route path="editBook" element={<EditBook />} />
           <Route path="users" element={<User />} />
+          <Route path="users/:userId" element={<UserDetails />} />
+          <Route path="users/editUser/:userId" element={<EditUser />} />
           <Route path="addBook" element={<AddBook />} />
           <Route path="adminProfile" element={<AdminProfile />} />
           <Route path="login" element={<Login />} />
@@ -59,8 +62,8 @@ export const AdminViews = () => {
           />
           <Route path="searchBook" element={<SearchBook />} />
           <Route path="aboutApp" element={<AboutApp />} />
-          <Route path="userBooks" element={<UserBooks />} />
-          <Route path="editUserBook" element={<EditUserBooks />} />
+          <Route path="userBooks" element={<AdminUserBooks />} />
+          <Route path="editUserBook/:userBookId" element={<EditUserBooks />} />
           {/* <Route path="user/:userId" element={<UserRequest />} /> */}
         </Route>
       </Routes>

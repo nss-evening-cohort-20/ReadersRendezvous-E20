@@ -1,0 +1,78 @@
+.EditUserBookFormPageContainer {
+    border: 1px solid red;
+    width:100%;
+    height:99.5vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.EditUserBookFormContainer {
+    width: 20vw;
+    height: 40vh;
+    border-radius: 3px;
+}
+
+.EditUserBookFormParent {
+    border-radius: 3px;
+    height: 100%;
+    width: 100%;
+}
+
+.EditUserBookFormCardContainer {
+    border: 1px solid #343D41;
+    background:#343D41;
+    height: 100%;
+    width: 100%;
+    border-radius: 3px;
+}
+
+.EditUserBookFormHeader {
+    height: 20%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px; 
+}
+
+.EditUserBookFormBody {
+    height: 80%;
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.EditUserBookFormBodyDetail {
+    height: 50%;
+    width: 50%;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.editUserBook-form-control {
+    height: 3vh;
+    width: 6vw;
+}
+
+.EditUserBookButtonContainer {
+    width: 20vw;
+    height: 3vh;
+    border: 1px solid rgba(49, 119, 173, 0.757);
+    margin-top: 15px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    color:white;
+    background-color: rgba(49, 119, 173, 0.757);
+}
+
+.EditUserBookButtonContainer:hover {
+    cursor: pointer;
+}

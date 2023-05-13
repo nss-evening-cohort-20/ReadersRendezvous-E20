@@ -20,6 +20,13 @@ import { SearchBook } from "../books/SearchBook";
 import { AboutApp } from "../aboutApp/AboutApp";
 import { UserBooks } from "../userBooks/UserBooks";
 import { EditUserBooks } from "../userBooks/EditUserBook";
+import { CustomerUserBooks } from "../userBooks/CustomerUserBooks";
+import { CustomerBookDetails } from "../books/CustomerBookDetails";
+import { EditUser } from "../users/EditUser";
+import { AddUser } from "../users/AddUser";
+import { UserDetails } from "../users/UserDetails";
+import { UsersProfile } from "../users/UserProfile";
+
 
 export const UserViews = () => {
   return (
@@ -29,27 +36,17 @@ export const UserViews = () => {
           path="/"
           element={
             <>
-              <h1>Welcome to ReadersRendezvous-E20</h1>
-              <div>You are logged in as Library User</div>
-
               <Outlet />
             </>
           }
         >
           <Route path="home" element={<Home />} />
           <Route path="books" element={<BookList />} />
-          <Route path="users" element={<UserList />} />
-          <Route path="books/:bookId" element={<BookDetails />} />
+          <Route path="books/:bookId" element={<CustomerBookDetails />} />
           {/* <Route path="users/:userId" element={<Userlist />} /> */}
           {/* <Route path="books/:bookId" element={<BookDetails />} /> */}
-          <Route path="books/edit/:bookEditId" element={<EditBook />} />
-          <Route path="editBook" element={<EditBook />} />
           <Route path="users" element={<User />} />
-          <Route path="addBook" element={<AddBook />} />
-          <Route path="adminProfile" element={<AdminProfile />} />
           <Route path="login" element={<Login />} />
-          <Route path="addAdmin" element={<AddAdmin />} />
-          <Route path="editAdmin/:adminId" element={<EditAdmin />} />
           <Route path="Login" element={<Logout />} />
           <Route path="requests" element={<UserRequests />} />
           <Route
@@ -58,8 +55,12 @@ export const UserViews = () => {
           />
           <Route path="searchBook" element={<SearchBook />} />
           <Route path="aboutApp" element={<AboutApp />} />
-          <Route path="userBooks" element={<UserBooks />} />
-          <Route path="editUserBook" element={<EditUserBooks />} />
+          <Route path="userBooks" element={<CustomerUserBooks />} />
+
+          <Route path="users/:userId" element={<UserDetails />} />
+          <Route path="users/editUser/:userId" element={<EditUser />} />
+          <Route path="addUser" element={<AddUser />} />
+          <Route path="userProfilePage" element={<UsersProfile />} />
           {/* <Route path="user/:userId" element={<UserRequest />} /> */}
         </Route>
       </Routes>

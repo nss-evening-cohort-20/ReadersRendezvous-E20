@@ -1,0 +1,27 @@
+.SearchUserBookContainer{
+    width: 50vw;
+    height: 5vh;
+    display:flex;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-left: 40px;
+    }
+    
+.SearchUserBookBar {
+    height: 100%;
+    width: 60%;
+    border-radius: 3px;
+    }
+
+.searchButtonUserBooks{
+    border: 1px solid rgba(49, 119, 173, 0.757);
+    margin-left: 10px;
+    color:white;
+    background-color: rgba(49, 119, 173, 0.757);
+    height: 5vh;
+    width: 250px;
+    border-radius: 3px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    }

@@ -3,11 +3,11 @@ import "./AboutApp.css";
 export const AboutApp = () => {
     return (
         <>
-            <div className="container col-sm-6 aboutAbb">
+            <div className="container col-sm-6 AbAppText">
                 <article className="">
                     <h2>About App</h2>
                     <section className="">
-                        <p>
+                        <div>
                             Readers_Rendezvous is a web app that manages library
                             books. Built with ASP.NET Core API and React, it
                             allows users to view and save their favorite books
@@ -19,10 +19,10 @@ export const AboutApp = () => {
                             run it. The tech stack includes ASP.NET Core API,
                             React, SQL, Bootstrap, ERD, and Figma.All Rights
                             Reserved.
-                        </p>
+                        </div>
                     </section>
                     <footer>
-                        <p>© 2023 Readers Rendezvous.</p>
+                        <div>© 2023 Readers Rendezvous.</div>
                     </footer>
                 </article>
             </div>

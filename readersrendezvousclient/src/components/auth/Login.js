@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Login.css"
+import LoginBackGroundPhoto from "../images/LoginBackGroundPhoto.jpg";
 
 export const Login = () => {
   // const [errors, setErrors] = useState("");
@@ -118,8 +120,31 @@ export const Login = () => {
 
   return (
     <>
-      <h1>ReadersRendezvous-E20</h1>
-      <h3>Please Login</h3>
+    <div className="Container">
+      <div className="ImageContainer">
+        <div className="shadow"></div>
+        <h1 className="LoginHeader">Readers Rendezvous</h1>
+        <img className="LoginImage" src={LoginBackGroundPhoto} />
+        <div className="LoginQuote">"A Libarary is the delivery room for the birth of ideas, a place where history comes to life."<br/> -Norman Cousins</div>
+      </div>
+      <div className="InputContainer">
+        <div className="emailInput">
+          <h3>Email</h3>
+          <input
+            type="text"
+            className='input'
+            value={userName}
+            onChange={(event) => setUserName(event.target.value)}
+          ></input>
+        </div>
+        <div className="buttonContainer">
+        <div className="button" onClick={(e) => submissionHandler(e)}>
+          Login
+        </div>
+        </div>
+      </div>
+    </div>
+      {/* <h3>Please Login</h3>
       <form onSubmit={submissionHandler}>
         <label>
           Username:
@@ -131,14 +156,14 @@ export const Login = () => {
         </label>
         Password:
         <input
-          type="password"
+          type="hidden"
           value={passwordHash}
           onChange={(event) => setPasswordHash(event.target.value)}
         ></input>
         <label>
           <input type="submit" value="submit"></input>
         </label>
-      </form>
+      </form> */}
     </>
   );
 };

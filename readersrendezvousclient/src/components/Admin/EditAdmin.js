@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 import "./EditAdminStyle.css";
-
+import {NameCircle} from "./NameCircle"
 
 export const EditAdmin = () => {
 const [editAdminsProfile, setEditAdminProfile] = useState({
@@ -43,7 +43,73 @@ useEffect(() => {
 
 
     return (
-<form className="EditAdminFormPageContainer">
+    <div className="MainContainer">
+    <div className="CenterContainer">
+      <div className="Card">
+        <div className="header">Library Card</div>
+        <div className="img">
+          <NameCircle />
+        </div>
+        <div className='footer'>
+          <div className="FName">
+          <input
+              required
+              autoFocus
+              type="text"
+              className="edit-form-control"
+              placeholder="First Name"
+              value={editAdminsProfile.firstName}
+              onChange={(evt) => {
+                const copy = { ...editAdminsProfile };
+                copy.firstName = evt.target.value;
+                setEditAdminProfile(copy);
+              }}
+            />
+          </div>
+          <div className="LName">
+          <input
+              required
+              autoFocus
+              type="text"
+              className="edit-form-control"
+              placeholder="Last Name"
+              value={editAdminsProfile.lastName}
+              onChange={(evt) => {
+                const copy = { ...editAdminsProfile };
+                copy.lastName = evt.target.value;
+                setEditAdminProfile(copy);
+              }}
+            />
+          </div>
+          <div className="EditEmail">
+          <input
+              required
+              autoFocus
+              type="text"
+              className="edit-form-control"
+              placeholder="Email"
+              value={editAdminsProfile.email}
+              onChange={(evt) => {
+                const copy = { ...editAdminsProfile };
+                copy.email = evt.target.value;
+                setEditAdminProfile(copy);
+              }}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="EditButton" onClick={(clickEvent) => {
+            handleSaveButtonClick(clickEvent);
+          }}>
+        Save
+      </div>
+    </div>
+  </div>
+    )
+}
+
+
+{/* <form className="EditAdminFormPageContainer">
       <div className="EditAdminFormContainer">
 
         <fieldset>
@@ -112,6 +178,4 @@ useEffect(() => {
           Save Admin
         </button>
       </div>
-    </form>
-    )
-}
+    </form> */}
