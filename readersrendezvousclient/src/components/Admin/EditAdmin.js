@@ -54,7 +54,7 @@ useEffect(() => {
               autoFocus
               type="text"
               className="edit-form-control"
-              placeholder="Add event name"
+              placeholder="First Name"
               value={editAdminsProfile.firstName}
               onChange={(evt) => {
                 const copy = { ...editAdminsProfile };
@@ -73,7 +73,7 @@ useEffect(() => {
               autoFocus
               type="text"
               className="edit-form-control"
-              placeholder="Add event name"
+              placeholder="Last Name"
               value={editAdminsProfile.lastName}
               onChange={(evt) => {
                 const copy = { ...editAdminsProfile };
@@ -92,7 +92,7 @@ useEffect(() => {
               autoFocus
               type="text"
               className="edit-form-control"
-              placeholder="Add event name"
+              placeholder="Email"
               value={editAdminsProfile.email}
               onChange={(evt) => {
                 const copy = { ...editAdminsProfile };

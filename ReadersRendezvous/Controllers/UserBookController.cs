@@ -17,7 +17,21 @@ namespace ReadersRendezvous.Controllers
             _userBookRepository = userBookRepository;
         }
 
+        // GET: api/<BookController>
+        [HttpGet("GetAllUserBooks")]
+        public IActionResult GetAllUserBooks()
+        {
+            return Ok(_userBookRepository.GetAllUserBooks());
+        }
 
+
+
+        // GET: api/<BookController>
+        [HttpGet("GetAllUserBooksDTO")]
+        public IActionResult GetAll()
+        {
+            return Ok(_userBookRepository.GetAllUserBooksDTO());
+        }
 
         // GET api/<BookController>/5
         [HttpGet("GetById/{userBookId}")]
@@ -83,6 +97,21 @@ namespace ReadersRendezvous.Controllers
             _userBookRepository.AddUserBook(userBook);
             return Created("", userBook);
         }
+
+
+        // PUT api/<BookController>/5
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, UserBook userBook)
+        {
+            if (id != userBook.Id)
+            {
+                return BadRequest();
+            }
+
+            _userBookRepository.EditUserBook(userBook);
+            return NoContent();
+        }
+
 
 
 
