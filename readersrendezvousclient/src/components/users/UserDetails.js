@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { Header } from "../header/Header"
 import { User } from "./User"
 import React from "react";
+import "./User.css"
 
 export const UserDetails = () => {
     const { userId } = useParams()
@@ -16,7 +17,9 @@ export const UserDetails = () => {
             const fetchData = async () => {
                 const response = await fetch(`https://localhost:7229/api/User/GetById/${userId}`)
                 const singleUser = await response.json()
-                updateUser(singleUser[0])
+                updateUser(singleUser)
+               
+              
             }
             fetchData()
 
@@ -26,14 +29,14 @@ export const UserDetails = () => {
 
 
     const handleDelete = () => {
-        fetch(`https://localhost:7229/api/User/${userId}`, {
+        fetch(`https://localhost:7229/api/User/${user.id}`, {
             method: "DELETE",
         }).then();
         navigate("/users");
     };
 
     const handleUpdate = () => {
-        navigate(`/users/edit/${userId}`);
+        navigate(`/users/editUser/${userId}`);
     };
 
     return (
@@ -41,11 +44,11 @@ export const UserDetails = () => {
             <div>
                 <Header />
                 <section
-                    key={`user--${user.id}`}
+                    
+                    // key={`user--${user.id}`}
                     className="userContainerDetails  col-12 background container-primary"
                 >
                     <div className="">
-
                         <div className="userDetails">
                             <h4>firstName: {user?.firstName}</h4>
                             <button
@@ -80,17 +83,17 @@ export const UserDetails = () => {
                     </div>
                     <div className="col-sm-6">
                         <hr />
-                        <h5> FirstName={user?.firstName}</h5>
-                        <h5>LastName={user?.lastName}</h5>
-                        <h5> Email={user?.email}</h5>
-                        <h5> LibraryCardNumber={user?.libraryCardNumber}</h5>
-                        <h5> IsActive={user?.isActive}</h5>
-                        <h5>PhoneNumber={user?.phoneNumber}</h5>
-                        <h5>AddressLineOne={user?.addressLineOne}</h5>
-                        <h5>AddressLineTwo={user?.addressLineTwo}</h5>
-                        <h5> City={user?.city}</h5>
-                        <h5>State={user?.state}</h5>
-                        <h5>  Zip={user?.zip}</h5>
+                        <h5> FirstName:{user?.firstName}</h5>
+                        <h5>LastName:{user?.lastName}</h5>
+                        <h5> Email:{user?.email}</h5>
+                        <h5> LibraryCardNumber:{user?.libraryCardNumber}</h5>
+                        <h5> IsActive:{user?.isActive}</h5>
+                        <h5>PhoneNumber:{user?.phoneNumber}</h5>
+                        <h5>AddressLineOne:{user?.addressLineOne}</h5>
+                        <h5>AddressLineTwo:{user?.addressLineTwo}</h5>
+                        <h5> City:{user?.city}</h5>
+                        <h5>State:{user?.state}</h5>
+                        <h5>  Zip:{user?.zip}</h5>
 
 
 

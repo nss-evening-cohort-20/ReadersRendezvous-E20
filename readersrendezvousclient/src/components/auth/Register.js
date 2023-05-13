@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Router } from "react-router-dom";
 
-export const RegisterUser = () => {
+export const Register = () => {
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
   const [Email, setEmail] = useState("");
@@ -56,7 +56,7 @@ export const RegisterUser = () => {
         <label>
           First Name:
           <input
-            type='text'
+            type="text"
             value={FirstName}
             onChange={(event) => setFirstName(event.target.value)}
           ></input>
@@ -65,7 +65,7 @@ export const RegisterUser = () => {
         <label>
           Last Name:
           <input
-            type='text'
+            type="text"
             value={LastName}
             onChange={(event) => setLastName(event.target.value)}
           ></input>
@@ -74,7 +74,7 @@ export const RegisterUser = () => {
         <label>
           Email:
           <input
-            type='text'
+            type="text"
             value={Email}
             onChange={(event) => setEmail(event.target.value)}
           ></input>
@@ -83,7 +83,7 @@ export const RegisterUser = () => {
         <label>
           Phone Number:
           <input
-            type='text'
+            type="text"
             value={PhoneNumber}
             onChange={(event) => setPhoneNumber(event.target.value)}
           ></input>
@@ -92,7 +92,7 @@ export const RegisterUser = () => {
         <label>
           Address Line One:
           <input
-            type='text'
+            type="text"
             value={AddressLineOne}
             onChange={(event) => setAddressLineOne(event.target.value)}
           ></input>
@@ -101,7 +101,7 @@ export const RegisterUser = () => {
         <label>
           Address Line Two:
           <input
-            type='text'
+            type="text"
             value={AddressLineTwo}
             onChange={(event) => setAddressLineTwo(event.target.value)}
           ></input>
@@ -110,7 +110,7 @@ export const RegisterUser = () => {
         <label>
           City:
           <input
-            type='text'
+            type="text"
             value={City}
             onChange={(event) => setCity(event.target.value)}
           ></input>
@@ -119,7 +119,7 @@ export const RegisterUser = () => {
         <label>
           State:
           <input
-            type='text'
+            type="text"
             value={State}
             onChange={(event) => setState(event.target.value)}
           ></input>
@@ -128,7 +128,7 @@ export const RegisterUser = () => {
         <label>
           Zip:
           <input
-            type='text'
+            type="text"
             value={Zip}
             onChange={(event) => setZip(event.target.value)}
           ></input>
@@ -137,14 +137,14 @@ export const RegisterUser = () => {
         <label>
           Password:
           <input
-            type='text'
+            type="text"
             value={PasswordHash}
             onChange={(event) => setPasswordHash(event.target.value)}
           ></input>
         </label>
 
         <label>
-          <input type='submit' value='submit'></input>
+          <input type="submit" value="submit"></input>
         </label>
       </form>
     </>

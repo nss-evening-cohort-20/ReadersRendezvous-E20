@@ -7,6 +7,7 @@ import { Header } from "../header/Header";
 export const BookDetails = () => {
     const { bookId } = useParams();
     const [book, updateBook] = useState({});
+    const [saved, setSaved] = useState(false);
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -19,9 +20,10 @@ export const BookDetails = () => {
             //console.log(singleBook);
             //console.log(singleBook.CoverType);
         };
+
         fetchData();
     }, []);
-
+    //---------------------------DeleteBook------------------------------
     const handleDelete = () => {
         fetch(`https://localhost:7229/api/Book/DeleteById/${book.id}`, {
             method: "DELETE",
@@ -32,6 +34,35 @@ export const BookDetails = () => {
     const handleUpdate = () => {
         navigate(`/books/edit/${bookId}`);
     };
+
+    //---------------------------SaveToFavorite------------------------------
+    const sendToFavoriteBook = async (sendToApi) => {
+        // const fetchOptions = {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(sendToApi),
+        // };
+        // const response = await fetch(
+        //     `https://localhost:7229/addToFavorite`,
+        //     fetchOptions
+        // );
+        // navigate("/favoriteBooks");
+        // const responseJson = await response.json();
+        // responseJson.bookId = `${book.id}`;
+        // responseJson.userId = 1;
+        // console.log(responseJson);
+        // //responseJson={id: 146, bookId: 0, userId: 0}
+        // return responseJson;
+    };
+
+    /* ------------------------------ */
+    const handleSubmit = (event) => {
+        //event.preventDefault();
+        sendToFavoriteBook(book);
+    };
+    /* ------------------------------ */
 
     return (
         <>
@@ -68,7 +99,11 @@ export const BookDetails = () => {
                                 DELETE
                             </button>
                             &nbsp;
-                            <button type="button" className="btn btn-success">
+                            <button
+                                onClick={(e) => handleSubmit(e)}
+                                type="button"
+                                className="btn btn-success"
+                            >
                                 ADDTOLIST
                             </button>
                         </div>

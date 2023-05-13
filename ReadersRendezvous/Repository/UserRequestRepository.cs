@@ -76,6 +76,8 @@ namespace ReadersRendezvous.Repository
                                         ,u1.PhoneNumber, u1.AddressLineOne, u1.AddressLineTwo, u1.City
                                         ,u1.State, u1.Zip
                                         from [dbo].[User] u1
+                                        where exists ( select 1 from [dbo].[UserRequest] ur1 
+                                        where ur1.UserId = u1.Id  and CompletedTS is NULL and RequestTypeId = 1)
                                         ";
 
                     var reader = cmd.ExecuteReader();
@@ -185,6 +187,7 @@ namespace ReadersRendezvous.Repository
                                                and [BookId] = @BookId
                                                and [Id] = @Id
                                                and [CompletedTS] is NULL
+                                               and [RequestTypeId] = 1
                                       ";
 
                     DbUtils.AddParameter(cmd, "@Id", userRequest.Id);

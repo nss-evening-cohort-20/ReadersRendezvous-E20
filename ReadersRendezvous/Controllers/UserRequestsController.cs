@@ -65,7 +65,7 @@ namespace ReadersRendezvous.Controllers
 
             var updateStatus = _userRequestRepository.UpdateHoldRequestStatus(userRequest);
 
-            return updateStatus == 0 ? NotFound() : NoContent();
+            return Ok();
         }
 
         [HttpDelete("[action]/")]
@@ -73,7 +73,7 @@ namespace ReadersRendezvous.Controllers
         {
             var deleteStatus = _userRequestRepository.DeleteHoldRequest(requestId);
 
-            return deleteStatus == 0 ? NotFound() : NoContent();
+            return Ok();
         }
     }
 

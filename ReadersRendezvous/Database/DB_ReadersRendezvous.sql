@@ -111,6 +111,13 @@ CREATE TABLE [AgeRange] (
 )
 GO
 
+CREATE TABLE [FavoriteBook] (
+  [Id] int PRIMARY KEY IDENTITY not null,
+  [UserId] int not null,
+  [BookId] int not null
+)
+GO
+
 ALTER TABLE [Book] ADD FOREIGN KEY ([GenreId]) REFERENCES [Genre] ([Id])
 GO
 
@@ -139,6 +146,12 @@ ALTER TABLE [Login] ADD FOREIGN KEY ([AdminId]) REFERENCES [Admin] ([Id])
 GO
 
 ALTER TABLE [Book] ADD FOREIGN KEY ([AgeRangeId]) REFERENCES [AgeRange] ([Id])
+GO
+
+ALTER TABLE [FavoriteBook] ADD FOREIGN KEY ([UserId]) REFERENCES [User] ([Id])
+GO
+
+ALTER TABLE [FavoriteBook] ADD FOREIGN KEY ([BookId]) REFERENCES [Books] ([Id])
 GO
 
 

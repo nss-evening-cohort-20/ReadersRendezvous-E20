@@ -3,26 +3,22 @@ import React from "react";
 import { Logout } from "../auth/Logout";
 import "./Navbar.css";
 import {
-  CDBSidebar,
-  CDBSidebarHeader,
-  CDBSidebarMenuItem,
-  CDBSidebarContent,
-  CDBSidebarMenu,
-  CDBSidebarFooter,
-  CDBIcon,
+    CDBSidebar,
+    CDBSidebarHeader,
+    CDBSidebarMenuItem,
+    CDBSidebarContent,
+    CDBSidebarMenu,
+    CDBSidebarFooter,
+    CDBIcon,
 } from "cdbreact";
 
 export const Navbar = () => {
-  return (
-    <>
-      <CDBSidebar textColor="#FFFDFD" backgroundColor="#4D5A4B" className="">
-        <CDBSidebarContent className="sidebar-content">
-          <CDBSidebarHeader prefix={<i className="fa fa-bars fa-md"></i>}>
-            <span
-              style={{
-                fontFamily: "Pacifico",
-                fontSize: "large",
-              }}
+    return (
+        <>
+            <CDBSidebar
+                textColor="#FFFDFD"
+                backgroundColor="#4D5A4B"
+                className=""
             >
               Readers Rendezvous
             </span>
@@ -46,7 +42,7 @@ export const Navbar = () => {
               </CDBSidebarMenuItem>
             </NavLink>
             <hr />
-            <NavLink to="/dashboard" className="navLink">
+            <NavLink to="/addUser" className="navLink">
               <CDBSidebarMenuItem icon="columns">
                 Add User
               </CDBSidebarMenuItem>
@@ -70,6 +66,12 @@ export const Navbar = () => {
               </CDBSidebarMenuItem>
             </NavLink>
             <hr />
+            <NavLink to="/favoriteBooks" className="navLink">
+               <CDBSidebarMenuItem icon="columns">
+                 Favorite Books
+               </CDBSidebarMenuItem>
+            </NavLink>
+             <hr />
             <NavLink to="/dashboard" className="navLink">
               <CDBSidebarMenuItem icon="columns">
                 Extension
@@ -100,6 +102,12 @@ export const Navbar = () => {
               </CDBSidebarMenuItem>
             </NavLink>
             <hr />
+            <NavLink to="/aboutApp" className="navLink">
+               <CDBSidebarMenuItem icon="columns">
+                 AboutApp
+               </CDBSidebarMenuItem>
+             </NavLink>
+            <hr />                  
             <NavLink to="/Login" className="navLink">
               <CDBSidebarMenuItem icon="columns">
                 <Logout />
@@ -125,7 +133,6 @@ export const Navbar = () => {
             <CDBIcon fab pulse icon="github" />
           </div>
         </CDBSidebarFooter>
-
         <CDBSidebarFooter style={{ textAlign: "center" }}>
           <div
             className="sidebar-btn-wrapper"
@@ -135,4 +142,5 @@ export const Navbar = () => {
       </CDBSidebar>
     </>
   );
+
 };
