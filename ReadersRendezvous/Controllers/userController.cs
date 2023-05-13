@@ -28,7 +28,7 @@ namespace ReadersRendezvous.Controllers
 
         //=============================================================
 
-        [HttpPost]
+        [HttpPost("AddUsers")]
         public IActionResult AddUser(User user)
         {
             _userRepository.Insert(user);

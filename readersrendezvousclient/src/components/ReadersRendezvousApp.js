@@ -13,18 +13,18 @@ export const ReadersRendezvousApp = () => {
   return (
     <>
       <Routes>
-        {/* <Route path="/login" element={<Login />} /> */}
- {/*//         <Route path="/register" element={<Register />} />*/}
-        <Route path="Register" element={<RegisterUser />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        {/* <Route path="Register" element={<RegisterUser />} /> */}
         <Route
           path="*"
           element={
-            // {/* <Authorized> */}
-            <>
-              <Navbar />
-              <ApplicationViews />
-            </>
-            // {/* </Authorized> */}
+            <Authorized>
+              <>
+                <Navbar />
+                <ApplicationViews />
+              </>
+            </Authorized>
           }
         />
       </Routes>

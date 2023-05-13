@@ -1,352 +1,340 @@
 
-// import React, { Children } from "react";
-// import "./User.css";
-// import { User } from "./User";
+import React, { Children } from "react";
+import "./User.css";
+import { User } from "./User";
 
-// import { useEffect, useState } from "react";
-// import { useNavigate, useParams } from "react-router-dom";
-
-
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 
-// export const EditUser = () => {
-//     const { userEditId } = useParams();
-//     const [user, setUpdateUser] = useState({
-//         id: userEditId,
-//         firstName: "",
-//         lastName: "",
-//         email: "",
-//         libraryCardNumber: 0,
-//         isActive: 0,
-//         phoneNumber: "",
-//         addressLineOne: "",
-//         addressLineTwo: "",
-//         city: "",
-//         state: "",
-//         zip: 0,
-//     });
+//================================
 
-//     const navigate = useNavigate();
+export const EditUser = () => {
+    const { userId } = useParams();
+    const [user, setUpdateUser] = useState({
+        id: 0,
+        firstName: "",
+        lastName: "",
+        email: "",
+        libraryCardNumber: 0,
+        isActive: 0,
+        phoneNumber: "",
+        addressLineOne: "",
+        addressLineTwo: "",
+        city: "",
+        state: "",
+        zip: 0,
+    });
 
-
-
-
-//     /* -------------Display----------------- */
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             const response = await fetch(
-//                 `https://localhost:7229/api/User/${userEditId}`
-//             );
-//             //console.log(userEditId);
-//             const data = await response.json();
-//             setUpdateUser(data);
-//             console.log(data);
-//         };
-//         fetchData();
-//     }, []);
-
-
-//     /* -------------Edit----------------- */
-//     const updateUser = async (SendToAPI) => {
-//         const fetchOptions = {
-//             method: "PUT",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(SendToAPI),
-//         };
-//         const response = await fetch(
-//             `https://localhost:7229/api/User/UpdateUserById/${userEditId}`,
-//             fetchOptions
-//         );
-//         //navigate(`/users`);
-//         const responseJson = await response.json();
-//         console.log(responseJson);
-//         return responseJson;
-//     };
-
-//     /* ------------------------------ */
-//     const handleSaveButtonClick = (e) => {
-//         e.preventDefault();
-//         updateUser(user);
-//         navigate(`/users/${userEditId}`);
-//     };
-//     /* ------------------------------ */
+    const navigate = useNavigate();
 
 
 
-//     return (
-//         <>
-//         <div className= "container" >
 
-//         <form id="userForm" >
-//             <div className="row g-3" >
-//                 <h2 className="profile__User" > Edit User: </h2>
+    /* -------------Display----------------- */
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(
+                `https://localhost:7229/api/User/${userId}`
+            );
+            //console.log(userEditId);
+            const data = await response.json();
+            setUpdateUser(data);
+            console.log(data);
+        };
+        fetchData();
+    }, []);
 
 
-//                     < div className = "form-group" >
-//                         <label htmlFor="email" > Email: </label>
-//                             < input
-//     type = "text"
-//     className = "form-control"
-//     id = "email"
-//     name = "email"
-//     placeholder = ""
-//     value = { user.email }
-//     required
-//     autoFocus
-//     onChange = {(evt) => {
-//     const copy = { ...user };
-//     copy.email = evt.target.value;
-//     setUpdateUser(copy);
-// }}
-// />
-//     < /div>
+    /* -------------Edit----------------- */
+    const updateUser = async (SendToAPI) => {
+        const fetchOptions = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(SendToAPI),
+        };
+        const response = await fetch(
+            `https://localhost:7229/api/User/${userId}`,
+            fetchOptions
+        );
+        //navigate(`/users`);
+        const responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    };
 
-//     < div className = "form-group" >
-//         <label htmlFor="name" > Title: </label>
-//             < input
-// type = "text"
-// className = "form-control"
-// id = "title"
-// name = "title"
-// placeholder = ""
-// value = { book.title }
-// required
-// autoFocus
-// onChange = {(evt) => {
-//     const copy = { ...book };
-//     copy.title = evt.target.value;
-//     setUpdateBook(copy);
-// }}
-// />
-//     < /div>
+    /* ------------------------------ */
+    const handleSaveButtonClick = (e) => {
+        e.preventDefault();
+        updateUser(user);
+        // navigate(`/users/${userEditId}`);
+    };
+    /* ------------------------------ */
 
-//     < div className = "form-group col-sm-3" >
-//         <label htmlFor="name" > AgeRange: </label>
-//             < select
-// value = { book.ageRange.range }
-// className = "form-select"
-// onChange = {(evt) => {
-//     const copy = { ...book };
-//     copy.ageRange.range = parseInt(
-//         evt.target.value
-//     );
-//     setUpdateBook(copy);
-// }}
-//                                 >
-//     <option value={ book.ageRange.range }>
-//         { book.ageRange.range }
-//         < /option>
-//         < option value = "1" > Children < /option>
-//             < option value = "2" > Teens < /option>
-//                 < option value = "3" > Adults < /option>
-//                     < /select>
-//                     < /div>
 
-//                     < div className = "form-group col-sm-3" >
-//                         <label htmlFor="name" > Genre: </label>
-//                             < select
-// value = { book.genre.description }
-// className = "form-select"
-// onChange = {(evt) => {
-//     const copy = { ...book };
-//     copy.genre.description = parseInt(
-//         evt.target.value
-//     );
-//     setUpdateBook(copy);
-// }}
-//                                 >
-//     <option value={ book.genre.description }>
-//         { book.genre.description }
-//         < /option>
-//         < option value = "1" > Fiction < /option>
-//             < option value = "2" > Non - Fiction < /option>
-//                 < option value = "3" > Poetry < /option>
-//                     < option value = "4" > Drama < /option>
-//                         < option value = "5" > Comedy < /option>
-//                             < option value = "6" > Romance < /option>
-//                                 < option value = "7" > Mystery < /option>
-//                                     < option value = "8" > Science fiction < /option>
-//                                         < option value = "9" > Fantasy < /option>
-//                                             < option value = "10" > Horror < /option>
-//                                                 < /select>
-//                                                 < /div>
 
-//                                                 < div className = "form-group col-sm-3" >
-//                                                     <label htmlFor="name" > CoverType: </label>
-// {/*                                 <input
-//                                     type="text"
-//                                     className="form-control"
-//                                     id="coverType"
-//                                     name="coverType"
-//                                     placeholder=""
-//                                     value={book.coverType.description}
-//                                     required
-//                                     autoFocus
-//                                     onChange={(evt) => {
-//                                         const copy = { ...book };
-//                                         copy.coverType.description =
-//                                             evt.target.value;
-//                                         setUpdateBook(copy);
-//                                     }}
-//                                 /> */}
+    return (
+        <>
+            <div className="container" >
+                <div className=" col-lg-11">
+                    {" "}
+                    <form id="userForm" >
+                        <div className="row g-4" >
+                            <h2 className="profile__User" > Edit User: </h2>
 
-// <select
-//                                     value={ book.coverType.description }
-// className = "form-select"
-// onChange = {(evt) => {
-//     const copy = { ...book };
-//     copy.coverType.description = parseInt(
-//         evt.target.value
-//     );
-//     setUpdateBook(copy);
-// }}
-//                                 >
-//     <option value={ book.coverType.description }>
-//         { book.coverType.description }
-//         < /option>
-//         < option value = "1" > Hardcover < /option>
-//             < option value = "2" > Paperback < /option>
-//                 < /select>
-//                 < /div>
 
-//                 < div className = "form-group col-sm-3" >
-//                     <label htmlFor="name" > Quantity: </label>
-//                         < input
-// type = "number"
-// className = "form-control"
-// id = "quantity"
-// name = "quantity"
-// placeholder = ""
-// value = { book.quantity }
-// min = "1"
-// max = "100"
-// required
-// autoFocus
-// onChange = {(evt) => {
-//     const copy = { ...book };
-//     copy.quantity = evt.target.value;
-//     setUpdateBook(copy);
-// }}
-// />
-//     < /div>
+                            < div className="form-group" >
+                                <label htmlFor="firstName" > FirstName: </label>
+                                < input
+                                    type="text"
+                                    className="form-control"
+                                    id="firstName"
+                                    name="firstName"
+                                    placeholder=""
+                                    value={user.firstName}
+                                    required
+                                    autoFocus
+                                    onChange={(evt) => {
+                                        const copy = { ...user };
+                                        copy.firstName = evt.target.value;
+                                        setUpdateUser(copy);
+                                    }}
+                                />
+                                </div>
 
-//     < div className = "form-group" >
-//         <label htmlFor="name" > Author: </label>
-//             < input
-// type = "text"
-// className = "form-control"
-// id = "author"
-// name = "author"
-// placeholder = ""
-// value = { book.author }
-// required
-// autoFocus
-// onChange = {(evt) => {
-//     const copy = { ...book };
-//     copy.author = evt.target.value;
-//     setUpdateBook(copy);
-// }}
-// />
-//     < /div>
+                                < div className="form-group" >
+                                    <label htmlFor="lastName" > LastName: </label>
+                                    < input
+                                        type="text"
+                                        className="form-control"
+                                        id="lastName"
+                                        name="lastName"
+                                        placeholder=""
+                                        value={user.lastName}
+                                        required
+                                        autoFocus
+                                        onChange={(evt) => {
+                                            const copy = { ...user };
+                                            copy.lastName = evt.target.value;
+                                            setUpdateUser(copy);
+                                        }}
+                                    />
+                                </div>
 
-//     < div className = "form-group" >
-//         <label htmlFor="name" > Publisher: </label>
-//             < input
-// type = "text"
-// className = "form-control"
-// id = "publisher"
-// name = "publisher"
-// placeholder = ""
-// value = { book.publisher }
-// required
-// autoFocus
-// onChange = {(evt) => {
-//     const copy = { ...book };
-//     copy.publisher = evt.target.value;
-//     setUpdateBook(copy);
-// }}
-// />
-//     < /div>
+                                    <div className="form-group">
+                                        <label htmlFor="name">Title:</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="title"
+                                            name="title"
+                                            placeholder=""
+                                            value={user.title}
+                                            required
+                                            autoFocus
+                                            onChange={(evt) => {
+                                                const copy = { ...user };
+                                                copy.title = evt.target.value;
+                                                setUpdateUser(copy);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="email">Email:</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="email"
+                                            name="email"
+                                            placeholder=""
+                                            value={user.email}
+                                            required
+                                            autoFocus
+                                            onChange={(evt) => {
+                                                const copy = { ...user };
+                                                copy.email = evt.target.value;
+                                                setUpdateUser(copy);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="email">Email:</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="email"
+                                            name="email"
+                                            placeholder=""
+                                            value={user.email}
+                                            required
+                                            autoFocus
+                                            onChange={(evt) => {
+                                                const copy = { ...user };
+                                                copy.email = evt.target.value;
+                                                setUpdateUser(copy);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="libraryCardNumber">LibraryCardNumber:</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="libraryCardNumber"
+                                            name="libraryCardNumber"
+                                            placeholder=""
+                                            value={user.libraryCardNumber}
+                                            required
+                                            autoFocus
+                                            onChange={(evt) => {
+                                                const copy = { ...user };
+                                                copy.libraryCardNumber = evt.target.value;
+                                                setUpdateUser(copy);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="isActive">IsActive:</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="isActive"
+                                            name="isActive"
+                                            placeholder=""
+                                            value={user.isActive}
+                                            required
+                                            autoFocus
+                                            onChange={(evt) => {
+                                                const copy = { ...user };
+                                                copy.isActive = evt.target.value;
+                                                setUpdateUser(copy);
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="phoneNumber">PhoneNumber:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="phoneNumber"
+                                        name="phoneNumber"
+                                        placeholder=""
+                                        value={user.phoneNumber}
+                                        required
+                                        autoFocus
+                                        onChange={(evt) => {
+                                            const copy = { ...user };
+                                            copy.phoneNumber = evt.target.value;
+                                            setUpdateUser(copy);
+                                        }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="addressLineOne">AddressLineOne:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="addressLineOne"
+                                        name="addressLineOne"
+                                        placeholder=""
+                                        value={user.addressLineOne}
+                                        required
+                                        autoFocus
+                                        onChange={(evt) => {
+                                            const copy = { ...user };
+                                            copy.addressLineOne = evt.target.value;
+                                            setUpdateUser(copy);
+                                        }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="addressLineTwo">AddressLineTwo:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="addressLineTwo"
+                                        name="addressLineTwo"
+                                        placeholder=""
+                                        value={user.addressLineTwo}
+                                        required
+                                        autoFocus
+                                        onChange={(evt) => {
+                                            const copy = { ...user };
+                                            copy.addressLineTwo = evt.target.value;
+                                            setUpdateUser(copy);
+                                        }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="city">City:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="city"
+                                        name="city"
+                                        placeholder=""
+                                        value={user.city}
+                                        required
+                                        autoFocus
+                                        onChange={(evt) => {
+                                            const copy = { ...user };
+                                            copy.city = evt.target.value;
+                                            setUpdateUser(copy);
+                                        }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="state">State:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="state"
+                                        name="state"
+                                        placeholder=""
+                                        value={user.state}
+                                        required
+                                        autoFocus
+                                        onChange={(evt) => {
+                                            const copy = { ...user };
+                                            copy.state = evt.target.value;
+                                            setUpdateUser(copy);
+                                        }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="zip">Zip:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="zip"
+                                        name="zip"
+                                        placeholder=""
+                                        value={user.zip}
+                                        required
+                                        autoFocus
+                                        onChange={(evt) => {
+                                            const copy = { ...user };
+                                            copy.zip = evt.target.value;
+                                            setUpdateUser(copy);
+                                        }}
+                                    />
+                                </div>
+                        
+                            <button
+                                onClick={(e) => handleSaveButtonClick(e)}
+                                className="btn btn-primary"
+                                type="submit"
+                            >
+                                Update User
+                            </button>
+                      
+                            </form>
+                  </div>
+                </div>
+            </>
 
-//     < div className = "form-group" >
-//         <label htmlFor="name" > Language: </label>
-//             < input
-// type = "text"
-// className = "form-control"
-// id = "language"
-// name = "language"
-// placeholder = ""
-// value = { book.language }
-// required
-// autoFocus
-// onChange = {(evt) => {
-//     const copy = { ...book };
-//     copy.language = evt.target.value;
-//     setUpdateBook(copy);
-// }}
-// />
-//     < /div>
-
-//     < div className = "form-group" >
-//         <label htmlFor="name" > ISBN13: </label>
-//             < input
-// type = "text"
-// className = "form-control"
-// id = "isbN13"
-// name = "isbN13"
-// placeholder = ""
-// value = { book.isbN13 }
-// required
-// autoFocus
-// onChange = {(evt) => {
-//     const copy = { ...book };
-//     copy.isbN13 = evt.target.value;
-//     setUpdateBook(copy);
-// }}
-// />
-//     < /div>
-
-//     < div className = "form-group" >
-//         <label htmlFor="description" >
-//             Description:
-// </label>
-//     < textarea
-// required
-// autoFocus
-// type = "textArea"
-// rows = "4"
-// cols = "50"
-// maxlength = "200"
-// className = "form-control"
-// id = "description"
-// name = "description"
-// placeholder = ""
-// value = { book.description }
-// onChange = {(evt) => {
-//     const copy = { ...book };
-//     copy.description = evt.target.value;
-//     setUpdateBook(copy);
-// }}
-// />
-//     < /div>
-
-// {/* </fieldset> */ }
-// </div>
-
-//     < button
-// onClick = {(e) => handleSaveButtonClick(e)}
-// className = "btn btn-primary"
-// type = "submit"
-//     >
-//     Update Book
-//         < /button>
-//         < /form>
-//         < /div>
-//         < /div>
-//         < />
-//     );
-// };
-
-// };
+            );
+};
