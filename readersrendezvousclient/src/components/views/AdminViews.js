@@ -33,12 +33,11 @@ export const AdminViews = () => {
           path="/"
           element={
             <>
-
               <Outlet />
             </>
           }
         >
-          <Route path="home" element={<Home />} />
+          <Route path="home" element={<AdminProfile />} />
           <Route path="books" element={<BookList />} />
           <Route path="users" element={<UserList />} />
           <Route path="books/:bookId" element={<BookDetails />} />
@@ -46,7 +45,7 @@ export const AdminViews = () => {
           {/* <Route path="books/:bookId" element={<BookDetails />} /> */}
           <Route path="books/edit/:bookEditId" element={<EditBook />} />
           <Route path="editBook" element={<EditBook />} />
-          <Route path="users" element={<User />} />
+          {/* <Route path="users" element={<User />} /> */}
           <Route path="users/:userId" element={<UserDetails />} />
           <Route path="users/editUser/:userId" element={<EditUser />} />
           <Route path="addBook" element={<AddBook />} />

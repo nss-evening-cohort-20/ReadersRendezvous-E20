@@ -26,7 +26,7 @@ import { EditUser } from "../users/EditUser";
 import { AddUser } from "../users/AddUser";
 import { UserDetails } from "../users/UserDetails";
 import { UsersProfile } from "../users/UserProfile";
-
+import { FavoriteBooks } from "../books/FavoriteBooks";
 
 export const UserViews = () => {
   return (
@@ -40,9 +40,10 @@ export const UserViews = () => {
             </>
           }
         >
-          <Route path="home" element={<Home />} />
+          <Route path="home" element={<UsersProfile />} />
           <Route path="books" element={<BookList />} />
           <Route path="books/:bookId" element={<CustomerBookDetails />} />
+          <Route path="favoriteBooks" element={<FavoriteBooks />} />
           {/* <Route path="users/:userId" element={<Userlist />} /> */}
           {/* <Route path="books/:bookId" element={<BookDetails />} /> */}
           <Route path="users" element={<User />} />

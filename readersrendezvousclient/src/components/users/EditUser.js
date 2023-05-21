@@ -35,7 +35,7 @@ export const EditUser = () => {
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch(
-                `https://localhost:7229/api/User/${userId}`
+                `https://localhost:7229/api/User/GetById/${userId}`
             );
             //console.log(userEditId);
             const data = await response.json();
@@ -69,7 +69,7 @@ export const EditUser = () => {
     const handleSaveButtonClick = (e) => {
         e.preventDefault();
         updateUser(user);
-        // navigate(`/users/${userEditId}`);
+        navigate(`/users/${userId}`);
     };
     /* ------------------------------ */
 

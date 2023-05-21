@@ -61,12 +61,12 @@ export const Navbar = () => {
                                     All Users
                                 </CDBSidebarMenuItem>
                             </NavLink>
-                            <hr />
+                            {/* <hr />
                             <NavLink to="/addUser" className="navLink">
                                 <CDBSidebarMenuItem icon="columns">
                                     Add User
                                 </CDBSidebarMenuItem>
-                            </NavLink>
+                            </NavLink> */}
                             <hr />
                             <NavLink to="/addBook" className="navLink">
                                 <CDBSidebarMenuItem icon="columns">
