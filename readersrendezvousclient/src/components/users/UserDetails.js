@@ -73,12 +73,12 @@ export const UserDetails = () => {
                                 DELETE
                             </button>
                             &nbsp;
-                            <button
+                            {/* <button
                                 type="button"
                                 className="btn btn-success"
                             >
                                 ADDTOLIST
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                     <div className="col-sm-6">
